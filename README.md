@@ -1,2 +1,3 @@
-# fpms-android
-Foot Pressure Measurement System - Android
+# ff-android
+
+압력감지 시스템 - 안드로이드 클라이언트
