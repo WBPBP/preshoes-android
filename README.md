@@ -1,6 +1,6 @@
-# preshoe-android
+# preshoes-android
 
-Preshoe - 안드로이드 클라이언트
+Preshoes - 안드로이드 클라이언트
 
 ## 개요
 
@@ -24,7 +24,7 @@ Preshoe - 안드로이드 클라이언트
 
 ### 패키지 이름
 
- 프로젝트 내의 모든 모듈은 org.wbpbp.preshoe 아래에 위치해야 합니다.
+ 프로젝트 내의 모든 모듈은 org.wbpbp.preshoes 아래에 위치해야 합니다.
  
 ### 모듈
  
