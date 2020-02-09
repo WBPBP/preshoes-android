@@ -17,6 +17,6 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<manifest package="org.wbpbp.preshoes.domain">
+<manifest package="org.wbpbp.preshoes.data">
 
 </manifest>

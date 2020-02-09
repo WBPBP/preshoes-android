@@ -17,6 +17,6 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<resources>
+<manifest package="org.wbpbp.preshoes">
 
-</resources>
+</manifest>
