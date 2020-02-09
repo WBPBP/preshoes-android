@@ -1,3 +1,15 @@
+/**
+ * app/build.gradle
+ *
+ * 이 프로젝트에 존재하는 모듈 중 app 모듈에 관한 gradle 스크립트입니다.
+ *
+ * 모듈이 무엇인지 모르겠다면, 혹은 왜 모듈이 여러 개인지 모르겠다면, 아래 링크를 참고하세요:
+ *  https://www.google.co.kr/search?newwindow=1&source=hp&ei=Z70_XsziEovZ-QburoyQBA&q=https%3A%2F%2Fwww.google.com%2Fsearch%3Fclient%3Dsafari%26rls%3Den%26q%3Dandroid%2Bmulti%2Bmodule%2Bproject%26ie%3DUTF-8%26oe%3DUTF-8&oq=https%3A%2F%2Fwww.google.com%2Fsearch%3Fclient%3Dsafari%26rls%3Den%26q%3Dandroid%2Bmulti%2Bmodule%2Bproject%26ie%3DUTF-8%26oe%3DUTF-8&gs_l=psy-ab.3...95.95..329...0.0..0.146.146.0j1......0....2j1..gws-wiz.PFlDkdwcbWg&ved=0ahUKEwiMssa-gcTnAhWLbN4KHW4XA0IQ4dUDCAk&uact=5
+ *
+ * gradle이 무엇인지 모르겠다면, 아래 링크를 참고하세요:
+ *  https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=17&ved=2ahUKEwiQjLX_gMTnAhVFCqYKHXSjDZ4QmhMwEHoECA4QAg&url=https%3A%2F%2Fko.wikipedia.org%2Fwiki%2FGradle&usg=AOvVaw1HVGej-u9mah_pPoU0Q-2m
+ */
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -28,6 +40,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
