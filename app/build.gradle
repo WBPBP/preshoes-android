@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2020 WBPBP <potados99@gmail.com>
  *
- * This file is part of Preshoes. (https://github.com/WBPBP).
+ * This file is part of Preshoes (https://github.com/WBPBP).
  *
  * Preshoes is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,9 +30,7 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
