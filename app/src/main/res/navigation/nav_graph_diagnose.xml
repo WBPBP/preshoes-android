@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/diagnose_dest"
         android:name="org.wbpbp.preshoes.feature.home.HomeFragment"
-        android:label="Diagnose"
+        android:label="@string/title_diagnose"
         tools:layout="@layout/fragment_diagnose" />
 
 </navigation>
