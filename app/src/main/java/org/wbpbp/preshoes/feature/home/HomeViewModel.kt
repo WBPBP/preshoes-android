@@ -19,5 +19,7 @@
 
 package org.wbpbp.preshoes.feature.home
 
-class HomeViewModel {
+import androidx.lifecycle.ViewModel
+
+class HomeViewModel : ViewModel() {
 }

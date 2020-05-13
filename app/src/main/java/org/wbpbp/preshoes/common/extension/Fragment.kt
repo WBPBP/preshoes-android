@@ -17,9 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.report
+package org.wbpbp.preshoes.common.extension
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
 
-class ReportViewModel : ViewModel() {
+inline fun <reified T : ViewModel> Fragment.getViewModel(body: T.() -> Unit = {}): T {
+    return ViewModelProvider(this).get(T::class.java).apply(body)
+}
+
+inline fun <reified T : ViewModel> Fragment.getViewModel(): Lazy<T> {
+    return ViewModelLazy(T::class, ::getViewModelStore, ::getDefaultViewModelProviderFactory)
 }

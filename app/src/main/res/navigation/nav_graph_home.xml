@@ -18,16 +18,17 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_home"
+    android:id="@+id/nav_graph_home"
     app:startDestination="@id/home_dest">
 
     <fragment
         android:id="@+id/home_dest"
         android:name="org.wbpbp.preshoes.feature.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/home_fragment"/>
 
 </navigation>

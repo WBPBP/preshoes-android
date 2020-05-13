@@ -18,7 +18,8 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_report"
@@ -26,8 +27,8 @@
 
     <fragment
         android:id="@+id/report_dest"
-        android:name="org.wbpbp.preshoes.feature.home.HomeFragment"
+        android:name="org.wbpbp.preshoes.feature.report.ReportFragment"
         android:label="@string/title_report"
-        tools:layout="@layout/fragment_report"/>
+        tools:layout="@layout/report_fragment"/>
 
 </navigation>

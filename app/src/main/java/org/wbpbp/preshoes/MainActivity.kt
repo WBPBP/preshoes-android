@@ -19,17 +19,16 @@
 
 package org.wbpbp.preshoes
 
-import android.os.Bundle
 import org.potados.navigation.base.NavigationActivity
 import org.potados.navigation.base.NavigationFragment
 import org.wbpbp.preshoes.common.navigation.rootDestinations
 
 class MainActivity : NavigationActivity() {
 
-    override val fragments = listOf(
+    override val fragmentArguments = listOf(
 
         /** Home */
-        NavigationFragment.newInstance(
+        NavigationFragment.createArguments(
             layoutRes = R.layout.content_home_base,
             toolbarId = R.id.toolbar_home,
             navHostId = R.id.nav_host_home,
@@ -37,7 +36,7 @@ class MainActivity : NavigationActivity() {
             rootDests = rootDestinations),
 
         /** Diagnose */
-        NavigationFragment.newInstance(
+        NavigationFragment.createArguments(
             layoutRes = R.layout.content_diagnose_base,
             toolbarId = R.id.toolbar_diagnose,
             navHostId = R.id.nav_host_diagnose,
@@ -45,7 +44,7 @@ class MainActivity : NavigationActivity() {
             rootDests = rootDestinations),
 
         /** Report */
-        NavigationFragment.newInstance(
+        NavigationFragment.createArguments(
             layoutRes = R.layout.content_report_base,
             toolbarId = R.id.toolbar_report,
             navHostId = R.id.nav_host_report,

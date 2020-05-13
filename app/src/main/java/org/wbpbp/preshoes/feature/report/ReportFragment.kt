@@ -19,7 +19,22 @@
 
 package org.wbpbp.preshoes.feature.report
 
-import androidx.fragment.app.Fragment
+import android.view.View
+import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.base.BaseFragment
+import org.wbpbp.preshoes.common.extension.getViewModel
+import org.wbpbp.preshoes.databinding.ReportFragmentBinding
 
-class ReportFragment : Fragment() {
+class ReportFragment : BaseFragment<ReportFragmentBinding>() {
+    override val viewModel: ReportViewModel by getViewModel()
+
+    override fun getLayoutRes() = R.layout.report_fragment
+
+    override fun initView(root: View) {
+        // do some
+    }
+
+    override fun initBinding(binding: ReportFragmentBinding) {
+        binding.vm = viewModel
+    }
 }

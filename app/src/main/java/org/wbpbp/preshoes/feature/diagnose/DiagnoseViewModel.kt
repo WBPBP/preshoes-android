@@ -19,6 +19,10 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-class DiagnoseViewModel {
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
+class DiagnoseViewModel : ViewModel() {
+
+    val text = MutableLiveData("hello")
 }
