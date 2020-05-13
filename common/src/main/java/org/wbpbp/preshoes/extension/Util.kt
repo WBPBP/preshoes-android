@@ -17,27 +17,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes
+package org.wbpbp.preshoes.extension
 
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import timber.log.Timber
 
-import org.junit.Test
-import org.junit.runner.RunWith
+fun <R> elapsedTimeMillis(action: () -> R): Long {
+    val startTime = System.currentTimeMillis()
+    action()
+    val endTime = System.currentTimeMillis()
 
-import org.junit.Assert.*
+    return endTime - startTime
+}
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("org.wbpbp.preshoes", appContext.packageName)
+inline fun <T, R> withNonNull(receiver: T?, block: T.() -> R): R? {
+    return if (receiver == null) null
+    else with(receiver, block)
+}
+
+inline fun <T> tryOrNull(logOnError: Boolean = true, body: () -> T?): T? {
+    return try {
+        body()
+    } catch (e: Exception) {
+        if (logOnError) {
+            Timber.w(e)
+        }
+
+        null
     }
 }

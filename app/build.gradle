@@ -43,6 +43,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -53,12 +54,21 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    /** AppCompat */
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$core_version"
+
+    /** Constraint 레이아웃 */
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    /** 뷰모델과 라이브 데이터 */
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    /** 안드로이드 에센셜 라이브러리 */
+    implementation "com.github.potados99:android-essentials:$essentials_version"
+
+    /** 프로젝트 모듈 */
+    implementation project(":domain")
+    implementation project(":data")
+    implementation project(":common")
 }

@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
+  ~
+  ~ This file is part of Preshoes (https://github.com/WBPBP).
+  ~
+  ~ Preshoes is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Preshoes is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="1000"
+    android:viewportWidth="1000" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M569.9,114.6h-26.5v53.3h26.5c7.3,0 14.4,-3 18.9,-7.8c4.9,-5.1 7.9,-11.6 7.9,-18.7c0,-7.3 -3,-14 -7.9,-18.9C584.2,117.6 577.2,114.6 569.9,114.6L569.9,114.6zM868.2,404.9L868.2,404.9c33.9,0 63.9,13.5 86.4,35.4c21.7,22.2 35.5,52.5 35.5,86.1c0,33.6 -13.8,63.9 -35.5,86.1c-22.5,22 -52.5,35.5 -86.4,35.5c-33.6,0 -63.6,-13.5 -86.1,-35.5c-7.3,-7.6 -13.8,-16.5 -19.5,-26c-13.8,11.9 -26.5,25.4 -36,41.2c-16.8,25.7 -26,56.3 -26,89.1v0.8v0.3v0.8c-0.8,58.5 -24.3,111.5 -62.8,150c-39,38.7 -92.6,62.5 -151.1,62.5c-59,0 -112.9,-23.8 -151.6,-62.5c-38.7,-38.7 -62.8,-92.4 -62.8,-151.1V614.6C203,609 140.5,578.4 93.6,531.8C42,479.8 10,408.4 10,330.4V142.5v-1.1c0,-20 8.4,-38.5 21.4,-51.4c13,-13 31.1,-21.1 51.1,-21.1h49.3c13,0 23.6,10.3 23.6,23.3v0.5V191c0,12.7 -10.6,22.5 -23.6,22.5h-0.2H86.3v117c0,57.4 23.6,109.7 61.2,147.5c38.2,37.6 90.4,61.5 147.8,61.5h62c57.4,0 109.9,-23.9 147.3,-61.5c37.9,-37.9 61.7,-90.1 61.7,-147.5v-117h-44.9h-1.1c-12.4,0 -23,-9.7 -23,-22.5V92.7v-0.5c0,-13 10.6,-23.3 23,-23.3h49.6C590.2,68.9 608,77 621,90c13.3,13 21.1,31.4 21.1,51.4v1.1v187.9c0,77.9 -31.4,149.4 -83.4,201.4c-51.5,51.4 -122.9,83.6 -201.4,83.6h-39v102.1c0,46.3 19,88.3 49,118.8c30.6,30.3 72.6,49 119.4,49c46,0 88,-18.7 118.6,-49c30.3,-30 49,-72.2 49,-118.6v-0.3v-0.8c0.3,-42 12.4,-81 33.3,-114c15.7,-24.3 36,-45.4 60.1,-61.7c-0.5,-4.9 -0.5,-9.7 -0.5,-14.6c0,-33.6 13.5,-63.9 34.9,-86.1C804.6,418.4 834.6,404.9 868.2,404.9L868.2,404.9zM109.3,114.6L109.3,114.6H82.5c-7.6,0 -14.1,3 -18.7,7.8c-4.9,4.9 -8.1,11.6 -8.1,18.9c0,7.1 3.3,13.6 8.1,18.7c4.6,4.9 11.1,7.8 18.7,7.8h26.8V114.6L109.3,114.6zM900.4,494.4L900.4,494.4c-8.4,-8.6 -19.8,-13 -32.2,-13c-12.4,0 -23.5,4.4 -31.9,13c-8.1,8.1 -13.3,19.5 -13.3,32c0,12.4 5.2,23.8 13.3,32c8.4,8.1 19.5,13.5 31.9,13.5c12.4,0 23.8,-5.4 32.2,-13.5c8.6,-8.1 13.3,-19.5 13.3,-32C913.7,514 909,502.6 900.4,494.4L900.4,494.4z"/>
+</vector>

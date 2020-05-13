@@ -17,27 +17,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes
+package org.wbpbp.preshoes.base
 
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.wbpbp.preshoes.base.Failable
 
-import org.junit.Test
-import org.junit.runner.RunWith
+interface FailableHandler {
 
-import org.junit.Assert.*
+    val observedFailables: MutableList<Failable>
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("org.wbpbp.preshoes", appContext.packageName)
-    }
+    /**
+     * What to do when some failure occur
+     */
+    fun onFail(failure: Failable.Failure)
+
+    /**
+     * Add failables to manage.
+     */
+    fun startObservingFailables(failables: List<Failable>)
+
+    /**
+     * Stop managing failables.
+     * This clears observedFailables.
+     */
+    fun stopObservingFailables()
 }

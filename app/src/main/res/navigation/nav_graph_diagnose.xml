@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
   ~
@@ -17,11 +18,16 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <string name="app_name">preshoes</string>
-    <string name="title_home">홈</string>
-    <string name="title_diagnose">진단</string>
-    <string name="title_report">결과</string>
-    <string name="title_workout">운동</string>
-    <string name="title_settings">설정</string>
-</resources>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_diagnose"
+    app:startDestination="@id/diagnose_dest">
+
+    <fragment
+        android:id="@+id/diagnose_dest"
+        android:name="org.wbpbp.preshoes.feature.home.HomeFragment"
+        android:label="Diagnose"
+        tools:layout="@layout/fragment_diagnose" />
+
+</navigation>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
   ~
@@ -17,11 +18,21 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <string name="app_name">preshoes</string>
-    <string name="title_home">홈</string>
-    <string name="title_diagnose">진단</string>
-    <string name="title_report">결과</string>
-    <string name="title_workout">운동</string>
-    <string name="title_settings">설정</string>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/tab_diagnose"
+        android:icon="@drawable/ic_diagnosis"
+        android:title="@string/title_diagnose" />
+
+    <item
+        android:id="@+id/tab_report"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="@string/title_report" />
+
+</menu>

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2020 WBPBP <potados99@gmail.com>
  *
  * This file is part of Preshoes (https://github.com/WBPBP).
@@ -19,13 +19,38 @@
 
 package org.wbpbp.preshoes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.potados.navigation.base.NavigationActivity
+import org.potados.navigation.base.NavigationFragment
+import org.wbpbp.preshoes.common.navigation.rootDestinations
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : NavigationActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    override val fragments = listOf(
+
+        /** Home */
+        NavigationFragment.newInstance(
+            layoutRes = R.layout.content_home_base,
+            toolbarId = R.id.toolbar_home,
+            navHostId = R.id.nav_host_home,
+            tabItemId = R.id.tab_home,
+            rootDests = rootDestinations),
+
+        /** Diagnose */
+        NavigationFragment.newInstance(
+            layoutRes = R.layout.content_diagnose_base,
+            toolbarId = R.id.toolbar_diagnose,
+            navHostId = R.id.nav_host_diagnose,
+            tabItemId = R.id.tab_diagnose,
+            rootDests = rootDestinations),
+
+        /** Report */
+        NavigationFragment.newInstance(
+            layoutRes = R.layout.content_report_base,
+            toolbarId = R.id.toolbar_report,
+            navHostId = R.id.nav_host_report,
+            tabItemId = R.id.tab_report,
+            rootDests = rootDestinations))
+
+    override val menuRes: Int = R.menu.menu_main
 }

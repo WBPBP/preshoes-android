@@ -17,27 +17,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes
+package org.wbpbp.preshoes.base
 
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-
-import org.junit.Test
-import org.junit.runner.RunWith
-
-import org.junit.Assert.*
+import androidx.annotation.StringRes
+import androidx.lifecycle.MutableLiveData
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Represents a component that can fail.
  */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("org.wbpbp.preshoes", appContext.packageName)
-    }
+interface Failable {
+
+    /**
+     * Get failure Live Data.
+     */
+    fun getFailure(): MutableLiveData<Failure>
+
+    /**
+     * Set failure Live Data.
+     */
+    fun setFailure(failure: Failure)
+
+    /**
+     * Compact.
+     * Call setFailure inside it.
+     */
+    fun fail(@StringRes message: Int, vararg formatArgs: Any?, show: Boolean = false)
+
+    data class Failure(val message: String, val show: Boolean = false)
 }

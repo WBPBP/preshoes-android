@@ -29,16 +29,15 @@
  *  https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=17&ved=2ahUKEwiQjLX_gMTnAhVFCqYKHXSjDZ4QmhMwEHoECA4QAg&url=https%3A%2F%2Fko.wikipedia.org%2Fwiki%2FGradle&usg=AOvVaw1HVGej-u9mah_pPoU0Q-2m
  */
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-
     defaultConfig {
-        applicationId "org.wbpbp.preshoes"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
@@ -58,10 +57,27 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    api"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testApi "junit:junit:$junit_version"
+    androidTestApi "androidx.test.ext:junit:$test_junit_version"
+    androidTestApi "androidx.test.espresso:espresso-core:$espresso_version"
+
+    /** Timber(로깅) */
+    api "com.jakewharton.timber:timber:$timber_version"
+
+    /** KTX */
+    api "androidx.core:core-ktx:$core_ktx_version"
+    api "androidx.collection:collection-ktx:$collection_ktx_version"
+    api "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx_version"
+    api "androidx.navigation:navigation-runtime-ktx:$nav_runtime_ktx_version"
+    api "androidx.navigation:navigation-fragment-ktx:$nav_fragment_ktx_version"
+    api "androidx.navigation:navigation-ui-ktx:$nav_ui_ktx_version"
+
+    /** Koin */
+    api "org.koin:koin-core:$koin_version"
+    api "org.koin:koin-core-ext:$koin_version"
+    api "org.koin:koin-android:$koin_version"
+    testApi "org.koin:koin-test:$koin_version"
 }
