@@ -28,8 +28,8 @@
     <ImageView
         android:id="@+id/background_foot"
         android:tint="?attr/colorPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="340dp"
         android:contentDescription="@string/description_foot"
         android:src="@drawable/ic_foot_left"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,11 +45,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.22000003" />
 
     <!-- Sensor 1 -->
@@ -60,11 +60,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.22000003" />
 
     <!-- Sensor 2 -->
@@ -75,11 +75,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.25" />
 
     <!-- Sensor 3 -->
@@ -90,11 +90,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.31" />
 
     <!-- Sensor 4 -->
@@ -105,11 +105,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.47000003" />
 
     <!-- Sensor 5 -->
@@ -120,11 +120,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.53" />
 
     <!-- Sensor 6 -->
@@ -135,11 +135,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.62" />
 
     <!-- Sensor 7 -->
@@ -150,11 +150,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.78" />
 
     <!-- Sensor 8 -->
@@ -165,11 +165,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.72"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.87" />
 
     <!-- Sensor 9 -->
@@ -180,11 +180,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.95" />
 
     <!-- Sensor 10 -->
@@ -195,11 +195,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.87" />
 
     <!-- Sensor 11 -->
@@ -210,11 +210,11 @@
         android:contentDescription="@string/description_foot"
         android:src="@drawable/circle"
         android:tint="?attr/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
         app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
         app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

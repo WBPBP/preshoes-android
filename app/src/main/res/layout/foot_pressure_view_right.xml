@@ -19,7 +19,202 @@
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- Background -->
+    <ImageView
+        android:id="@+id/background_foot"
+        android:tint="?attr/colorPrimary"
+        android:layout_width="170dp"
+        android:layout_height="340dp"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/ic_foot_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Sensor 0 -->
+    <ImageView
+        android:id="@+id/sensor_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.22000003" />
+
+    <!-- Sensor 1 -->
+    <ImageView
+        android:id="@+id/sensor_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.22000003" />
+
+    <!-- Sensor 2 -->
+    <ImageView
+        android:id="@+id/sensor_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <!-- Sensor 3 -->
+    <ImageView
+        android:id="@+id/sensor_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.31" />
+
+    <!-- Sensor 4 -->
+    <ImageView
+        android:id="@+id/sensor_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.47000003" />
+
+    <!-- Sensor 5 -->
+    <ImageView
+        android:id="@+id/sensor_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.53" />
+
+    <!-- Sensor 6 -->
+    <ImageView
+        android:id="@+id/sensor_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.62" />
+
+    <!-- Sensor 7 -->
+    <ImageView
+        android:id="@+id/sensor_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.78" />
+
+    <!-- Sensor 8 -->
+    <ImageView
+        android:id="@+id/sensor_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <!-- Sensor 9 -->
+    <ImageView
+        android:id="@+id/sensor_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <!-- Sensor 10 -->
+    <ImageView
+        android:id="@+id/sensor_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <!-- Sensor 11 -->
+    <ImageView
+        android:id="@+id/sensor_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_foot"
+        android:src="@drawable/circle"
+        android:tint="?attr/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
