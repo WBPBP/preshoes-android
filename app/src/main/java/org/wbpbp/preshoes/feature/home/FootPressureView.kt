@@ -21,8 +21,8 @@ package org.wbpbp.preshoes.feature.home
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 
-class FootPressureView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class FootPressureView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
 }
