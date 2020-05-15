@@ -20,9 +20,74 @@
 package org.wbpbp.preshoes.feature.home
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.android.synthetic.main.foot_pressure_view_left.view.*
+import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.extension.resolveColor
 
-class FootPressureView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class FootPressureView(context: Context, private val attrs: AttributeSet)
+    : ConstraintLayout(context, attrs) {
 
+    private lateinit var sensors: Array<ImageView>
+    private lateinit var foot: ImageView
+
+    init {
+        val typedArray = getTypedArray()
+
+        initView(typedArray)
+        applyAttrs(typedArray)
+
+        typedArray.recycle()
+    }
+
+    private fun getTypedArray() = context.obtainStyledAttributes(attrs, R.styleable.FootPressureView)
+
+    private fun initView(typedArray: TypedArray) {
+        val layout = when (getSide(typedArray))  {
+            "left" -> R.layout.foot_pressure_view_left
+            "right" -> R.layout.foot_pressure_view_right
+            else -> R.layout.foot_pressure_view_left
+        }
+
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(layout, this, false)
+
+        addView(view)
+
+        sensors = arrayOf(
+            sensor_0, sensor_1, sensor_2, sensor_3,
+            sensor_4, sensor_5, sensor_6, sensor_7,
+            sensor_8, sensor_9, sensor_10, sensor_11
+        )
+        foot = background_foot
+    }
+
+    private fun getSide(typedArray: TypedArray) = typedArray.getString(R.styleable.FootPressureView_side) ?: "left"
+
+    private fun applyAttrs(typedArray: TypedArray) {
+        val footTint = typedArray.getResourceId(
+            R.styleable.FootPressureView_footTint,
+            R.attr.colorPrimary
+        )
+        background_foot.setColorFilter(context.resolveColor(footTint))
+
+        val sensorTint = typedArray.getResourceId(
+            R.styleable.FootPressureView_sensorTint,
+            R.attr.colorPrimaryDark
+        )
+        sensors.forEach {
+            it.setColorFilter(context.resolveColor(footTint))
+        }
+
+        val side = typedArray.getString(
+            R.styleable.FootPressureView_side
+        ) ?: "left"
+
+
+
+    }
 }

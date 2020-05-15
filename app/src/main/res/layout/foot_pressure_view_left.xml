@@ -26,7 +26,7 @@
 
     <!-- Background -->
     <ImageView
-        android:id="@+id/background_image"
+        android:id="@+id/background_foot"
         android:tint="?attr/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,10 +47,10 @@
         android:tint="?attr/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <!-- Sensor 1 -->
     <ImageView
@@ -62,9 +62,10 @@
         android:tint="?attr/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20999998" />
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <!-- Sensor 2 -->
     <ImageView
