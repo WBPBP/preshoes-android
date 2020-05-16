@@ -25,6 +25,11 @@ import org.wbpbp.preshoes.common.navigation.rootDestinations
 
 class MainActivity : NavigationActivity() {
 
+    override val menuRes: Int = R.menu.menu_main
+    override val layoutRes: Int = R.layout.main_activity
+    override val mainPagerRes: Int = R.id.main_pager
+    override val bottomNavRes: Int = R.id.bottom_nav
+
     override val fragmentArguments = listOf(
 
         /** Home */
@@ -50,6 +55,4 @@ class MainActivity : NavigationActivity() {
             navHostId = R.id.nav_host_report,
             tabItemId = R.id.tab_report,
             rootDests = rootDestinations))
-
-    override val menuRes: Int = R.menu.menu_main
 }

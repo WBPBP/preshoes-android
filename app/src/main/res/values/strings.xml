@@ -25,4 +25,5 @@
     <string name="title_workout">운동</string>
     <string name="title_settings">설정</string>
     <string name="description_foot">A foot vector image.</string>
+    <string name="button_start_diagnose">진단 시작하기</string>
 </resources>

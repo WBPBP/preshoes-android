@@ -17,10 +17,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/**
- * Thank you naver!
- */
-
 package org.wbpbp.preshoes.common.base
 
 import android.os.Bundle
