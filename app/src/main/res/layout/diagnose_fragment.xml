@@ -32,6 +32,153 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Content -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+                <TextView
+                    android:textSize="40sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적절한 기능 설명 "/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!-- Dissolve bar -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:background="@drawable/dissolve_reversed"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <!-- Start button -->
         <Button
             style="@style/BigButton"
             android:id="@+id/start_button"

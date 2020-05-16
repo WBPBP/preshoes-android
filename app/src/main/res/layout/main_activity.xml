@@ -24,7 +24,7 @@
     android:layout_height="match_parent">
 
     <!-- Content -->
-    <org.potados.navigation.widget.NonSwipingViewPager
+    <org.wbpbp.preshoes.common.widget.NonSwipingViewPager
         android:id="@+id/main_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,7 +37,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="4dp"
-        android:background="@drawable/ab_shadow_reversed"
+        android:background="@drawable/shadow_reversed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav" />

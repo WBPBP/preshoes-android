@@ -19,8 +19,8 @@
 
 package org.wbpbp.preshoes
 
-import org.potados.navigation.base.NavigationActivity
-import org.potados.navigation.base.NavigationFragment
+import org.wbpbp.preshoes.common.base.NavigationActivity
+import org.wbpbp.preshoes.common.base.NavigationFragment
 import org.wbpbp.preshoes.common.navigation.rootDestinations
 
 class MainActivity : NavigationActivity() {

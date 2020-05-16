@@ -55,6 +55,10 @@ android {
     dataBinding {
         enabled = true
     }
+
+    kotlinOptions {
+        jvmTarget = 1.8
+    }
 }
 
 dependencies {
@@ -68,9 +72,6 @@ dependencies {
 
     /** 뷰모델과 라이브 데이터 */
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-
-    /** 안드로이드 에센셜 라이브러리 */
-    implementation "com.github.potados99:android-essentials:$essentials_version"
 
     /** 배터리 미터 */
     implementation "eo.view:batterymeter:$battery_meter_version"
