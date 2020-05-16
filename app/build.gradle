@@ -72,6 +72,9 @@ dependencies {
     /** 안드로이드 에센셜 라이브러리 */
     implementation "com.github.potados99:android-essentials:$essentials_version"
 
+    /** 배터리 미터 */
+    implementation "eo.view:batterymeter:$battery_meter_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":data")

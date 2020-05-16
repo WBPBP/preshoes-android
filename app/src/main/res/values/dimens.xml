@@ -18,18 +18,12 @@
   -->
 
 <resources>
-    <string name="app_name">preshoes</string>
-    <string name="title_home">홈</string>
-    <string name="title_diagnose">진단</string>
-    <string name="title_report">결과</string>
-    <string name="title_workout">운동</string>
-    <string name="title_settings">설정</string>
-    <string name="description_foot">A foot vector image.</string>
-    <string name="button_start_diagnose">진단 시작하기</string>
-    <string name="text_no_device_connected">연결된 신발이 없습니다</string>
-    <string name="button_connect_device">연결하기</string>
-    <string name="text_realtime">실시간</string>
-    <string name="text_battery">배터리</string>
-    <string name="text_left">L</string>
-    <string name="text_right">R</string>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="textBig">22sp</dimen>
+    <dimen name="textPrimary">16sp</dimen>
+    <dimen name="textSecondary">14sp</dimen>
+    <dimen name="textTertiary">12sp</dimen>
+    <dimen name="textToolbar">20sp</dimen>
+
 </resources>

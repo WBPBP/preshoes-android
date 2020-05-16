@@ -36,4 +36,46 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <!-- Text -->
+    <style name="TextBig">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/textBig</item>
+        <item name="android:textColorLink">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="TextPrimary">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/textPrimary</item>
+        <item name="android:textColorLink">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="TextSecondary">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/textSecondary</item>
+    </style>
+    <style name="TextTertiary">
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
+        <item name="android:textSize">@dimen/textTertiary</item>
+    </style>
+
+    <!-- Section -->
+    <style name="SectionDividerTop">
+        <item name="android:background">@color/dividerGrayForLightTheme</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.75dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">18dp</item>
+        <item name="android:layout_marginStart">14dp</item>
+    </style>
+    <style name="SectionDividerBottom">
+        <item name="android:background">@color/dividerGrayForLightTheme</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.75dp</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginStart">14dp</item>
+    </style>
+    <style name="SectionHeader" parent="TextSecondary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">14dp</item>
+    </style>
+
 </resources>

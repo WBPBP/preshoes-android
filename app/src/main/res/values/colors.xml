@@ -22,4 +22,13 @@
     <color name="colorPrimary">#FFA726</color>
     <color name="colorPrimaryDark">#CE871E</color>
     <color name="colorAccent">#42A5F5</color>
+
+    <color name="textPrimary">#262B31</color>
+    <color name="textSecondary">#70808D</color>
+    <color name="textTertiary">#B7B9C0</color>
+
+    <color name="dividerGrayForLightTheme">#1f000000</color>
+    <color name="dividerGrayForDarkTheme">#1fffffff</color>
+
+    <color name="batteryGreen">#4caf50</color>
 </resources>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
+  ~
+  ~ This file is part of Preshoes (https://github.com/WBPBP).
+  ~
+  ~ Preshoes is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Preshoes is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.wbpbp.preshoes.feature.home.HomeViewModel" />
+    </data>
+
+    <!-- Battery view -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <!-- Left -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="wrap_content">
+
+            <!-- L -->
+            <TextView
+                android:id="@+id/battery_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/text_left" />
+
+            <!-- Battery meter view -->
+            <eo.view.batterymeter.BatteryMeterView
+                app:batteryLevel="@{vm.leftBatteryLevel}"
+                app:isCharging="@{vm.isLeftBatteryCharging}"
+                android:layout_marginTop="5dp"
+                android:id="@+id/battery_meter_left"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battery_left_text"
+                app:batteryMeterChargingColor="@color/batteryGreen"
+                app:batteryMeterColor="@color/batteryGreen"
+                app:batteryMeterCriticalChargeLevel="15"
+                app:batteryMeterCriticalColor="#d84315"
+                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterTheme="rounded"
+                app:batteryMeterUnknownColor="#e0e0e0" />
+
+            <!-- Level percentage -->
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battery_meter_left"
+                android:text="@{vm.leftBatteryLevel.toString() + '%'}"
+                tools:text="37%"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Right -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="wrap_content">
+
+            <!-- R -->
+            <TextView
+                android:id="@+id/battery_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/text_right" />
+
+            <!-- Battery meter view -->
+            <eo.view.batterymeter.BatteryMeterView
+                app:batteryLevel="@{vm.rightBatteryLevel}"
+                app:isCharging="@{vm.isRightBatteryCharging}"
+                android:layout_marginTop="5dp"
+                android:id="@+id/battery_meter_right"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battery_right_text"
+                app:batteryMeterChargingColor="@color/batteryGreen"
+                app:batteryMeterColor="@color/batteryGreen"
+                app:batteryMeterCriticalChargeLevel="15"
+                app:batteryMeterCriticalColor="#d84315"
+                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterTheme="rounded"
+                app:batteryMeterUnknownColor="#e0e0e0" />
+
+            <!-- Level percentage -->
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battery_meter_right"
+                android:text="@{vm.rightBatteryLevel.toString() + '%'}"
+                tools:text="64%"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

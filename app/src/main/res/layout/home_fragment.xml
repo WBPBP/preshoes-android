@@ -19,44 +19,148 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="org.wbpbp.preshoes.feature.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <org.wbpbp.preshoes.feature.home.FootPressureView
-            android:id="@+id/pressure_view_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:footTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:sensorTint="@color/colorPrimaryDark"
-            app:side="left" />
+        <!-- Content -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <org.wbpbp.preshoes.feature.home.FootPressureView
-            android:id="@+id/pressure_view_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:footTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.82"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:sensorTint="@color/colorPrimaryDark"
-            app:side="right" />
+            <!-- When device is available -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{vm.isDeviceAvailable ? View.VISIBLE : View.GONE}"
+                tools:visibility="visible">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Foot pressure section -->
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:id="@+id/foot_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <!-- Section name -->
+                    <TextView
+                        style="@style/SectionHeader"
+                        android:text="@string/text_realtime" />
+
+                    <!-- Divider -->
+                    <View style="@style/SectionDividerTop"/>
+
+                    <!-- Pressure view -->
+                    <LinearLayout
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- Left foot -->
+                        <org.wbpbp.preshoes.feature.home.FootPressureView
+                            android:id="@+id/pressure_view_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:footTint="@color/colorPrimary"
+                            app:sensorTint="@color/colorPrimaryDark"
+                            app:side="left" />
+
+                        <!-- Right foot -->
+                        <org.wbpbp.preshoes.feature.home.FootPressureView
+                            android:id="@+id/pressure_view_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:footTint="@color/colorPrimary"
+                            app:sensorTint="@color/colorPrimaryDark"
+                            app:side="right" />
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View style="@style/SectionDividerBottom"/>
+
+                </LinearLayout>
+
+                <!-- Battery section -->
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:id="@+id/battery_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/foot_section_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="vertical">
+
+                    <!-- Section name -->
+                    <TextView
+                        style="@style/SectionHeader"
+                        android:text="@string/text_battery" />
+
+                    <!-- Divider -->
+                    <View style="@style/SectionDividerTop"/>
+
+                    <!-- Battery view -->
+                    <include
+                        layout="@layout/battery_view"
+                        app:vm="@{vm}"/>
+
+                    <!-- Divider -->
+                    <View style="@style/SectionDividerBottom"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- When device is not available -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{vm.isDeviceAvailable ? View.GONE : View.VISIBLE}"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/no_device_text"
+                    style="@style/TextBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/text_no_device_connected"/>
+
+                <Button
+                    android:id="@+id/connect_device_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/no_device_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/button_connect_device"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

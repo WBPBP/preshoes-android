@@ -19,7 +19,23 @@
 
 package org.wbpbp.preshoes.feature.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
+    private val _isDeviceAvailable = MutableLiveData<Boolean>(true)
+    val isDeviceAvailable: LiveData<Boolean> = _isDeviceAvailable
+
+    private val _leftBatteryLevel = MutableLiveData<Int>(37)
+    val leftBatteryLevel: LiveData<Int> = _leftBatteryLevel
+
+    private val _rightBatteryLevel = MutableLiveData<Int>(64)
+    val rightBatteryLevel: LiveData<Int> = _rightBatteryLevel
+
+    private val _isLeftBatteryCharging = MutableLiveData<Boolean>(true)
+    val isLeftBatteryCharging: LiveData<Boolean> = _isLeftBatteryCharging
+
+    private val _isRightBatteryCharging = MutableLiveData<Boolean>(false)
+    val isRightBatteryCharging: LiveData<Boolean> = _isRightBatteryCharging
 }
