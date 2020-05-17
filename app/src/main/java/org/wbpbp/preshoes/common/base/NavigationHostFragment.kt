@@ -35,7 +35,7 @@ import androidx.navigation.ui.navigateUp
 /**
  * A base Fragment that will be a holder of each page of bottom navigation.
  */
-class NavigationFragment : Fragment() {
+class NavigationHostFragment : Fragment() {
     private var layoutRes: Int = -1
     private var toolbarId: Int = -1
     private var navHostId: Int = -1
@@ -124,7 +124,7 @@ class NavigationFragment : Fragment() {
             )
 
         fun newInstance(args: Arguments) =
-            NavigationFragment().apply {
+            NavigationHostFragment().apply {
                 arguments = Bundle().apply {
                     putInt(KEY_LAYOUT, args.layoutRes)
                     putInt(KEY_TOOLBAR, args.toolbarId)

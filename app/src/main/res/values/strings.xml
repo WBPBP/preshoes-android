@@ -32,4 +32,6 @@
     <string name="text_battery">배터리</string>
     <string name="text_left">L</string>
     <string name="text_right">R</string>
+    <string name="description_settings_icon">설정 아이콘입니다</string>
+    <string name="text_settings">설정</string>
 </resources>

@@ -21,6 +21,7 @@ package org.wbpbp.preshoes.feature.home
 
 import android.os.Handler
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.home_fragment.view.*
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
@@ -35,7 +36,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override fun getLayoutRes() = R.layout.home_fragment
 
     override fun initView(root: View) {
-        // do some
+        setToolbar()
 
         val handler = Handler()
         val runnable = object: Runnable {
@@ -47,6 +48,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         }
 
         handler.postDelayed(runnable, 100)
+    }
+
+    private fun setToolbar() {
+        activity?.findViewById<Toolbar>(R.id.toolbar_home)?.let {
+            it.inflateMenu(R.menu.menu_home)
+        }
     }
 
     private fun getRandomFootPressureValue(): FootPressure {

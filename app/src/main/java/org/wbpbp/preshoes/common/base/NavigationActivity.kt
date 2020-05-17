@@ -21,7 +21,6 @@ package org.wbpbp.preshoes.common.base
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -32,7 +31,7 @@ import java.util.*
 /**
  * A base Activity that acts as a host of bottom navigation.
  */
-abstract class NavigationActivity : AppCompatActivity(),
+abstract class NavigationActivity : BaseActivity(),
     ViewPager.OnPageChangeListener,
     BottomNavigationView.OnNavigationItemReselectedListener,
     BottomNavigationView.OnNavigationItemSelectedListener {
@@ -46,7 +45,7 @@ abstract class NavigationActivity : AppCompatActivity(),
      */
     private val backStack = Stack<Int>()
 
-    abstract val fragmentArguments: List<NavigationFragment.Arguments>
+    abstract val fragmentArguments: List<NavigationHostFragment.Arguments>
     abstract val menuRes: Int
     abstract val layoutRes: Int
     abstract val mainPagerRes: Int
@@ -130,16 +129,16 @@ abstract class NavigationActivity : AppCompatActivity(),
     private fun getAllFragments() =
         supportFragmentManager.fragments
             .filter { fragment ->
-                fragment is NavigationFragment &&
+                fragment is NavigationHostFragment &&
                         fragment.getTabItemId() in fragmentArguments.map { it.tabItemId }
             }.map {
-                it as NavigationFragment
+                it as NavigationHostFragment
             }
 
     private fun findFragmentByPosition(position: Int) =
         supportFragmentManager.findFragmentByTag(
             "android:switcher:${mainPager.id}:${position}"
-        ) as? NavigationFragment
+        ) as? NavigationHostFragment
 
     private fun findFragmentByTabItem(item: MenuItem) =
         findFragmentByPosition(getPositionByTabItem(item))
@@ -201,7 +200,7 @@ abstract class NavigationActivity : AppCompatActivity(),
     }
 
     inner class ViewPagerAdapter : FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        override fun getItem(position: Int): Fragment = NavigationFragment.newInstance(fragmentArguments[position])
+        override fun getItem(position: Int): Fragment = NavigationHostFragment.newInstance(fragmentArguments[position])
         override fun getCount(): Int = fragmentArguments.size
     }
 }

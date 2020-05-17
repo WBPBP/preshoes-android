@@ -20,7 +20,7 @@
 package org.wbpbp.preshoes
 
 import org.wbpbp.preshoes.common.base.NavigationActivity
-import org.wbpbp.preshoes.common.base.NavigationFragment
+import org.wbpbp.preshoes.common.base.NavigationHostFragment
 import org.wbpbp.preshoes.common.navigation.rootDestinations
 
 class MainActivity : NavigationActivity() {
@@ -33,7 +33,7 @@ class MainActivity : NavigationActivity() {
     override val fragmentArguments = listOf(
 
         /** Home */
-        NavigationFragment.createArguments(
+        NavigationHostFragment.createArguments(
             layoutRes = R.layout.content_home_base,
             toolbarId = R.id.toolbar_home,
             navHostId = R.id.nav_host_home,
@@ -41,7 +41,7 @@ class MainActivity : NavigationActivity() {
             rootDests = rootDestinations),
 
         /** Diagnose */
-        NavigationFragment.createArguments(
+        NavigationHostFragment.createArguments(
             layoutRes = R.layout.content_diagnose_base,
             toolbarId = R.id.toolbar_diagnose,
             navHostId = R.id.nav_host_diagnose,
@@ -49,7 +49,7 @@ class MainActivity : NavigationActivity() {
             rootDests = rootDestinations),
 
         /** Report */
-        NavigationFragment.createArguments(
+        NavigationHostFragment.createArguments(
             layoutRes = R.layout.content_report_base,
             toolbarId = R.id.toolbar_report,
             navHostId = R.id.nav_host_report,
