@@ -38,7 +38,7 @@
 
         <!-- Left -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="160dp"
+            android:layout_width="@dimen/footWidth"
             android:layout_height="wrap_content">
 
             <!-- L -->
@@ -66,7 +66,7 @@
                 app:batteryMeterColor="@color/batteryGreen"
                 app:batteryMeterCriticalChargeLevel="15"
                 app:batteryMeterCriticalColor="#d84315"
-                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterIndicatorColor="?android:attr/textColorPrimary"
                 app:batteryMeterTheme="rounded"
                 app:batteryMeterUnknownColor="#e0e0e0" />
 
@@ -85,7 +85,7 @@
 
         <!-- Right -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="160dp"
+            android:layout_width="@dimen/footWidth"
             android:layout_height="wrap_content">
 
             <!-- R -->
@@ -113,7 +113,7 @@
                 app:batteryMeterColor="@color/batteryGreen"
                 app:batteryMeterCriticalChargeLevel="15"
                 app:batteryMeterCriticalColor="#d84315"
-                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterIndicatorColor="?android:attr/textColorPrimary"
                 app:batteryMeterTheme="rounded"
                 app:batteryMeterUnknownColor="#e0e0e0" />
 

@@ -20,6 +20,7 @@
 package org.wbpbp.preshoes.common
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.wbpbp.preshoes.injection.myModules
@@ -31,6 +32,8 @@ class MyApplication : Application() {
 
         initTimber()
         initKoin()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private fun initTimber() {

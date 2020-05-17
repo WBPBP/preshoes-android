@@ -172,7 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:background="@drawable/dissolve_reversed"
-            android:backgroundTint="@android:color/white"
+            android:backgroundTint="?android:attr/windowBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

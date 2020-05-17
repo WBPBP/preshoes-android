@@ -19,21 +19,30 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#FFA726</color>
-    <color name="colorPrimaryDark">#CE871E</color>
-    <color name="colorAccent">#42A5F5</color>
+
+    <color name="colorPrimary">#6191B4</color>
+    <color name="colorPrimaryDark">#00567E</color>
+    <color name="colorAccent">#6191B4</color>
 
     <color name="textPrimary">#262B31</color>
     <color name="textSecondary">#70808D</color>
     <color name="textTertiary">#B7B9C0</color>
+
+    <color name="textPrimaryInverse">#D9D4CE</color>
+    <color name="textSecondaryInverse">#8F7F72</color>
+    <color name="textTertiaryInverse">#48463F</color>
 
     <color name="dividerGrayForLightTheme">#1f000000</color>
     <color name="dividerGrayForDarkTheme">#1fffffff</color>
 
     <color name="batteryGreen">#4caf50</color>
 
-    <color name="statusBarLight">@android:color/white</color>
-    <color name="backgroundLight">@android:color/white</color>
+    <color name="backgroundLittleDark">#1A2025</color>
+    <color name="backgroundDark">#14191D</color>
+    <color name="backgroundMoreDark">#101417</color>
     <color name="backgroundLightGray">#EEEEEE</color>
+
+    <color name="statusBarLight">@android:color/white</color>
+    <color name="background">@color/backgroundDark</color>
 
 </resources>

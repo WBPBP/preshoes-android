@@ -23,16 +23,16 @@
     <style name="AppTheme" parent="AppBaseThemeDark" />
 
     <!-- Light theme -->
-    <style name="AppBaseThemeLight" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/statusBarLight</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
+    <style name="AppBaseThemeDark" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/backgroundLittleDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/backgroundLittleDark</item>
 
-        <item name="android:textColorPrimary">@color/textPrimary</item>
-        <item name="android:textColorSecondary">@color/textSecondary</item>
-        <item name="android:textColorTertiary">@color/textTertiary</item>
+        <item name="android:textColorPrimary">@color/textPrimaryInverse</item>
+        <item name="android:textColorSecondary">@color/textSecondaryInverse</item>
+        <item name="android:textColorTertiary">@color/textTertiaryInverse</item>
 
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/backgroundDark</item>
         <item name="toolbarBackground">@color/backgroundLittleDark</item>
         <item name="navBarBackground">@color/backgroundLittleDark</item>
 

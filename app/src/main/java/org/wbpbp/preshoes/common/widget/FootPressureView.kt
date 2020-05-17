@@ -25,9 +25,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.foot_pressure_view_left.view.*
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.extension.resolveThemeColor
 import org.wbpbp.preshoes.entity.FootPressure
 
 class FootPressureView(context: Context, private val attrs: AttributeSet)
@@ -40,11 +38,8 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
         val typedArray = getTypedArray()
 
         initView(typedArray)
-        applyAttrs(typedArray)
 
         typedArray.recycle()
-
-        scaleSensorDots(IntArray(12) {0})
     }
 
     private fun getTypedArray() = context.obtainStyledAttributes(attrs, R.styleable.FootPressureView)
@@ -60,48 +55,11 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
         val view = inflater.inflate(layout, this, false)
 
         addView(view)
-
-        sensors = arrayOf(
-            sensor_0, sensor_1, sensor_2, sensor_3,
-            sensor_4, sensor_5, sensor_6, sensor_7,
-            sensor_8, sensor_9, sensor_10, sensor_11
-        )
-        foot = background_foot
     }
 
     private fun getSide(typedArray: TypedArray) = typedArray.getString(R.styleable.FootPressureView_side) ?: "left"
 
-    private fun applyAttrs(typedArray: TypedArray) {
-        val footTint = typedArray.getColor(
-            R.styleable.FootPressureView_footTint,
-            context.resolveThemeColor(R.attr.colorPrimary)
-        )
-        background_foot.setColorFilter(footTint)
-
-        val sensorTint = typedArray.getColor(
-            R.styleable.FootPressureView_sensorTint,
-            context.resolveThemeColor(R.attr.colorPrimaryDark)
-        )
-        sensors.forEach {
-            it.setColorFilter(sensorTint)
-        }
-
-        val side = typedArray.getString(
-            R.styleable.FootPressureView_side
-        ) ?: "left"
-
-
-
-    }
-
     fun setSensorValues(footPressure: FootPressure) {
-        scaleSensorDots(footPressure.pressures)
-    }
-
-    private fun scaleSensorDots(values: IntArray) {
-        values.forEachIndexed { index, pressure ->
-            sensors[index].scaleX = pressure / 15.0f
-            sensors[index].scaleY = pressure / 15.0f
-        }
+        // scaleSensorDots(footPressure.pressures)
     }
 }

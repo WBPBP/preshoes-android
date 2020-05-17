@@ -24,4 +24,8 @@
         <attr name="sensorTint" format="reference|color" />
         <attr name="side" format="reference|string" />
     </declare-styleable>
+
+    <attr name="toolbarBackground" format="reference" />
+    <attr name="navBarBackground" format="reference" />
+
 </resources>
