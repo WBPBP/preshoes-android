@@ -35,101 +35,97 @@
 
         <!-- Content -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <!-- When device is available -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:paddingBottom="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:visibility="@{vm.isDeviceAvailable ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
-                <!-- Foot pressure section -->
-                <LinearLayout
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/foot_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <!-- Foot view section -->
+                <androidx.cardview.widget.CardView
+                    style="@style/SectionCard"
+                    android:id="@+id/foot_section">
 
-                    <!-- Section name -->
-                    <TextView
-                        style="@style/SectionHeader"
-                        android:text="@string/text_realtime" />
-
-                    <!-- Divider -->
-                    <View style="@style/SectionDividerTop"/>
-
-                    <!-- Pressure view -->
                     <LinearLayout
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
+                        android:orientation="vertical">
 
-                        <!-- Left foot -->
-                        <org.wbpbp.preshoes.common.widget.FootPressureView
-                            android:id="@+id/pressure_view_left"
+                        <!-- Title -->
+                        <TextView
+                            style="@style/SectionHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:footTint="@color/colorPrimary"
-                            app:sensorTint="@color/colorPrimaryDark"
-                            app:side="left" />
+                            android:text="@string/text_realtime" />
 
-                        <!-- Right foot -->
-                        <org.wbpbp.preshoes.common.widget.FootPressureView
-                            android:id="@+id/pressure_view_right"
+                        <!-- Pressure view -->
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:footTint="@color/colorPrimary"
-                            app:sensorTint="@color/colorPrimaryDark"
-                            app:side="right" />
+                            android:orientation="horizontal">
+
+                            <!-- Left foot -->
+                            <org.wbpbp.preshoes.common.widget.FootPressureView
+                                android:id="@+id/pressure_view_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:footTint="@color/colorPrimary"
+                                app:sensorTint="@color/colorPrimaryDark"
+                                app:side="left" />
+
+                            <!-- Right foot -->
+                            <org.wbpbp.preshoes.common.widget.FootPressureView
+                                android:id="@+id/pressure_view_right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:footTint="@color/colorPrimary"
+                                app:sensorTint="@color/colorPrimaryDark"
+                                app:side="right" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <!-- Divider -->
-                    <View style="@style/SectionDividerBottom"/>
-
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Battery section -->
-                <LinearLayout
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/battery_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/foot_section_layout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:orientation="vertical">
+                <androidx.cardview.widget.CardView
+                    style="@style/SectionCard"
+                    android:id="@+id/battery_section">
 
-                    <!-- Section name -->
-                    <TextView
-                        style="@style/SectionHeader"
-                        android:text="@string/text_battery" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <!-- Divider -->
-                    <View style="@style/SectionDividerTop"/>
+                        <!-- Section name -->
+                        <TextView
+                            style="@style/SectionHeader"
+                            android:text="@string/text_battery" />
 
-                    <!-- Battery view -->
-                    <include
-                        layout="@layout/battery_view"
-                        app:vm="@{vm}"/>
+                        <!-- Battery view -->
+                        <include
+                            layout="@layout/battery_view"
+                            app:vm="@{vm}"/>
 
-                    <!-- Divider -->
-                    <View style="@style/SectionDividerBottom"/>
+                    </LinearLayout>
 
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <!-- When device is not available -->
             <androidx.constraintlayout.widget.ConstraintLayout

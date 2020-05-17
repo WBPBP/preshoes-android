@@ -29,6 +29,12 @@
     </style>
 
     <!-- Text -->
+    <style name="TextBigAndThick">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/textBig</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColorLink">?android:attr/textColorPrimary</item>
+    </style>
     <style name="TextBig">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">@dimen/textBig</item>
@@ -64,10 +70,10 @@
         <item name="android:layout_marginTop">18dp</item>
         <item name="android:layout_marginStart">14dp</item>
     </style>
-    <style name="SectionHeader" parent="TextSecondary">
+    <style name="SectionHeader" parent="TextBigAndThick">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">14dp</item>
+        <item name="android:layout_marginBottom">14dp</item>
     </style>
 
     <!-- Toolbar -->
@@ -107,6 +113,24 @@
         <item name="android:layout_height">24dp</item>
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_marginEnd">32dp</item>
+    </style>
+
+    <!-- Section -->
+    <style name="SectionCard">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+
+        <item name="contentPadding">22dp</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardMaxElevation">12dp</item>
+        <item name="cardElevation">12dp</item>
+        <item name="android:clickable">true</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

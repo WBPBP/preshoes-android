@@ -28,8 +28,8 @@
     <ImageView
         android:id="@+id/background_foot"
         android:tint="?attr/colorPrimary"
-        android:layout_width="170dp"
-        android:layout_height="340dp"
+        android:layout_width="150dp"
+        android:layout_height="300dp"
         android:contentDescription="@string/description_foot"
         android:src="@drawable/ic_foot_left"
         app:layout_constraintBottom_toBottomOf="parent"

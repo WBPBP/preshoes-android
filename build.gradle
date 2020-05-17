@@ -44,6 +44,7 @@ buildscript {
     ext.koin_version = '2.0.1'
     ext.essentials_version = '1.0.6'
     ext.battery_meter_version = '2.0.0'
+    ext.cardview_version = '1.0.0'
 
     repositories {
         google()

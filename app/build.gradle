@@ -76,6 +76,9 @@ dependencies {
     /** 배터리 미터 */
     implementation "eo.view:batterymeter:$battery_meter_version"
 
+    /** 카드  */
+    implementation "androidx.cardview:cardview:$cardview_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":data")
