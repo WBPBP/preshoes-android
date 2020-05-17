@@ -21,6 +21,7 @@ package org.wbpbp.preshoes.common.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -28,6 +29,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import org.koin.android.ext.android.inject
+import org.wbpbp.preshoes.common.navigation.Navigator
 
 abstract class BaseFragment<T: ViewDataBinding> : Fragment() {
     abstract val viewModel: ViewModel
@@ -54,5 +57,11 @@ abstract class BaseFragment<T: ViewDataBinding> : Fragment() {
             initBinding(binding)
             binding.lifecycleOwner = this@BaseFragment
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navigator: Navigator by inject()
+
+        return navigator.handleOptionMenu(item) || super.onOptionsItemSelected(item)
     }
 }

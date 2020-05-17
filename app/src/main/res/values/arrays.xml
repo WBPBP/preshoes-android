@@ -18,12 +18,14 @@
   -->
 
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
 
-    <dimen name="textBig">22sp</dimen>
-    <dimen name="textPrimary">16sp</dimen>
-    <dimen name="textSecondary">14sp</dimen>
-    <dimen name="textTertiary">12sp</dimen>
-    <dimen name="textToolbar">22sp</dimen>
-
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
 </resources>

@@ -23,6 +23,7 @@ import android.view.View
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
+import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.ReportFragmentBinding
 
 class ReportFragment : BaseFragment<ReportFragmentBinding>() {
@@ -31,7 +32,7 @@ class ReportFragment : BaseFragment<ReportFragmentBinding>() {
     override fun getLayoutRes() = R.layout.report_fragment
 
     override fun initView(root: View) {
-        // do some
+        setToolbar(R.id.toolbar_report, R.menu.menu_report)
     }
 
     override fun initBinding(binding: ReportFragmentBinding) {

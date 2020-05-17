@@ -17,25 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.diagnose
+package org.wbpbp.preshoes.injection
 
-import android.view.View
-import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.base.BaseFragment
-import org.wbpbp.preshoes.common.extension.getViewModel
-import org.wbpbp.preshoes.common.extension.setToolbar
-import org.wbpbp.preshoes.databinding.DiagnoseFragmentBinding
+import org.koin.dsl.module
+import org.wbpbp.preshoes.common.navigation.Navigator
 
-class DiagnoseFragment : BaseFragment<DiagnoseFragmentBinding>() {
-    override val viewModel: DiagnoseViewModel by getViewModel()
+val myModules = module {
 
-    override fun getLayoutRes() = R.layout.diagnose_fragment
-
-    override fun initView(root: View) {
-        setToolbar(R.id.toolbar_diagnose, R.menu.menu_diagnose)
-    }
-
-    override fun initBinding(binding: DiagnoseFragmentBinding) {
-        binding.vm = viewModel
+    /** Navigator */
+    single {
+        Navigator(
+            context = get()
+        )
     }
 }

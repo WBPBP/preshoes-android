@@ -17,25 +17,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.diagnose
+package org.wbpbp.preshoes.common
 
-import android.view.View
-import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.base.BaseFragment
-import org.wbpbp.preshoes.common.extension.getViewModel
-import org.wbpbp.preshoes.common.extension.setToolbar
-import org.wbpbp.preshoes.databinding.DiagnoseFragmentBinding
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.wbpbp.preshoes.injection.myModules
+import timber.log.Timber
 
-class DiagnoseFragment : BaseFragment<DiagnoseFragmentBinding>() {
-    override val viewModel: DiagnoseViewModel by getViewModel()
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
 
-    override fun getLayoutRes() = R.layout.diagnose_fragment
-
-    override fun initView(root: View) {
-        setToolbar(R.id.toolbar_diagnose, R.menu.menu_diagnose)
+        initTimber()
+        initKoin()
     }
 
-    override fun initBinding(binding: DiagnoseFragmentBinding) {
-        binding.vm = viewModel
+    private fun initTimber() {
+        Timber.plant(Timber.DebugTree())
+    }
+
+    private fun initKoin() {
+        startKoin {
+            androidContext(this@MyApplication)
+            modules(myModules)
+        }
     }
 }

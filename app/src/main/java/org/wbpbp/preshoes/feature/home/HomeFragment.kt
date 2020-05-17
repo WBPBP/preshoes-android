@@ -21,23 +21,39 @@ package org.wbpbp.preshoes.feature.home
 
 import android.os.Handler
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.home_fragment.view.*
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
+import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.HomeFragmentBinding
 import org.wbpbp.preshoes.entity.FootPressure
 
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override val viewModel: HomeViewModel by getViewModel()
-    private var base: Int = 0
 
     override fun getLayoutRes() = R.layout.home_fragment
 
     override fun initView(root: View) {
-        setToolbar()
+        setToolbar(R.id.toolbar_home, R.menu.menu_home)
+        setFootView(root)
+    }
 
+    override fun initBinding(binding: HomeFragmentBinding) {
+        binding.vm = viewModel
+    }
+
+
+
+
+
+
+
+
+
+    private var base: Int = 0
+
+    private fun setFootView(root: View) {
         val handler = Handler()
         val runnable = object: Runnable {
             override fun run() {
@@ -50,19 +66,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         handler.postDelayed(runnable, 100)
     }
 
-    private fun setToolbar() {
-        activity?.findViewById<Toolbar>(R.id.toolbar_home)?.let {
-            it.inflateMenu(R.menu.menu_home)
-        }
-    }
-
     private fun getRandomFootPressureValue(): FootPressure {
         return FootPressure(IntArray(12) {base%3 + (12-it)}).also {
             base++
         }
-    }
-
-    override fun initBinding(binding: HomeFragmentBinding) {
-        binding.vm = viewModel
     }
 }

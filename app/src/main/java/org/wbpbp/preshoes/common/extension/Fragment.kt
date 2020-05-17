@@ -19,6 +19,10 @@
 
 package org.wbpbp.preshoes.common.extension
 
+import android.view.MenuItem
+import androidx.annotation.IdRes
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
@@ -30,4 +34,15 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(body: T.() -> Unit = {}
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(): Lazy<T> {
     return ViewModelLazy(T::class, ::getViewModelStore, ::getDefaultViewModelProviderFactory)
+}
+
+fun Fragment.setToolbar(
+    @IdRes toolbarId: Int,
+    @MenuRes menuId: Int,
+    onClick: (MenuItem) -> Boolean = this::onOptionsItemSelected
+) {
+    activity?.findViewById<Toolbar>(toolbarId)?.let {
+        it.inflateMenu(menuId)
+        it.setOnMenuItemClickListener(onClick)
+    }
 }
