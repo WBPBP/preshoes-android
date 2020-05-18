@@ -29,8 +29,8 @@
     <color name="textTertiary">#B7B9C0</color>
 
     <color name="textPrimaryInverse">#D9D4CE</color>
-    <color name="textSecondaryInverse">#8F7F72</color>
-    <color name="textTertiaryInverse">#48463F</color>
+    <color name="textSecondaryInverse">#8D8B89</color>
+    <color name="textTertiaryInverse">#5D5D5B</color>
 
     <color name="dividerGrayForLightTheme">#1f000000</color>
     <color name="dividerGrayForDarkTheme">#1fffffff</color>

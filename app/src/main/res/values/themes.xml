@@ -20,6 +20,7 @@
 
 <resources>
 
+    <!-- TODO: use AppBaseThemeLight later -->
     <style name="AppTheme" parent="AppBaseThemeDark" />
 
     <!-- Light theme -->
@@ -33,8 +34,7 @@
         <item name="android:textColorTertiary">@color/textTertiary</item>
 
         <item name="android:windowBackground">@android:color/white</item>
-        <item name="toolbarBackground">@color/backgroundLittleDark</item>
-        <item name="navBarBackground">@color/backgroundLittleDark</item>
+        <item name="barBackground">@color/backgroundLittleDark</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

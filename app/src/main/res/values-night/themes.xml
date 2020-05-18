@@ -33,8 +33,7 @@
         <item name="android:textColorTertiary">@color/textTertiaryInverse</item>
 
         <item name="android:windowBackground">@color/backgroundDark</item>
-        <item name="toolbarBackground">@color/backgroundLittleDark</item>
-        <item name="navBarBackground">@color/backgroundLittleDark</item>
+        <item name="barBackground">@color/backgroundLittleDark</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
