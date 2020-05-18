@@ -19,7 +19,6 @@
 
 package org.wbpbp.preshoes.common.base
 
-import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
@@ -28,11 +27,6 @@ import androidx.appcompat.app.AppCompatActivity
  * By default, the color is [android.R.attr.windowBackground].
  */
 abstract class BaseActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

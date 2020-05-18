@@ -37,4 +37,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ca.hss.heatmaplib.HeatMap
+        android:id="@+id/heatMap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/background_foot"
+        app:layout_constraintEnd_toEndOf="@id/background_foot"
+        app:layout_constraintStart_toStartOf="@id/background_foot"
+        app:layout_constraintTop_toTopOf="@id/background_foot"
+        app:minOpacity="0"
+        app:maxOpacity="255" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

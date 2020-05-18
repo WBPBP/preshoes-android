@@ -41,8 +41,6 @@
     <color name="backgroundDark">#14191D</color>
     <color name="backgroundMoreDark">#101417</color>
     <color name="backgroundLightGray">#EEEEEE</color>
-
-    <color name="statusBarLight">@android:color/white</color>
-    <color name="background">@color/backgroundDark</color>
+    <color name="backgroundLight">@android:color/white</color>
 
 </resources>

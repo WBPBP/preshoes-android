@@ -32,8 +32,7 @@ class MyApplication : Application() {
 
         initTimber()
         initKoin()
-
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        setDarkMode()
     }
 
     private fun initTimber() {
@@ -45,5 +44,9 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
             modules(myModules)
         }
+    }
+
+    private fun setDarkMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }

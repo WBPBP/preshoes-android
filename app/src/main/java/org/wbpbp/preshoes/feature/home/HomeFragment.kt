@@ -67,7 +67,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%3 + (12-it)}).also {
+        return FootPressure(IntArray(12) {base%3 + (12)}).also {
             base++
         }
     }
