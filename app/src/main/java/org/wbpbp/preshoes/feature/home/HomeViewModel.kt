@@ -19,23 +19,78 @@
 
 package org.wbpbp.preshoes.feature.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import org.koin.core.inject
+import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.base.BaseViewModel
+import org.wbpbp.preshoes.common.util.CombinedLiveData
 
-class HomeViewModel : ViewModel() {
-    private val _isDeviceAvailable = MutableLiveData<Boolean>(true)
-    val isDeviceAvailable: LiveData<Boolean> = _isDeviceAvailable
+class HomeViewModel : BaseViewModel() {
+    private val context: Context by inject()
 
+    private val _leftDeviceAvailable = MutableLiveData<Boolean>(true)
+    private val _rightDeviceAvailable = MutableLiveData<Boolean>(true)
     private val _leftBatteryLevel = MutableLiveData<Int>(37)
-    val leftBatteryLevel: LiveData<Int> = _leftBatteryLevel
-
     private val _rightBatteryLevel = MutableLiveData<Int>(64)
-    val rightBatteryLevel: LiveData<Int> = _rightBatteryLevel
-
     private val _isLeftBatteryCharging = MutableLiveData<Boolean>(true)
-    val isLeftBatteryCharging: LiveData<Boolean> = _isLeftBatteryCharging
-
     private val _isRightBatteryCharging = MutableLiveData<Boolean>(false)
-    val isRightBatteryCharging: LiveData<Boolean> = _isRightBatteryCharging
+
+    val leftDeviceAvailable: LiveData<Boolean> = _leftDeviceAvailable
+    val rightDeviceAvailable: LiveData<Boolean> = _rightDeviceAvailable
+
+    /** At least one device is available */
+    val deviceAvailable = CombinedLiveData(
+        leftDeviceAvailable,
+        rightDeviceAvailable) { left, right ->
+        (left ?: false) || (right ?: false)
+    }
+
+    /** Both devices are available */
+    val deviceComplete = CombinedLiveData(
+        leftDeviceAvailable,
+        rightDeviceAvailable) { left, right ->
+        (left ?: false) && (right ?: false)
+    }
+
+    val leftBatteryLevel = CombinedLiveData(
+        leftDeviceAvailable,
+        _leftBatteryLevel) { available, level ->
+        level?.takeIf { available ?: false }
+    }
+    val leftBatteryLevelText = CombinedLiveData(
+        leftDeviceAvailable,
+        _leftBatteryLevel) { available, batteryLevel ->
+        batteryLevel?.takeIf { available ?: false }?.let {
+            "$it%"
+        } ?: context.getString(R.string.text_information_unavailable)
+    }
+    val isLeftBatteryCharging = CombinedLiveData(
+        leftDeviceAvailable,
+        _isLeftBatteryCharging) { available, charging ->
+        charging?.takeIf { available ?: false }
+    }
+
+    val rightBatteryLevel = CombinedLiveData(
+        rightDeviceAvailable,
+        _rightBatteryLevel) { available, level ->
+        level?.takeIf { available ?: false }
+    }
+    val rightBatteryLevelText = CombinedLiveData(
+        rightDeviceAvailable,
+        _rightBatteryLevel) { available, batteryLevel ->
+        batteryLevel?.takeIf { available ?: false }?.let {
+            "$it%"
+        } ?: context.getString(R.string.text_information_unavailable)
+    }
+    val isRightBatteryCharging = CombinedLiveData(
+        rightDeviceAvailable,
+        _isRightBatteryCharging) { available, charging ->
+        charging?.takeIf { available ?: false }
+    }
+
+    fun onLeftDevice(connected: Boolean) {
+        _leftDeviceAvailable.postValue(connected)
+    }
 }

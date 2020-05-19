@@ -54,20 +54,24 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     private var base: Int = 0
 
     private fun setFootView(root: View) {
+
         val handler = Handler()
         val runnable = object: Runnable {
             override fun run() {
+                if (base % 3 == 0) {
+                    viewModel.onLeftDevice(base % 13 > 10)
+                }
                 root.pressure_view_left.setSensorValues(getRandomFootPressureValue())
                 root.pressure_view_right.setSensorValues(getRandomFootPressureValue())
-                handler.postDelayed(this, 100)
+                handler.postDelayed(this, 200)
             }
         }
 
-        handler.postDelayed(runnable, 100)
+        handler.postDelayed(runnable, 200)
     }
 
     private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%3 + (12)}).also {
+        return FootPressure(IntArray(12) {base%13}).also {
             base++
         }
     }

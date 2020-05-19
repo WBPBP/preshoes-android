@@ -180,6 +180,8 @@
 
         <!-- Start button -->
         <Button
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             style="@style/BigButton"
             android:id="@+id/start_button"
             android:text="@string/button_start_diagnose"

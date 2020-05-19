@@ -27,7 +27,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import ca.hss.heatmaplib.HeatMap
-import ca.hss.heatmaplib.HeatMapMarkerCallback.CircleHeatMapMarker
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.util.ColorUtil
 import org.wbpbp.preshoes.entity.FootPressure
@@ -35,10 +34,10 @@ import org.wbpbp.preshoes.entity.FootPressure
 class FootPressureView(context: Context, private val attrs: AttributeSet)
     : ConstraintLayout(context, attrs) {
 
-    private var _enabled: Boolean = true
-    private var _side: Int = SIDE_LEFT
-    private var _footDrawableId: Int = -1
+    private var available: Boolean = true
+    private var side: Int = SIDE_LEFT
 
+    private lateinit var backgroundFoot: ImageView
     private lateinit var heatMap: HeatMap
 
     init {
@@ -52,27 +51,22 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
     private fun getTypedArray() = context.obtainStyledAttributes(attrs, R.styleable.FootPressureView)
 
     private fun setView(typedArray: TypedArray) {
-        val view = inflateView()
-
         parseAttributes(typedArray)
-        initView(view)
-        addView(view)
+
+        addView(inflateView())
+
+        initView()
+        renderView()
     }
 
     private fun parseAttributes(typedArray: TypedArray) {
-        _enabled = typedArray.getBoolean(R.styleable.FootPressureView_enabled, true)
-
-        _side = when (getSide(typedArray)) {
+        side = when (getSide(typedArray)) {
             "left" -> SIDE_LEFT
             "right" -> SIDE_RIGHT
             else -> SIDE_LEFT
         }
 
-        _footDrawableId = when (_side) {
-            SIDE_LEFT -> if (_enabled) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
-            SIDE_RIGHT -> if (_enabled) R.drawable.ic_foot_right else R.drawable.ic_foot_right_disabled
-            else -> if (_enabled) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
-        }
+        available = typedArray.getBoolean(R.styleable.FootPressureView_available, true)
     }
 
     private fun getSide(typedArray: TypedArray) =
@@ -81,24 +75,17 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
     private fun inflateView(): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        return inflater.inflate(R.layout.foot_pressure_view, this, false)
-    }
-
-    private fun initView(root: View) {
-        with(root.findViewById<ImageView>(R.id.background_foot)) {
-            setImageDrawable(context.getDrawable(_footDrawableId))
+        return inflater.inflate(R.layout.foot_pressure_view, this, false).apply {
+            this@FootPressureView.backgroundFoot = findViewById(R.id.background_foot)
+            this@FootPressureView.heatMap = findViewById(R.id.heatMap)
         }
-
-        initViewChildren(root)
     }
 
-    private fun initViewChildren(root: View) {
-        heatMap = root.findViewById(R.id.heatMap)
+    private fun initView() {
         with(heatMap) {
             setMinimum(0.0)
             setMaximum(100.0)
-            setRadius(500.0)
-            setMarkerCallback(CircleHeatMapMarker(-0x6bff2d))
+            setRadius(600.0)
 
             val colors = (0..20).map {
                 Pair(it.toFloat() / 20.0f,
@@ -114,7 +101,47 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
         }
     }
 
+    private fun renderView() {
+        setProperFootDrawable()
+        setPressureEffectVisibility()
+    }
+
+    private fun setProperFootDrawable() {
+        with(backgroundFoot) {
+            setImageDrawable(context.getDrawable(getFootDrawable()))
+        }
+    }
+
+    private fun getFootDrawable() = when (side) {
+        SIDE_LEFT -> if (available) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
+        SIDE_RIGHT -> if (available) R.drawable.ic_foot_right else R.drawable.ic_foot_right_disabled
+        else -> if (available) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
+    }
+
+    private fun setPressureEffectVisibility() {
+        with(heatMap) {
+            visibility = if (available) View.VISIBLE else View.GONE
+        }
+    }
+
+    /**
+     * Enable or not.
+     * Disabled FootPressureView will have lower alpha and no pressure effects.
+     */
+    fun setAvailable(available: Boolean) {
+        this.available = available
+
+        renderView()
+    }
+
+    /**
+     * Set pressure values.
+     */
     fun setSensorValues(footPressure: FootPressure) {
+        if (!available) {
+            return
+        }
+
         with(heatMap) {
             clearData()
             getDataPoints(footPressure).forEach(::addData)
@@ -124,7 +151,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
 
     private fun getDataPoints(footPressure: FootPressure) =
         footPressure.values.mapIndexed { index, value ->
-            when(_side) {
+            when(side) {
                 SIDE_LEFT -> sensorPointsLeft
                 SIDE_RIGHT -> sensorPointsRight
                 else -> sensorPointsLeft

@@ -20,7 +20,7 @@
 
 <resources>
     <declare-styleable name="FootPressureView">
-        <attr name="enabled" format="reference|boolean" />
+        <attr name="available" format="reference|boolean" />
         <attr name="side" format="reference|string" />
     </declare-styleable>
 
