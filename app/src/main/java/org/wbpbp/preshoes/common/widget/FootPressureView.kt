@@ -137,8 +137,12 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
     /**
      * Set pressure values.
      */
-    fun setSensorValues(footPressure: FootPressure) {
+    fun setSensorValue(footPressure: FootPressure?) {
         if (!available) {
+            return
+        }
+
+        if (footPressure == null) {
             return
         }
 

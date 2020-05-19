@@ -64,16 +64,18 @@
                         android:id="@+id/pressure_view_left"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:available="@{vm.leftDeviceAvailable}"
-                        app:side="left" />
+                        app:side="left"
+                        app:available="@{vm.isLeftDeviceConnected}"
+                        app:sensorValue="@{vm.leftDeviceSensorValue}"/>
 
                     <!-- Right foot -->
                     <org.wbpbp.preshoes.common.widget.FootPressureView
                         android:id="@+id/pressure_view_right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:available="@{vm.rightDeviceAvailable}"
-                        app:side="right" />
+                        app:side="right"
+                        app:available="@{vm.isRightDeviceConnected}"
+                        app:sensorValue="@{vm.rightDeviceSensorValue}"/>
 
                 </LinearLayout>
 

@@ -21,76 +21,78 @@ package org.wbpbp.preshoes.feature.home
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.util.CombinedLiveData
+import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.repository.SensorStateRepository
 
 class HomeViewModel : BaseViewModel() {
     private val context: Context by inject()
-
-    private val _leftDeviceAvailable = MutableLiveData<Boolean>(true)
-    private val _rightDeviceAvailable = MutableLiveData<Boolean>(true)
-    private val _leftBatteryLevel = MutableLiveData<Int>(37)
-    private val _rightBatteryLevel = MutableLiveData<Int>(64)
-    private val _isLeftBatteryCharging = MutableLiveData<Boolean>(true)
-    private val _isRightBatteryCharging = MutableLiveData<Boolean>(false)
-
-    val leftDeviceAvailable: LiveData<Boolean> = _leftDeviceAvailable
-    val rightDeviceAvailable: LiveData<Boolean> = _rightDeviceAvailable
+    private val sensorStateRepo: SensorStateRepository by inject()
 
     /** At least one device is available */
     val deviceAvailable = CombinedLiveData(
-        leftDeviceAvailable,
-        rightDeviceAvailable) { left, right ->
+        sensorStateRepo.isLeftDeviceConnected,
+        sensorStateRepo.isRightDeviceConnected)
+    { left, right ->
         (left ?: false) || (right ?: false)
     }
-
     /** Both devices are available */
     val deviceComplete = CombinedLiveData(
-        leftDeviceAvailable,
-        rightDeviceAvailable) { left, right ->
+        sensorStateRepo.isLeftDeviceConnected,
+        sensorStateRepo.isRightDeviceConnected)
+    { left, right ->
         (left ?: false) && (right ?: false)
     }
 
-    val leftBatteryLevel = CombinedLiveData(
-        leftDeviceAvailable,
-        _leftBatteryLevel) { available, level ->
-        level?.takeIf { available ?: false }
-    }
-    val leftBatteryLevelText = CombinedLiveData(
-        leftDeviceAvailable,
-        _leftBatteryLevel) { available, batteryLevel ->
-        batteryLevel?.takeIf { available ?: false }?.let {
-            "$it%"
-        } ?: context.getString(R.string.text_information_unavailable)
-    }
-    val isLeftBatteryCharging = CombinedLiveData(
-        leftDeviceAvailable,
-        _isLeftBatteryCharging) { available, charging ->
-        charging?.takeIf { available ?: false }
-    }
+    val isLeftDeviceConnected: LiveData<Boolean> = sensorStateRepo.isLeftDeviceConnected
+    val isRightDeviceConnected: LiveData<Boolean> = sensorStateRepo.isRightDeviceConnected
 
-    val rightBatteryLevel = CombinedLiveData(
-        rightDeviceAvailable,
-        _rightBatteryLevel) { available, level ->
-        level?.takeIf { available ?: false }
-    }
-    val rightBatteryLevelText = CombinedLiveData(
-        rightDeviceAvailable,
-        _rightBatteryLevel) { available, batteryLevel ->
-        batteryLevel?.takeIf { available ?: false }?.let {
-            "$it%"
-        } ?: context.getString(R.string.text_information_unavailable)
+    val leftDeviceSensorValue: LiveData<FootPressure> = sensorStateRepo.leftDeviceSensorValue
+    val rightDeviceSensorValue: LiveData<FootPressure> = sensorStateRepo.rightDeviceSensorValue
+
+    val isLeftBatteryCharging = CombinedLiveData(
+        sensorStateRepo.isLeftDeviceConnected,
+        sensorStateRepo.isLeftDeviceCharging)
+    { available, charging ->
+        charging?.takeIf { available ?: false }
     }
     val isRightBatteryCharging = CombinedLiveData(
-        rightDeviceAvailable,
-        _isRightBatteryCharging) { available, charging ->
+        sensorStateRepo.isRightDeviceConnected,
+        sensorStateRepo.isRightDeviceCharging)
+    { available, charging ->
         charging?.takeIf { available ?: false }
     }
 
-    fun onLeftDevice(connected: Boolean) {
-        _leftDeviceAvailable.postValue(connected)
+    val leftBatteryLevel = CombinedLiveData(
+        sensorStateRepo.isLeftDeviceConnected,
+        sensorStateRepo.leftDeviceBatteryLevel)
+    { available, level ->
+        level?.takeIf { available ?: false }
+    }
+    val rightBatteryLevel = CombinedLiveData(
+        sensorStateRepo.isRightDeviceConnected,
+        sensorStateRepo.rightDeviceBatteryLevel)
+    { available, level ->
+        level?.takeIf { available ?: false }
+    }
+
+    val leftBatteryLevelText = CombinedLiveData(
+        sensorStateRepo.isLeftDeviceConnected,
+        sensorStateRepo.leftDeviceBatteryLevel)
+    { available, batteryLevel ->
+        batteryLevel?.takeIf { available ?: false }?.let {
+            "$it%"
+        } ?: context.getString(R.string.text_information_unavailable)
+    }
+    val rightBatteryLevelText = CombinedLiveData(
+        sensorStateRepo.isRightDeviceConnected,
+        sensorStateRepo.rightDeviceBatteryLevel)
+    { available, batteryLevel ->
+        batteryLevel?.takeIf { available ?: false }?.let {
+            "$it%"
+        } ?: context.getString(R.string.text_information_unavailable)
     }
 }
