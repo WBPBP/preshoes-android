@@ -17,17 +17,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.home
+package org.wbpbp.preshoes.repository
 
-import androidx.databinding.BindingAdapter
-import eo.view.batterymeter.BatteryMeterView
+import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.entity.FootPressure
 
-@BindingAdapter("app:batteryLevel")
-fun setBatteryLevel(view: BatteryMeterView, level: Int) {
-    view.chargeLevel = level
-}
+interface SensorStateRepository {
+    val isLeftDeviceConnected: MutableLiveData<Boolean>
+    val isRightDeviceConnected: MutableLiveData<Boolean>
 
-@BindingAdapter("app:isCharging")
-fun setIsCharging(view: BatteryMeterView, isCharging: Boolean) {
-    view.isCharging = isCharging
+    val leftDeviceSensorValue: MutableLiveData<FootPressure>
+    val rightDeviceSensorValue: MutableLiveData<FootPressure>
+
+    val isLeftDeviceCharging: MutableLiveData<Boolean>
+    val isRightDeviceCharging: MutableLiveData<Boolean>
+
+    val leftDeviceBatteryLevel: MutableLiveData<Int>
+    val rightDeviceBatteryLevel: MutableLiveData<Int>
 }

@@ -23,85 +23,170 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.foot_pressure_view_left.view.*
+import ca.hss.heatmaplib.HeatMap
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.extension.resolveThemeColor
+import org.wbpbp.preshoes.common.util.ColorUtil
 import org.wbpbp.preshoes.entity.FootPressure
 
 class FootPressureView(context: Context, private val attrs: AttributeSet)
     : ConstraintLayout(context, attrs) {
 
-    private lateinit var sensors: Array<ImageView>
-    private lateinit var foot: ImageView
+    private var available: Boolean = true
+    private var side: Int = SIDE_LEFT
+
+    private lateinit var backgroundFoot: ImageView
+    private lateinit var heatMap: HeatMap
 
     init {
         val typedArray = getTypedArray()
 
-        initView(typedArray)
-        applyAttrs(typedArray)
+        setView(typedArray)
 
         typedArray.recycle()
-
-        scaleSensorDots(IntArray(12) {0})
     }
 
     private fun getTypedArray() = context.obtainStyledAttributes(attrs, R.styleable.FootPressureView)
 
-    private fun initView(typedArray: TypedArray) {
-        val layout = when (getSide(typedArray))  {
-            "left" -> R.layout.foot_pressure_view_left
-            "right" -> R.layout.foot_pressure_view_right
-            else -> R.layout.foot_pressure_view_left
+    private fun setView(typedArray: TypedArray) {
+        parseAttributes(typedArray)
+
+        addView(inflateView())
+
+        initView()
+        renderView()
+    }
+
+    private fun parseAttributes(typedArray: TypedArray) {
+        side = when (getSide(typedArray)) {
+            "left" -> SIDE_LEFT
+            "right" -> SIDE_RIGHT
+            else -> SIDE_LEFT
         }
 
+        available = typedArray.getBoolean(R.styleable.FootPressureView_available, true)
+    }
+
+    private fun getSide(typedArray: TypedArray) =
+        typedArray.getString(R.styleable.FootPressureView_side) ?: "left"
+
+    private fun inflateView(): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(layout, this, false)
 
-        addView(view)
-
-        sensors = arrayOf(
-            sensor_0, sensor_1, sensor_2, sensor_3,
-            sensor_4, sensor_5, sensor_6, sensor_7,
-            sensor_8, sensor_9, sensor_10, sensor_11
-        )
-        foot = background_foot
+        return inflater.inflate(R.layout.foot_pressure_view, this, false).apply {
+            this@FootPressureView.backgroundFoot = findViewById(R.id.background_foot)
+            this@FootPressureView.heatMap = findViewById(R.id.heatMap)
+        }
     }
 
-    private fun getSide(typedArray: TypedArray) = typedArray.getString(R.styleable.FootPressureView_side) ?: "left"
+    private fun initView() {
+        with(heatMap) {
+            setMinimum(0.0)
+            setMaximum(100.0)
+            setRadius(600.0)
 
-    private fun applyAttrs(typedArray: TypedArray) {
-        val footTint = typedArray.getColor(
-            R.styleable.FootPressureView_footTint,
-            context.resolveThemeColor(R.attr.colorPrimary)
-        )
-        background_foot.setColorFilter(footTint)
+            val colors = (0..20).map {
+                Pair(it.toFloat() / 20.0f,
+                    ColorUtil.doGradient(
+                        it * 5.toDouble(),
+                        0.0,
+                        100.0,
+                        -0x00ff00,
+                        -0x009900))
+            }.toMap()
 
-        val sensorTint = typedArray.getColor(
-            R.styleable.FootPressureView_sensorTint,
-            context.resolveThemeColor(R.attr.colorPrimaryDark)
-        )
-        sensors.forEach {
-            it.setColorFilter(sensorTint)
+            setColorStops(colors)
+        }
+    }
+
+    private fun renderView() {
+        setProperFootDrawable()
+        setPressureEffectVisibility()
+    }
+
+    private fun setProperFootDrawable() {
+        with(backgroundFoot) {
+            setImageDrawable(context.getDrawable(getFootDrawable()))
+        }
+    }
+
+    private fun getFootDrawable() = when (side) {
+        SIDE_LEFT -> if (available) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
+        SIDE_RIGHT -> if (available) R.drawable.ic_foot_right else R.drawable.ic_foot_right_disabled
+        else -> if (available) R.drawable.ic_foot_left else R.drawable.ic_foot_left_disabled
+    }
+
+    private fun setPressureEffectVisibility() {
+        with(heatMap) {
+            visibility = if (available) View.VISIBLE else View.GONE
+        }
+    }
+
+    /**
+     * Enable or not.
+     * Disabled FootPressureView will have lower alpha and no pressure effects.
+     */
+    fun setAvailable(available: Boolean) {
+        this.available = available
+
+        renderView()
+    }
+
+    /**
+     * Set pressure values.
+     */
+    fun setSensorValue(footPressure: FootPressure?) {
+        if (!available) {
+            return
         }
 
-        val side = typedArray.getString(
-            R.styleable.FootPressureView_side
-        ) ?: "left"
-
-
-
-    }
-
-    fun setSensorValues(footPressure: FootPressure) {
-        scaleSensorDots(footPressure.pressures)
-    }
-
-    private fun scaleSensorDots(values: IntArray) {
-        values.forEachIndexed { index, pressure ->
-            sensors[index].scaleX = pressure / 15.0f
-            sensors[index].scaleY = pressure / 15.0f
+        if (footPressure == null) {
+            return
         }
+
+        with(heatMap) {
+            clearData()
+            getDataPoints(footPressure).forEach(::addData)
+            forceRefresh()
+        }
+    }
+
+    private fun getDataPoints(footPressure: FootPressure) =
+        footPressure.values.mapIndexed { index, value ->
+            when(side) {
+                SIDE_LEFT -> sensorPointsLeft
+                SIDE_RIGHT -> sensorPointsRight
+                else -> sensorPointsLeft
+            }[index]?.let {
+                HeatMap.DataPoint(it.x, it.y, (value / 15.toDouble()) * 100)
+            }
+        }.filterNotNull().toTypedArray()
+
+    data class SensorPoint(val x: Float, val y: Float)
+
+    companion object {
+        private const val SIDE_LEFT = 0
+        private const val SIDE_RIGHT = 1
+
+        private val sensorPointsLeft = mapOf(
+            0 to SensorPoint(0.83f, 0.1f),
+            1 to SensorPoint(0.78f, 0.25f),
+            2 to SensorPoint(0.6f, 0.26f),
+            3 to SensorPoint(0.42f, 0.3f),
+            4 to SensorPoint(0.26f, 0.37f),
+            5 to SensorPoint(0.4f, 0.56f),
+            6 to SensorPoint(0.26f, 0.5f),
+            7 to SensorPoint(0.28f, 0.63f),
+            8 to SensorPoint(0.35f, 0.77f),
+            9 to SensorPoint(0.46f, 0.83f),
+            10 to SensorPoint(0.24f, 0.83f),
+            11 to SensorPoint(0.35f, 0.89f)
+        )
+
+        private val sensorPointsRight = sensorPointsLeft.map {
+            Pair(it.key, it.value.copy(x = 1.0f - it.value.x))
+        }.toMap()
     }
 }

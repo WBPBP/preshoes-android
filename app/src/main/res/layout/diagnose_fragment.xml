@@ -172,7 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:background="@drawable/dissolve_reversed"
-            android:backgroundTint="@android:color/white"
+            android:backgroundTint="?android:attr/windowBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -180,6 +180,8 @@
 
         <!-- Start button -->
         <Button
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             style="@style/BigButton"
             android:id="@+id/start_button"
             android:text="@string/button_start_diagnose"

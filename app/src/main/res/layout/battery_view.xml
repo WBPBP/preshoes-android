@@ -38,7 +38,7 @@
 
         <!-- Left -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="160dp"
+            android:layout_width="@dimen/footWidth"
             android:layout_height="wrap_content">
 
             <!-- L -->
@@ -66,7 +66,7 @@
                 app:batteryMeterColor="@color/batteryGreen"
                 app:batteryMeterCriticalChargeLevel="15"
                 app:batteryMeterCriticalColor="#d84315"
-                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterIndicatorColor="?android:attr/textColorPrimary"
                 app:batteryMeterTheme="rounded"
                 app:batteryMeterUnknownColor="#e0e0e0" />
 
@@ -78,14 +78,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/battery_meter_left"
-                android:text="@{vm.leftBatteryLevel.toString() + '%'}"
+                android:text="@{vm.leftBatteryLevelText}"
                 tools:text="37%"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Right -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="160dp"
+            android:layout_width="@dimen/footWidth"
             android:layout_height="wrap_content">
 
             <!-- R -->
@@ -113,7 +113,7 @@
                 app:batteryMeterColor="@color/batteryGreen"
                 app:batteryMeterCriticalChargeLevel="15"
                 app:batteryMeterCriticalColor="#d84315"
-                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterIndicatorColor="?android:attr/textColorPrimary"
                 app:batteryMeterTheme="rounded"
                 app:batteryMeterUnknownColor="#e0e0e0" />
 
@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/battery_meter_right"
-                android:text="@{vm.rightBatteryLevel.toString() + '%'}"
+                android:text="@{vm.rightBatteryLevelText}"
                 tools:text="64%"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

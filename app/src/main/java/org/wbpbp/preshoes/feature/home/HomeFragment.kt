@@ -19,15 +19,16 @@
 
 package org.wbpbp.preshoes.feature.home
 
+import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import kotlinx.android.synthetic.main.home_fragment.view.*
+import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
 import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.HomeFragmentBinding
-import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.service.SensorDeviceService
 
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override val viewModel: HomeViewModel by getViewModel()
@@ -36,7 +37,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun initView(root: View) {
         setToolbar(R.id.toolbar_home, R.menu.menu_home)
-        setFootView(root)
     }
 
     override fun initBinding(binding: HomeFragmentBinding) {
@@ -49,26 +49,22 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
 
 
+    // TODO: this is for test
+    private val deviceService: SensorDeviceService by inject()
 
+    // TODO: this is for test
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-    private var base: Int = 0
-
-    private fun setFootView(root: View) {
         val handler = Handler()
         val runnable = object: Runnable {
             override fun run() {
-                root.pressure_view_left.setSensorValues(getRandomFootPressureValue())
-                root.pressure_view_right.setSensorValues(getRandomFootPressureValue())
-                handler.postDelayed(this, 100)
+                deviceService.enterRandomState()
+
+                handler.postDelayed(this, 200)
             }
         }
 
-        handler.postDelayed(runnable, 100)
-    }
-
-    private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%3 + (12-it)}).also {
-            base++
-        }
+        handler.postDelayed(runnable, 200)
     }
 }

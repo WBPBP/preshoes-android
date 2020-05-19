@@ -21,13 +21,46 @@ package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
 import org.wbpbp.preshoes.common.navigation.Navigator
+import org.wbpbp.preshoes.repository.SensorConnectionRepository
+import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.service.SensorDeviceService
+import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
+import org.wbpbp.preshoes.storage.SensorConnectionRepositoryImpl
+import org.wbpbp.preshoes.storage.SensorStateRepositoryImpl
 
 val myModules = module {
 
-    /** Navigator */
+    /****************
+     * Common
+     ****************/
     single {
         Navigator(
             context = get()
         )
+    }
+
+    /****************
+     * Use Case
+     ****************/
+
+    /****************
+     * Service
+     ****************/
+    single {
+        SensorDeviceServiceImpl(
+            connectionRepo = get(),
+            stateRepo = get()
+        ) as SensorDeviceService
+    }
+
+    /****************
+     * Repository
+     ****************/
+    single {
+        SensorConnectionRepositoryImpl() as SensorConnectionRepository
+    }
+
+    single {
+        SensorStateRepositoryImpl() as SensorStateRepository
     }
 }

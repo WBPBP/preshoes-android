@@ -20,8 +20,10 @@
 
 <resources>
     <declare-styleable name="FootPressureView">
-        <attr name="footTint" format="reference|color" />
-        <attr name="sensorTint" format="reference|color" />
+        <attr name="available" format="reference|boolean" />
         <attr name="side" format="reference|string" />
     </declare-styleable>
+
+    <attr name="barBackground" format="reference" />
+
 </resources>

@@ -17,21 +17,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.storage
 
-data class FootPressure(val values: IntArray) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+import org.wbpbp.preshoes.repository.SensorConnectionRepository
 
-        other as FootPressure
-
-        if (!values.contentEquals(other.values)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return values.contentHashCode()
-    }
+class SensorConnectionRepositoryImpl : SensorConnectionRepository {
 }

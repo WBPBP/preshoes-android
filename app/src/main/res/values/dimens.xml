@@ -26,4 +26,7 @@
     <dimen name="textTertiary">12sp</dimen>
     <dimen name="textToolbar">22sp</dimen>
 
+    <dimen name="footWidth">150dp</dimen>
+    <dimen name="footHeight">300dp</dimen>
+
 </resources>
