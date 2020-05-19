@@ -52,5 +52,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="text_information_unavailable">정보 없음</string>
     <string name="title_connect_device">기기 연결</string>
-    <string name="text_please_connect_device">압력 측정을 위해 기기를 연결하여 주세요.</string>
+    <string name="text_please_connect_device">압력 측정을 위해 Preshoes 센서 모듈이 필요합니다. 아래 버튼을 눌러 연결하여 주세요.</string>
 </resources>

@@ -33,8 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- When device is available -->
         <LinearLayout
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:animateLayoutChanges="true"
             android:paddingBottom="32dp"
             android:orientation="vertical"
@@ -45,121 +46,19 @@
             android:clipChildren="false">
 
             <!-- Connect suggestion section -->
-            <androidx.cardview.widget.CardView
-                style="@style/SectionCard"
-                android:id="@+id/connect_suggestion_section"
-                android:visibility="@{!vm.deviceComplete ? View.VISIBLE : View.GONE}">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Title -->
-                    <TextView
-                        style="@style/SectionHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_connect_device" />
-
-                    <!-- Body -->
-                    <TextView
-                        android:id="@+id/no_device_text"
-                        style="@style/TextSecondary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="@string/text_please_connect_device"/>
-
-                    <!-- Connect button -->
-                    <Button
-                        style="@style/BigButton"
-                        android:id="@+id/connect_device_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/no_device_text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:text="@string/button_connect_device"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+            <include
+                layout="@layout/connect_suggestion_section"
+                app:vm="@{vm}" />
 
             <!-- Foot view section -->
-            <androidx.cardview.widget.CardView
-                style="@style/SectionCard"
-                android:id="@+id/foot_section"
-                android:visibility="@{vm.deviceAvailable ? View.VISIBLE : View.GONE}">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Title -->
-                    <TextView
-                        style="@style/SectionHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_realtime" />
-
-                    <!-- Pressure view -->
-                    <LinearLayout
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <!-- Left foot -->
-                        <org.wbpbp.preshoes.common.widget.FootPressureView
-                            android:id="@+id/pressure_view_left"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:available="@{vm.leftDeviceAvailable}"
-                            app:side="left" />
-
-                        <!-- Right foot -->
-                        <org.wbpbp.preshoes.common.widget.FootPressureView
-                            android:id="@+id/pressure_view_right"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:available="@{vm.rightDeviceAvailable}"
-                            app:side="right" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+            <include
+                layout="@layout/realtime_view_section"
+                app:vm="@{vm}" />
 
             <!-- Battery section -->
-            <androidx.cardview.widget.CardView
-                style="@style/SectionCard"
-                android:id="@+id/battery_section"
-                android:visibility="@{vm.deviceAvailable ? View.VISIBLE : View.GONE}">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Section name -->
-                    <TextView
-                        style="@style/SectionHeader"
-                        android:text="@string/text_battery" />
-
-                    <!-- Battery view -->
-                    <include
-                        layout="@layout/battery_view"
-                        app:vm="@{vm}"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+            <include
+                layout="@layout/battery_section"
+                app:vm="@{vm}" />
 
         </LinearLayout>
 

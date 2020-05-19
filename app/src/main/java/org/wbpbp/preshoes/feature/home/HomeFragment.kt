@@ -21,7 +21,7 @@ package org.wbpbp.preshoes.feature.home
 
 import android.os.Handler
 import android.view.View
-import kotlinx.android.synthetic.main.home_fragment.view.*
+import kotlinx.android.synthetic.main.realtime_view_section.view.*
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
