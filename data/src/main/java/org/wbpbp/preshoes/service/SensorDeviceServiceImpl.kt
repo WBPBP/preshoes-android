@@ -29,7 +29,6 @@ class SensorDeviceServiceImpl(
 ) : SensorDeviceService {
 
     // TODO remove these all after test
-
     private var base: Int = 0
 
     override fun enterRandomState() {
@@ -49,7 +48,7 @@ class SensorDeviceServiceImpl(
     }
 
     private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%13}).also {
+        return FootPressure(IntArray(12) {base%16}).also {
             base++
         }
     }
