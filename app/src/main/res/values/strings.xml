@@ -43,4 +43,6 @@
     <string name="description_horizontal_bias">양 발 무게중심</string>
     <string name="description_walks">걸음</string>
     <string name="title_details">상세 보기</string>
+    <string name="title_horizontal_bias_variation">수평 무게 중심 변화</string>
+    <string name="title_static_horizontal_bias">정적 압력 분포 가로 편향</string>
 </resources>

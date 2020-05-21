@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
         <variable
@@ -9,10 +9,56 @@
             type="org.wbpbp.preshoes.feature.report.ReportDetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Chart header -->
+            <TextView
+                style="@style/SectionHeader"
+                android:text="@string/title_horizontal_bias_variation" />
+
+            <!-- Horizontal bias chart -->
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/horizontal_bias_chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <!-- Bias header -->
+            <TextView
+                style="@style/SectionHeader"
+                android:text="@string/title_static_horizontal_bias"/>
+
+            <!-- Feet -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="45"
+                    android:progressTint="?android:attr/colorPrimaryDark"
+                    android:progressBackgroundTint="?android:attr/colorPrimaryDark" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

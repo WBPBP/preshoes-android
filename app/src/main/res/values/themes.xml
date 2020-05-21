@@ -20,7 +20,6 @@
 
 <resources>
 
-    <!-- TODO: use AppBaseThemeLight later -->
     <style name="AppTheme" parent="AppBaseThemeLight" />
 
     <!-- Light theme -->
