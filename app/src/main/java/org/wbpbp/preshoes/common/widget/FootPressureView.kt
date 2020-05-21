@@ -27,6 +27,9 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import ca.hss.heatmaplib.HeatMap
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.util.ColorUtil
 import org.wbpbp.preshoes.entity.FootPressure
@@ -147,9 +150,21 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
         }
 
         with(heatMap) {
-            clearData()
-            getDataPoints(footPressure).forEach(::addData)
-            forceRefresh()
+            // forceRefreshOnWorkerThread requires the view to have been drawn.
+            // View.post ensures that this requested task executed after layout passed.
+            post {
+                // Refresh job will be executed on worker thread.
+                GlobalScope.launch {
+                    clearData()
+                    getDataPoints(footPressure).forEach(::addData)
+                    forceRefreshOnWorkerThread()
+
+                    // Result will be posted on main thread.
+                    MainScope().launch {
+                        invalidate()
+                    }
+                }
+            }
         }
     }
 
