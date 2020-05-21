@@ -17,11 +17,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.extension
+package org.wbpbp.preshoes.repository
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import org.wbpbp.preshoes.entity.Commentary
+import org.wbpbp.preshoes.entity.Features
+import org.wbpbp.preshoes.entity.Report
+import java.util.*
 
-fun <T: Any?, L: LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
-    liveData.observe(this, Observer(body))
+interface ReportRepository {
+    fun addNewReport(features: Features, commentary: Commentary, date: Date=Date()): Int?
+
+    fun getAllReports(): List<Report>
+    fun getReportById(id: Int): Report?
+}

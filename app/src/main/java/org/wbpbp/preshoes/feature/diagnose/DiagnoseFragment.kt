@@ -19,13 +19,12 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
+import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.DiagnoseFragmentBinding
 
@@ -40,9 +39,13 @@ class DiagnoseFragment : BaseFragment<DiagnoseFragmentBinding>() {
 
     override fun initBinding(binding: DiagnoseFragmentBinding) {
         binding.vm = viewModel.apply {
-            navigateEvent.observe(this@DiagnoseFragment, Observer { action ->
-                action?.let(findNavController()::navigate)
-            })
+            observe(navigateEvent) {
+                it?.let(::navigate)
+            }
         }
+    }
+
+    private fun navigate(action: Int) {
+        findNavController().navigate(action)
     }
 }
