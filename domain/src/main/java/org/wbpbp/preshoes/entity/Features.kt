@@ -20,8 +20,9 @@
 package org.wbpbp.preshoes.entity
 
 data class Features(
+    val balance: Int,
     val staticHorizontalBiasMerged: Double,
     val walks: Int,
-    val horizontalBiasVariationDuringWalkSession: List<Int>, // 1 sample per 30 seconds
+    val horizontalBiasVariationDuringWalkSession: List<Double>, // 1 sample per 30 seconds
     val partialPressureVariationDuringAverageCycle: List<List<Int>> // 10 samples each
 )

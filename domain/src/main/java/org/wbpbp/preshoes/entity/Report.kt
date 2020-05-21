@@ -19,11 +19,13 @@
 
 package org.wbpbp.preshoes.entity
 
+import java.time.Duration
 import java.util.*
 
 data class Report(
     val id: Int,
     val date: Date,
+    val duration: Duration,
     val features: Features,
     val commentary: Commentary
 )

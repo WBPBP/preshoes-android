@@ -20,6 +20,13 @@
 package org.wbpbp.preshoes.feature.report
 
 import androidx.lifecycle.ViewModel
+import org.wbpbp.preshoes.common.util.SingleLiveEvent
+import org.wbpbp.preshoes.entity.Report
 
 class ReportsViewModel : ViewModel() {
+    val reportClickEvent = SingleLiveEvent<Report>()
+
+    fun showReportDetail(report: Report) {
+        reportClickEvent.postValue(report)
+    }
 }

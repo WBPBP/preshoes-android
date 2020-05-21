@@ -19,10 +19,12 @@
 
 package org.wbpbp.preshoes.entity
 
+import java.time.Duration
 import java.util.*
 
 data class Record(
     val id: Int,
     val date: Date,
+    val duration: Duration,
     val features: Features
 )

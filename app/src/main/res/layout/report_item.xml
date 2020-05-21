@@ -26,9 +26,15 @@
         <variable
             name="report"
             type="org.wbpbp.preshoes.entity.Report" />
+        
+        <variable
+            name="vm"
+            type="org.wbpbp.preshoes.feature.report.ReportsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{(view) -> vm.showReportDetail(report)}"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
@@ -41,6 +47,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{report.date.toLocaleString()}"
             tools:text="2020년 5월 14일 오전 10시 30분" />
 
         <!-- Duration -->
@@ -51,7 +58,8 @@
             app:layout_constraintEnd_toStartOf="@id/arrow"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="12dp"
-            tools:text="03:12" />
+            android:text="@{report.duration.toMinutes() + `분`}"
+            tools:text="3분" />
 
         <!-- Horizontal bias balance -->
         <LinearLayout
@@ -74,6 +82,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/datetime"
+                android:text="@{report.features.balance + `% 균형`}"
                 tools:text="94% 균형" />
 
             <!-- Label -->
@@ -82,7 +91,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="양 발 무게중심" />
+                android:text="@string/description_horizontal_bias" />
 
         </LinearLayout>
 
@@ -108,6 +117,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/datetime"
+                android:text="@{`` + report.features.walks}"
                 tools:text="198" />
 
             <!-- Label -->
@@ -116,7 +126,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="걸음" />
+                android:text="@string/description_walks"/>
 
         </LinearLayout>
 
