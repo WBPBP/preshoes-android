@@ -27,8 +27,8 @@
 
     <fragment
         android:id="@+id/report_dest"
-        android:name="org.wbpbp.preshoes.feature.report.ReportFragment"
+        android:name="org.wbpbp.preshoes.feature.report.ReportsFragment"
         android:label="@string/title_report"
-        tools:layout="@layout/report_fragment"/>
+        tools:layout="@layout/reports_fragment"/>
 
 </navigation>

@@ -19,23 +19,7 @@
 
 package org.wbpbp.preshoes.feature.report
 
-import android.view.View
-import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.base.BaseFragment
-import org.wbpbp.preshoes.common.extension.getViewModel
-import org.wbpbp.preshoes.common.extension.setToolbar
-import org.wbpbp.preshoes.databinding.ReportFragmentBinding
+import androidx.lifecycle.ViewModel
 
-class ReportFragment : BaseFragment<ReportFragmentBinding>() {
-    override val viewModel: ReportViewModel by getViewModel()
-
-    override fun getLayoutRes() = R.layout.report_fragment
-
-    override fun initView(root: View) {
-        setToolbar(R.id.toolbar_report, R.menu.menu_report)
-    }
-
-    override fun initBinding(binding: ReportFragmentBinding) {
-        binding.vm = viewModel
-    }
+class ReportsViewModel : ViewModel() {
 }
