@@ -29,6 +29,21 @@
         android:id="@+id/diagnose_dest"
         android:name="org.wbpbp.preshoes.feature.diagnose.DiagnoseFragment"
         android:label="@string/title_diagnose"
-        tools:layout="@layout/diagnose_fragment" />
+        tools:layout="@layout/diagnose_fragment" >
+        <action
+            android:id="@+id/action_unified_diagnosis"
+            app:destination="@id/unified_diagnosis_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/unified_diagnosis_dest"
+        android:name="org.wbpbp.preshoes.feature.diagnose.UnifiedDiagnosisFragment"
+        android:label="@string/title_unified_diagnosis"
+        tools:layout="@layout/unified_diagnosis_fragment"/>
 
 </navigation>

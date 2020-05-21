@@ -42,6 +42,7 @@ fun Fragment.setToolbar(
     onClick: (MenuItem) -> Boolean = this::onOptionsItemSelected
 ) {
     activity?.findViewById<Toolbar>(toolbarId)?.let {
+        it.menu.clear()
         it.inflateMenu(menuId)
         it.setOnMenuItemClickListener(onClick)
     }

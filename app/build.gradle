@@ -38,7 +38,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "org.wbpbp.preshoes"
-        minSdkVersion 27
+        minSdkVersion 28
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -81,6 +81,9 @@ dependencies {
 
     /** Heat map */
     implementation "ca.heartlandsoftware:androidheatmap:$heatmap_version"
+
+    /** Material */
+    implementation "com.google.android.material:material:$material_version"
 
     /** 프로젝트 모듈 */
     implementation project(":domain")

@@ -19,30 +19,23 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
 import org.wbpbp.preshoes.common.extension.setToolbar
-import org.wbpbp.preshoes.databinding.DiagnoseFragmentBinding
+import org.wbpbp.preshoes.databinding.UnifiedDiagnosisFragmentBinding
 
-class DiagnoseFragment : BaseFragment<DiagnoseFragmentBinding>() {
-    override val viewModel: DiagnoseViewModel by getViewModel()
+class UnifiedDiagnosisFragment : BaseFragment<UnifiedDiagnosisFragmentBinding>() {
+    override val viewModel: UnifiedDiagnosisViewModel by getViewModel()
 
-    override fun getLayoutRes() = R.layout.diagnose_fragment
+    override fun getLayoutRes() = R.layout.unified_diagnosis_fragment
 
     override fun initView(root: View) {
-        setToolbar(R.id.toolbar_diagnose, R.menu.menu_diagnose)
+        // setToolbar(R.id.toolbar_diagnose, R.menu.menu_diagnose)
     }
 
-    override fun initBinding(binding: DiagnoseFragmentBinding) {
-        binding.vm = viewModel.apply {
-            navigateEvent.observe(this@DiagnoseFragment, Observer { action ->
-                action?.let(findNavController()::navigate)
-            })
-        }
+    override fun initBinding(binding: UnifiedDiagnosisFragmentBinding) {
+        binding.vm = viewModel
     }
 }
