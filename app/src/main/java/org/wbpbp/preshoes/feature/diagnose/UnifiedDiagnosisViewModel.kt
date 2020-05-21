@@ -27,6 +27,6 @@ class UnifiedDiagnosisViewModel : ViewModel() {
     val _progressMax = MutableLiveData<Int>(100)
     val progressMax: LiveData<Int> = _progressMax
 
-    val _progress = MutableLiveData<Int>(64)
+    val _progress = MutableLiveData<Int>(100)
     val progress: LiveData<Int> = _progress
 }
