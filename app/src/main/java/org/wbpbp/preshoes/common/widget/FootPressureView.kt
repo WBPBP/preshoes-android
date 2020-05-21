@@ -31,7 +31,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.util.ColorUtil
 import org.wbpbp.preshoes.entity.FootPressure
 
 class FootPressureView(context: Context, private val attrs: AttributeSet)
@@ -89,17 +88,13 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
             setMinimum(0.0)
             setMaximum(15.0)
 
-            val colors = (0..20).map {
-                Pair(it.toFloat() / 20.0f,
-                    ColorUtil.doGradient(
-                        it * 5.toDouble(),
-                        0.0,
-                        100.0,
-                        -0x00ff00,
-                        -0x009900))
-            }.toMap()
+            val start = context.getColor(R.color.colorFootStart)
+            val end = context.getColor(R.color.colorFootEnd)
 
-            setColorStops(colors)
+            setColorStops(mapOf(
+                0f to start,
+                1f to end
+            ))
         }
     }
 

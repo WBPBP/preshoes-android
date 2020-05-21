@@ -82,8 +82,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/datetime"
-                android:text="@{report.features.balance + `% 균형`}"
-                tools:text="94% 균형" />
+                android:text="@{report.features.score + `%`}"
+                tools:text="94%" />
 
             <!-- Label -->
             <TextView
@@ -91,7 +91,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/description_horizontal_balance" />
+                android:text="@string/description_score" />
 
         </LinearLayout>
 

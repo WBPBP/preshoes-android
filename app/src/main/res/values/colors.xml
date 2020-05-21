@@ -24,6 +24,9 @@
     <color name="colorPrimaryDark">#00567E</color>
     <color name="colorAccent">@color/colorPrimary</color>
 
+    <color name="colorFootStart">#2D6187</color>
+    <color name="colorFootEnd">#742D6187</color>
+
     <color name="textPrimary">#262B31</color>
     <color name="textSecondary">#70808D</color>
     <color name="textTertiary">#B7B9C0</color>

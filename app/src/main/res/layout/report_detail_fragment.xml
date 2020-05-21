@@ -32,6 +32,14 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal">
 
+                <!-- Label -->
+                <TextView
+                    android:textColor="?android:attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_measure_date" />
+
                 <!-- Content -->
                 <TextView
                     android:textColor="?android:attr/textColorPrimary"
@@ -44,34 +52,18 @@
                     app:layout_constraintTop_toBottomOf="@id/datetime"
                     android:text="2020년 5월 22일" />
 
-                <!-- Label -->
-                <TextView
-                    android:textColor="?android:attr/colorPrimary"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/description_measure_date" />
-
             </LinearLayout>
 
-            <!-- Summary -->
+            <!-- Static -->
             <LinearLayout
                 android:layout_weight="1"
                 android:padding="12dp"
-                android:id="@+id/summary_group"
+                android:id="@+id/static_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal">
-
-                <TextView
-                    android:gravity="center"
-                    style="@style/TextBigAndThick"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다."/>
 
                 <!-- Label -->
                 <TextView
@@ -80,9 +72,75 @@
                     android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="요약" />
+                    android:text="정적 분석" />
+
+                <TextView
+                    android:gravity="center"
+                    style="@style/TextPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다. 또한 현재 양쪽 발에 실리는 힘의 차이가 많은 것으로 보아 척추측만증을 의심해볼 수                                                                                    있습니다."/>
 
             </LinearLayout>
+
+            <!-- Walk -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:id="@+id/walk_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <!-- Label -->
+                <TextView
+                    android:layout_gravity="center"
+                    android:textColor="?android:attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="걸음걸이 분석" />
+
+                <TextView
+                    android:gravity="center"
+                    style="@style/TextPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="평균적으로 학다리걸음에 가까운 걸음걸이 습관을 가지고 있습니다. 해당 걸음걸이를 계속 유지하시는 경우 무릎을 굽히지 않아 계속적으로 무릎에 충격이 가며 연골 연화증이 발생할 수 있습니다."/>
+
+            </LinearLayout>
+
+            <!-- Estimation -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:id="@+id/estimation_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <!-- Label -->
+                <TextView
+                    android:layout_gravity="center"
+                    android:textColor="?android:attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="발생이 우려되는 질환" />
+
+                <TextView
+                    android:gravity="center"
+                    style="@style/TextPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
 
             <!-- Horizontal bias chart -->
             <com.github.mikephil.charting.charts.LineChart
@@ -130,7 +188,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/datetime"
-                        android:text="87% 균형" />
+                        android:text="87%" />
 
                     <!-- Label -->
                     <TextView
@@ -138,7 +196,7 @@
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/description_horizontal_balance" />
+                        android:text="@string/description_score" />
 
                 </LinearLayout>
 

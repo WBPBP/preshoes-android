@@ -79,7 +79,7 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
 
     private fun setDummyData() {
         val f1 = Features(
-            balance = 87,
+            score = 87,
             staticHorizontalBiasMerged = 0.45,
             walks = 582,
             horizontalBiasVariationDuringWalkSession = listOf(0.43, 0.43, 0.43, 0.44, 0.43, 0.43, 0.43, 0.45, 0.45, 0.45),
