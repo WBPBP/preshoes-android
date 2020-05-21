@@ -32,163 +32,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Content -->
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!-- Center foot pressure and button view -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Left -->
+            <org.wbpbp.preshoes.common.widget.FootPressureView
+                android:id="@+id/pressure_view_left"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:side="left" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/pressure_view_right"
+                app:layout_constraintStart_toEndOf="@id/pressure_view_left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.62" />
 
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
-                <TextView
-                    android:textSize="40sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="적절한 기능 설명 "/>
+            <!-- Right -->
+            <org.wbpbp.preshoes.common.widget.FootPressureView
+                android:id="@+id/pressure_view_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:side="right" />
 
-            </LinearLayout>
-
-        </ScrollView>
-
-        <!-- Dissolve bar -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            android:background="@drawable/dissolve_reversed"
-            android:backgroundTint="?android:attr/windowBackground"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-
-        <!-- Start button -->
-        <Button
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            style="@style/BigButton"
-            android:id="@+id/start_button"
-            android:text="@string/button_start_diagnose"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
