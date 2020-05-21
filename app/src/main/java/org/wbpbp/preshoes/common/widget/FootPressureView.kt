@@ -87,8 +87,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
     private fun initView() {
         with(heatMap) {
             setMinimum(0.0)
-            setMaximum(100.0)
-            setRadius(600.0)
+            setMaximum(15.0)
 
             val colors = (0..20).map {
                 Pair(it.toFloat() / 20.0f,
@@ -175,7 +174,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
                 SIDE_RIGHT -> sensorPointsRight
                 else -> sensorPointsLeft
             }[index]?.let {
-                HeatMap.DataPoint(it.x, it.y, (value / 15.toDouble()) * 100)
+                HeatMap.DataPoint(it.x, it.y, value.toDouble())
             }
         }.filterNotNull().toTypedArray()
 
