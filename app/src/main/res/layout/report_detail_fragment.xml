@@ -14,46 +14,244 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="18dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Chart header -->
-            <TextView
-                style="@style/SectionHeader"
-                android:text="@string/title_horizontal_bias_variation" />
+            <!-- Date -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:id="@+id/date_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <!-- Content -->
+                <TextView
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/datetime"
+                    android:text="2020년 5월 22일" />
+
+                <!-- Label -->
+                <TextView
+                    android:textColor="?android:attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_measure_date" />
+
+            </LinearLayout>
+
+            <!-- Summary -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:id="@+id/summary_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:gravity="center"
+                    style="@style/TextBigAndThick"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다."/>
+
+                <!-- Label -->
+                <TextView
+                    android:layout_gravity="center"
+                    android:textColor="?android:attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="요약" />
+
+            </LinearLayout>
 
             <!-- Horizontal bias chart -->
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/horizontal_bias_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" />
 
-            <!-- Bias header -->
+            <!-- Label -->
             <TextView
-                style="@style/SectionHeader"
-                android:text="@string/title_static_horizontal_bias"/>
+                android:layout_gravity="center"
+                android:textColor="?android:attr/colorPrimary"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_horizontal_bias_variation" />
 
-            <!-- Feet -->
+            <!-- row 0 -->
             <LinearLayout
+                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <SeekBar
-                    android:layout_width="match_parent"
+                <!-- Horizontal bias balance -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/balance_group"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="45"
-                    android:progressTint="?android:attr/colorPrimaryDark"
-                    android:progressBackgroundTint="?android:attr/colorPrimaryDark" />
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/datetime">
 
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/horizontal_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/datetime"
+                        android:text="87% 균형" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_horizontal_balance" />
+
+                </LinearLayout>
+
+                <!-- Walks -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/walks_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/balance_group"
+                    app:layout_constraintTop_toBottomOf="@id/datetime"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/walks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/datetime"
+                        android:text="288" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_walks"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- row 1 -->
+            <LinearLayout
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Horizontal bias balance -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/bias_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/datetime">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/horizontal_bias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/datetime"
+                        android:text="0.45" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_horizontal_bias" />
+
+                </LinearLayout>
+
+                <!-- Duration -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/duration_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/balance_group"
+                    app:layout_constraintTop_toBottomOf="@id/datetime"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/datetime"
+                        android:text="03:12" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_elapsed_time"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

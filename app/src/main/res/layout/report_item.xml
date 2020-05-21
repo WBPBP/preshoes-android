@@ -64,7 +64,7 @@
         <!-- Horizontal bias balance -->
         <LinearLayout
             android:padding="12dp"
-            android:id="@+id/bias_group"
+            android:id="@+id/balance_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -91,7 +91,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/description_horizontal_bias" />
+                android:text="@string/description_horizontal_balance" />
 
         </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:id="@+id/walks_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/bias_group"
+            app:layout_constraintStart_toEndOf="@id/balance_group"
             app:layout_constraintTop_toBottomOf="@id/datetime"
             android:gravity="center_horizontal"
             android:orientation="vertical">
