@@ -28,4 +28,9 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="unified_diagnosis_steps">
+        <item>정적 검사</item>
+        <item>걷기</item>
+    </string-array>
 </resources>

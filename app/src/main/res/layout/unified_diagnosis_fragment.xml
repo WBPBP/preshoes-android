@@ -29,11 +29,27 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.shuhart.stepview.StepView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:sv_animationType="All"
+            app:sv_stepPadding="12dp"
+            app:sv_stepsNumber="5"
+
+            />
+
         <!-- Center foot pressure and button view -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/center_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
