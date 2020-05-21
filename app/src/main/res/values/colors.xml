@@ -20,9 +20,9 @@
 
 <resources>
 
-    <color name="colorPrimary">#6191B4</color>
+    <color name="colorPrimary">#518EBA</color>
     <color name="colorPrimaryDark">#00567E</color>
-    <color name="colorAccent">#6191B4</color>
+    <color name="colorAccent">@color/colorPrimary</color>
 
     <color name="textPrimary">#262B31</color>
     <color name="textSecondary">#70808D</color>
