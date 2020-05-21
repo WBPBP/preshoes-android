@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:paddingBottom="40dp"
             android:layout_marginTop="18dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -132,12 +133,26 @@
                     android:layout_height="wrap_content"
                     android:text="발생이 우려되는 질환" />
 
-                <TextView
-                    android:gravity="center"
-                    style="@style/TextPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_disease_3_knee" />
+                    
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        style="@style/TextPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="연골 연화증"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -188,7 +203,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/datetime"
-                        android:text="87%" />
+                        android:text="44%" />
 
                     <!-- Label -->
                     <TextView

@@ -83,7 +83,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/datetime"
                 android:text="@{report.features.score + `%`}"
-                tools:text="94%" />
+                tools:text="44%" />
 
             <!-- Label -->
             <TextView

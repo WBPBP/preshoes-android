@@ -70,6 +70,12 @@ class ReportDetailFragment : BaseFragment<ReportDetailFragmentBinding>() {
             legend.isEnabled = false
 
             data = LineData(dataSets)
+
+            xAxis.textColor = 0
+            axisLeft.textColor = 0
+            axisRight.textColor = 0
+
+            description.textColor = 0
         }
     }
 }
