@@ -61,10 +61,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             override fun run() {
                 deviceService.enterRandomState()
 
-                handler.postDelayed(this, 200)
+                handler.postDelayed(this, 20)
             }
         }
 
-        handler.postDelayed(runnable, 200)
+        handler.postDelayed(runnable, 20)
     }
 }

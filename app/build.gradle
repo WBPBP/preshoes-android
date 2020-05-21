@@ -76,15 +76,23 @@ dependencies {
     /** 배터리 미터 */
     implementation "eo.view:batterymeter:$battery_meter_version"
 
-    /** 카드  */
+    /** 카드 뷰 */
     implementation "androidx.cardview:cardview:$cardview_version"
 
     /** Heat map */
     implementation "ca.heartlandsoftware:androidheatmap:$heatmap_version"
 
+    /** Material */
+    implementation "com.google.android.material:material:$material_version"
+
+    /** 스텝 뷰 */
+    implementation "com.shuhart.stepview:stepview:$stepview_version"
+
+    /** 설정 */
+    implementation "androidx.preference:preference:$preference_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":data")
     implementation project(":common")
-    implementation 'androidx.preference:preference:1.1.1'
 }

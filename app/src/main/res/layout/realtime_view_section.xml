@@ -62,8 +62,8 @@
                     <!-- Left foot -->
                     <org.wbpbp.preshoes.common.widget.FootPressureView
                         android:id="@+id/pressure_view_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/footWidth"
+                        android:layout_height="@dimen/footHeight"
                         app:side="left"
                         app:available="@{vm.isLeftDeviceConnected}"
                         app:sensorValue="@{vm.leftDeviceSensorValue}"/>
@@ -71,8 +71,8 @@
                     <!-- Right foot -->
                     <org.wbpbp.preshoes.common.widget.FootPressureView
                         android:id="@+id/pressure_view_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/footWidth"
+                        android:layout_height="@dimen/footHeight"
                         app:side="right"
                         app:available="@{vm.isRightDeviceConnected}"
                         app:sensorValue="@{vm.rightDeviceSensorValue}"/>

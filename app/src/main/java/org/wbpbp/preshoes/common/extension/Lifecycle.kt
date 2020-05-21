@@ -28,4 +28,3 @@ fun <T: Any, L: LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> U
 
 fun <L : LiveData<Exception>> LifecycleOwner.failure(liveData: L, body: (Exception?) -> Unit) =
     liveData.observe(this, Observer(body))
-

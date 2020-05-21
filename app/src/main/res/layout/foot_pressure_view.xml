@@ -21,15 +21,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <!-- Background -->
     <ImageView
         android:scaleType="fitCenter"
         android:id="@+id/background_foot"
-        android:layout_width="150dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/description_foot"
         android:src="@drawable/ic_foot_left"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,6 +46,9 @@
         app:layout_constraintStart_toStartOf="@id/background_foot"
         app:layout_constraintTop_toTopOf="@id/background_foot"
         app:minOpacity="0"
-        app:maxOpacity="255" />
+        app:maxOpacity="255"
+        app:maxDrawingHeight="10dp"
+        app:maxDrawingWidth="10dp"
+        app:radius="13dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

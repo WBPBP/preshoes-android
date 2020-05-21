@@ -46,6 +46,9 @@ buildscript {
     ext.battery_meter_version = '2.0.0'
     ext.cardview_version = '1.0.0'
     ext.heatmap_version = '1.1.1'
+    ext.material_version = '1.2.0-alpha06'
+    ext.stepview_version = '1.5.1'
+    ext.preference_version = '1.1.1'
 
     repositories {
         google()

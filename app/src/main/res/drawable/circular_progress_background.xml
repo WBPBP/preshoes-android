@@ -18,31 +18,13 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:innerRadiusRatio="2.5"
+    android:thickness="5dp"
+    android:useLevel="false">
 
-    <data>
-        <variable
-            name="vm"
-            type="org.wbpbp.preshoes.feature.diagnose.DiagnoseViewModel" />
-    </data>
+    <solid android:color="#AAC0C0C0" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                layout="@layout/unified_diagnosis_section"
-                app:vm="@{vm}" />
-
-        </LinearLayout>
-
-    </ScrollView>
-</layout>
-
+</shape>
