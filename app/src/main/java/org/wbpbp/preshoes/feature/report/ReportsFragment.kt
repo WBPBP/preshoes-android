@@ -81,7 +81,7 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
         val f1 = Features(
             score = 44,
             staticHorizontalBiasMerged = 0.45,
-            walks = 582,
+            walks = 288,
             horizontalBiasVariationDuringWalkSession = listOf(0.43, 0.43, 0.43, 0.44, 0.43, 0.43, 0.43, 0.45, 0.45, 0.45),
             partialPressureVariationDuringAverageCycle = listOf(
                 listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
