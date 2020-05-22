@@ -19,7 +19,6 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.util.SingleLiveEvent
@@ -27,7 +26,7 @@ import org.wbpbp.preshoes.util.SingleLiveEvent
 class DiagnoseViewModel : ViewModel() {
     val navigateEvent = SingleLiveEvent<Int>()
 
-    fun startUnifiedDiagnosis(view: View) {
+    fun startUnifiedDiagnosis() {
         navigateEvent.postValue(R.id.action_unified_diagnosis)
     }
 }

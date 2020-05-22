@@ -57,7 +57,7 @@
                 style="@style/BigButton"
                 android:layout_width="match_parent"
                 android:text="@string/button_start_diagnose"
-                android:onClick="@{vm::startUnifiedDiagnosis}"/>
+                android:onClick="@{() -> vm.startUnifiedDiagnosis()}"/>
 
         </LinearLayout>
 
