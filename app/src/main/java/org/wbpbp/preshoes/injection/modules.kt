@@ -48,8 +48,9 @@ val myModules = module {
      ****************/
     single {
         SensorDeviceServiceImpl(
-            connectionRepo = get(),
-            stateRepo = get()
+            deviceConnectionRepo = get(),
+            deviceStateRepo = get(),
+            bluetoothHelper = get()
         ) as SensorDeviceService
     }
 

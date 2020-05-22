@@ -20,20 +20,9 @@
 package org.wbpbp.preshoes.repository
 
 import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.Sample
 
-interface SensorDeviceStateRepository {
+interface SystemStateRepository {
     // Need to be set from activity.
 
-    val isLeftDeviceConnected: MutableLiveData<Boolean>
-    val isRightDeviceConnected: MutableLiveData<Boolean>
-
-    val leftDeviceSensorValue: MutableLiveData<Sample>
-    val rightDeviceSensorValue: MutableLiveData<Sample>
-
-    val isLeftDeviceCharging: MutableLiveData<Boolean>
-    val isRightDeviceCharging: MutableLiveData<Boolean>
-
-    val leftDeviceBatteryLevel: MutableLiveData<Int>
-    val rightDeviceBatteryLevel: MutableLiveData<Int>
+    val isBluetoothEnabled: MutableLiveData<Boolean>
 }

@@ -24,6 +24,6 @@ interface SensorDeviceService {
     fun enterRandomState()
 
 
-    fun connectLeftSensorDevice(deviceName: String)
-    fun connectRightSensorDevice(deviceName: String)
+    fun connectLeftSensorDevice(deviceName: String): Boolean
+    fun connectRightSensorDevice(deviceName: String): Boolean
 }

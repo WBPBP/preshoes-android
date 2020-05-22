@@ -17,23 +17,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.helper
 
-import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.Sample
+import android.bluetooth.BluetoothSocket
 
-interface SensorDeviceStateRepository {
-    // Need to be set from activity.
-
-    val isLeftDeviceConnected: MutableLiveData<Boolean>
-    val isRightDeviceConnected: MutableLiveData<Boolean>
-
-    val leftDeviceSensorValue: MutableLiveData<Sample>
-    val rightDeviceSensorValue: MutableLiveData<Sample>
-
-    val isLeftDeviceCharging: MutableLiveData<Boolean>
-    val isRightDeviceCharging: MutableLiveData<Boolean>
-
-    val leftDeviceBatteryLevel: MutableLiveData<Int>
-    val rightDeviceBatteryLevel: MutableLiveData<Int>
+interface BluetoothHelper {
+    fun connectDeviceByName(deviceName: String): BluetoothSocket?
 }
