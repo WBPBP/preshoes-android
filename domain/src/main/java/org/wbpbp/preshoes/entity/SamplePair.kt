@@ -17,17 +17,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.diagnose
+package org.wbpbp.preshoes.entity
 
-import android.view.View
-import androidx.lifecycle.ViewModel
-import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.util.SingleLiveEvent
-
-class DiagnoseViewModel : ViewModel() {
-    val navigateEvent = SingleLiveEvent<Int>()
-
-    fun startUnifiedDiagnosis(view: View) {
-        navigateEvent.postValue(R.id.action_unified_diagnosis)
-    }
-}
+data class SamplePair(
+    val id: Int,
+    val left: Sample,
+    val right: Sample
+)
