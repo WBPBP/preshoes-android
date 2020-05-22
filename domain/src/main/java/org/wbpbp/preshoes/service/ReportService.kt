@@ -17,25 +17,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.report
+package org.wbpbp.preshoes.service
 
-import android.view.View
-import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.base.BaseFragment
-import org.wbpbp.preshoes.common.extension.getViewModel
-import org.wbpbp.preshoes.common.extension.setToolbar
-import org.wbpbp.preshoes.databinding.ReportFragmentBinding
+import org.wbpbp.preshoes.entity.Features
 
-class ReportFragment : BaseFragment<ReportFragmentBinding>() {
-    override val viewModel: ReportViewModel by getViewModel()
-
-    override fun getLayoutRes() = R.layout.report_fragment
-
-    override fun initView(root: View) {
-        setToolbar(R.id.toolbar_report, R.menu.menu_report)
-    }
-
-    override fun initBinding(binding: ReportFragmentBinding) {
-        binding.vm = viewModel
-    }
+interface ReportService {
+    fun createReport(recordId: Int): Int?
+    fun insertFeaturesAndCreateReport(features: Features): Int?
 }

@@ -17,11 +17,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.extension
+package org.wbpbp.preshoes.entity
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-
-fun <T: Any?, L: LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
-    liveData.observe(this, Observer(body))
+data class Features(
+    val score: Int,
+    val staticHorizontalBiasMerged: Double,
+    val walks: Int,
+    val horizontalBiasVariationDuringWalkSession: List<Double>, // 1 sample per 30 seconds
+    val partialPressureVariationDuringAverageCycle: List<List<Int>> // 10 samples each
+)

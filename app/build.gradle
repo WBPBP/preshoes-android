@@ -91,6 +91,9 @@ dependencies {
     /** 설정 */
     implementation "androidx.preference:preference:$preference_version"
 
+    /** 차트 */
+    implementation "com.github.PhilJay:MPAndroidChart:$chart_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":data")

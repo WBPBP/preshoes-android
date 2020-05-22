@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
+  ~
+  ~ This file is part of Preshoes (https://github.com/WBPBP).
+  ~
+  ~ Preshoes is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Preshoes is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="report"
+            type="org.wbpbp.preshoes.entity.Report" />
+        
+        <variable
+            name="vm"
+            type="org.wbpbp.preshoes.feature.report.ReportsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{(view) -> vm.showReportDetail(report)}"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Date and time -->
+        <TextView
+            style="@style/TextPrimary"
+            android:id="@+id/datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{report.date.toLocaleString()}"
+            tools:text="2020년 5월 14일 오전 10시 30분" />
+
+        <!-- Duration -->
+        <TextView
+            style="@style/TextPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="12dp"
+            android:text="@{report.duration.toMinutes() + `분`}"
+            tools:text="3분" />
+
+        <!-- Horizontal bias balance -->
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/balance_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/datetime">
+
+            <!-- Content -->
+            <TextView
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:id="@+id/horizontal_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/datetime"
+                android:text="@{report.features.score + `%`}"
+                tools:text="44%" />
+
+            <!-- Label -->
+            <TextView
+                android:textColor="?android:attr/colorPrimary"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_score" />
+
+        </LinearLayout>
+
+        <!-- Walks -->
+        <LinearLayout
+            android:layout_marginStart="24dp"
+            android:padding="12dp"
+            android:id="@+id/walks_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/balance_group"
+            app:layout_constraintTop_toBottomOf="@id/datetime"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- Content -->
+            <TextView
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:id="@+id/walks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/datetime"
+                android:text="@{`` + report.features.walks}"
+                tools:text="198" />
+
+            <!-- Label -->
+            <TextView
+                android:textColor="?android:attr/colorPrimary"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_walks"/>
+
+        </LinearLayout>
+
+        <!-- Arrow -->
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:tint="?android:attr/textColorPrimary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

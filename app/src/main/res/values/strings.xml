@@ -40,4 +40,12 @@
     <string name="text_please_connect_device">압력 측정을 위해 Preshoes 센서 모듈이 필요합니다. 아래 버튼을 눌러 연결하여 주세요.</string>
     <string name="title_unified_diagnosis">통합 족압 검사</string>
     <string name="description_unified_diagnosis">정적 족저압 검사와 짧은 걷기로 이루어진 검사입니다. 양 발 무게 균형, 보행 시 발 각도 등 다양한 특징을 진단할 수 있습니다.</string>
+    <string name="description_horizontal_bias">양 발 중심 편향</string>
+    <string name="description_score">바른 걸음걸이</string>
+    <string name="description_walks">걸음</string>
+    <string name="title_details">상세 보기</string>
+    <string name="title_horizontal_bias_variation">수평 무게 중심 변화</string>
+    <string name="title_static_horizontal_bias">정적 압력 분포 가로 편향</string>
+    <string name="description_elapsed_time">소요 시간</string>
+    <string name="description_measure_date">측정 일자</string>
 </resources>

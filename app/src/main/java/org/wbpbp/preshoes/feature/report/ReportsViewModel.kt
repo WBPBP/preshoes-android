@@ -17,11 +17,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.extension
+package org.wbpbp.preshoes.feature.report
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import org.wbpbp.preshoes.common.util.SingleLiveEvent
+import org.wbpbp.preshoes.entity.Report
 
-fun <T: Any?, L: LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
-    liveData.observe(this, Observer(body))
+class ReportsViewModel : ViewModel() {
+    val reportClickEvent = SingleLiveEvent<Report>()
+
+    fun showReportDetail(report: Report) {
+        reportClickEvent.postValue(report)
+    }
+}

@@ -34,7 +34,7 @@ class SensorDeviceServiceImpl(
     override fun enterRandomState() {
         with(stateRepo) {
             isRightDeviceConnected.postValue(true)
-            isLeftDeviceConnected.postValue(base % 200 > 100)
+            isLeftDeviceConnected.postValue(/*base % 200 > 100*/true)
 
             leftDeviceBatteryLevel.postValue(45)
             rightDeviceBatteryLevel.postValue(67)
