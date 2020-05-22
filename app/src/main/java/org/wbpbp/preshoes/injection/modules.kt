@@ -21,12 +21,18 @@ package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
 import org.wbpbp.preshoes.common.navigation.Navigator
+import org.wbpbp.preshoes.helper.BluetoothHelper
+import org.wbpbp.preshoes.helper.BluetoothHelperImpl
+import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.repository.SystemStateRepository
 import org.wbpbp.preshoes.service.SensorDeviceService
 import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
+import org.wbpbp.preshoes.storage.SampleRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceConnectionRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
+import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
 
 val myModules = module {
 
@@ -43,6 +49,14 @@ val myModules = module {
      * Use Case
      ****************/
 
+
+    /****************
+     * Helper
+     ****************/
+    single {
+        BluetoothHelperImpl() as BluetoothHelper
+    }
+
     /****************
      * Service
      ****************/
@@ -58,10 +72,20 @@ val myModules = module {
      * Repository
      ****************/
     single {
+        SampleRepositoryImpl(
+            sensorDeviceStateRepo = get()
+        ) as SampleRepository
+    }
+
+    single {
         SensorDeviceConnectionRepositoryImpl() as SensorDeviceConnectionRepository
     }
 
     single {
         SensorDeviceStateRepositoryImpl() as SensorDeviceStateRepository
+    }
+
+    single {
+        SystemStateRepositoryImpl() as SystemStateRepository
     }
 }

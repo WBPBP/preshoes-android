@@ -60,6 +60,8 @@ class SensorDeviceServiceImpl(
         }
     }
 
+
+
     override fun connectLeftSensorDevice(deviceName: String): Boolean {
         val socket = bluetoothHelper.connectDeviceByName(deviceName)
         if (socket == null) {
