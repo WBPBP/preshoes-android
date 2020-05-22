@@ -19,9 +19,13 @@
 
 package org.wbpbp.preshoes.repository
 
+import androidx.lifecycle.LiveData
 import org.wbpbp.preshoes.entity.SamplePair
 
 interface SampleRepository {
     fun startRecording()
     fun finishRecording(): List<SamplePair>
+
+    fun isRecording(): Boolean
+    fun isRecordingLiveData(): LiveData<Boolean>
 }

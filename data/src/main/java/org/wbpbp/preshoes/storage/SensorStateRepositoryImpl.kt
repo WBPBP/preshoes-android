@@ -36,23 +36,23 @@ class SensorStateRepositoryImpl : SensorStateRepository {
     private val _leftDeviceBatteryLevel = MutableLiveData<Int>()
     private val _rightDeviceBatteryLevel = MutableLiveData<Int>()
 
-    override val isLeftDeviceConnected: MutableLiveData<Boolean>
+    override val isLeftDeviceConnected
         get() = _isLeftDeviceConnected
-    override val isRightDeviceConnected: MutableLiveData<Boolean>
+    override val isRightDeviceConnected
         get() = _isRightDeviceConnected
 
-    override val leftDeviceSensorValue: MutableLiveData<Sample>
+    override val leftDeviceSensorValue
         get() = _leftDeviceSensorValue
-    override val rightDeviceSensorValue: MutableLiveData<Sample>
+    override val rightDeviceSensorValue
         get() = _rightDeviceSensorValue
 
-    override val isLeftDeviceCharging: MutableLiveData<Boolean>
+    override val isLeftDeviceCharging
         get() = _isLeftDeviceCharging
-    override val isRightDeviceCharging: MutableLiveData<Boolean>
+    override val isRightDeviceCharging
         get() = _isRightDeviceCharging
 
-    override val leftDeviceBatteryLevel: MutableLiveData<Int>
+    override val leftDeviceBatteryLevel
         get() = _leftDeviceBatteryLevel
-    override val rightDeviceBatteryLevel: MutableLiveData<Int>
+    override val rightDeviceBatteryLevel
         get() = _rightDeviceBatteryLevel
 }

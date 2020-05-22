@@ -19,6 +19,7 @@
 
 package org.wbpbp.preshoes.storage
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.SampleRepository
@@ -45,33 +46,37 @@ class SampleRepositoryImpl(
     }
 
     private val observer = Observer<SamplePair?> { pair ->
-        pair?.takeIf { state.isRecording }?.let(accumulatedSamplePairs::add)
+        pair?.takeIf { state.isRecording.value == true }?.let(accumulatedSamplePairs::add)
     }
 
     override fun startRecording() {
-        if (state.isRecording) {
+        if (state.isRecording.value == true) {
             Timber.d("Already in recording.")
         }
 
-        state.isRecording = true
+        state.isRecording.postValue(true)
 
         samplePairsLiveData.observeForever(observer)
     }
 
     override fun finishRecording(): List<SamplePair> {
-        if (!state.isRecording) {
+        if (state.isRecording.value == false) {
             return listOf()
         }
 
-        state.isRecording = false
+        state.isRecording.postValue(false)
 
         samplePairsLiveData.removeObserver(observer)
 
         return accumulatedSamplePairs
     }
 
+    override fun isRecording() = state.isRecording.value == true
+
+    override fun isRecordingLiveData() = state.isRecording
+
     inner class State(
-        var isRecording: Boolean = false,
+        val isRecording: MutableLiveData<Boolean> = MutableLiveData(false),
         var lastId: Int = INITIAL_ID
     )
 
