@@ -25,7 +25,7 @@ import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.util.CombinedLiveData
-import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorStateRepository
 
 class HomeViewModel : BaseViewModel() {
@@ -50,8 +50,8 @@ class HomeViewModel : BaseViewModel() {
     val isLeftDeviceConnected: LiveData<Boolean> = sensorStateRepo.isLeftDeviceConnected
     val isRightDeviceConnected: LiveData<Boolean> = sensorStateRepo.isRightDeviceConnected
 
-    val leftDeviceSensorValue: LiveData<FootPressure> = sensorStateRepo.leftDeviceSensorValue
-    val rightDeviceSensorValue: LiveData<FootPressure> = sensorStateRepo.rightDeviceSensorValue
+    val leftDeviceSensorValue: LiveData<Sample> = sensorStateRepo.leftDeviceSensorValue
+    val rightDeviceSensorValue: LiveData<Sample> = sensorStateRepo.rightDeviceSensorValue
 
     val isLeftBatteryCharging = CombinedLiveData(
         sensorStateRepo.isLeftDeviceConnected,

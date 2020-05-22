@@ -19,19 +19,4 @@
 
 package org.wbpbp.preshoes.entity
 
-data class FootPressure(val values: IntArray) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as FootPressure
-
-        if (!values.contentEquals(other.values)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return values.contentHashCode()
-    }
-}
+data class Sample(val values: List<Int>)

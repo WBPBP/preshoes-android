@@ -20,15 +20,15 @@
 package org.wbpbp.preshoes.storage
 
 import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorStateRepository
 
 class SensorStateRepositoryImpl : SensorStateRepository {
     private val _isLeftDeviceConnected = MutableLiveData<Boolean>()
     private val _isRightDeviceConnected = MutableLiveData<Boolean>()
 
-    private val _leftDeviceSensorValue = MutableLiveData<FootPressure>()
-    private val _rightDeviceSensorValue = MutableLiveData<FootPressure>()
+    private val _leftDeviceSensorValue = MutableLiveData<Sample>()
+    private val _rightDeviceSensorValue = MutableLiveData<Sample>()
 
     private val _isLeftDeviceCharging = MutableLiveData<Boolean>()
     private val _isRightDeviceCharging = MutableLiveData<Boolean>()
@@ -41,9 +41,9 @@ class SensorStateRepositoryImpl : SensorStateRepository {
     override val isRightDeviceConnected: MutableLiveData<Boolean>
         get() = _isRightDeviceConnected
 
-    override val leftDeviceSensorValue: MutableLiveData<FootPressure>
+    override val leftDeviceSensorValue: MutableLiveData<Sample>
         get() = _leftDeviceSensorValue
-    override val rightDeviceSensorValue: MutableLiveData<FootPressure>
+    override val rightDeviceSensorValue: MutableLiveData<Sample>
         get() = _rightDeviceSensorValue
 
     override val isLeftDeviceCharging: MutableLiveData<Boolean>

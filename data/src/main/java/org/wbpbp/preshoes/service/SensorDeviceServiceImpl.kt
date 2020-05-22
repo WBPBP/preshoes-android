@@ -19,7 +19,7 @@
 
 package org.wbpbp.preshoes.service
 
-import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorConnectionRepository
 import org.wbpbp.preshoes.repository.SensorStateRepository
 
@@ -47,8 +47,8 @@ class SensorDeviceServiceImpl(
         }
     }
 
-    private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%16}).also {
+    private fun getRandomFootPressureValue(): Sample {
+        return Sample(IntArray(12) {base%16}).also {
             base++
         }
     }
