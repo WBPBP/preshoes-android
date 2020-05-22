@@ -19,14 +19,47 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import org.koin.core.inject
+import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.base.BaseViewModel
+import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 
-class UnifiedDiagnosisViewModel : ViewModel() {
-    val _progressMax = MutableLiveData<Int>(100)
+class UnifiedDiagnosisViewModel : BaseViewModel() {
+    private val context: Context by inject()
+    private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
+
+    val isLeftDeviceConnected: LiveData<Boolean> = sensorDeviceStateRepo.isLeftDeviceConnected
+    val isRightDeviceConnected: LiveData<Boolean> = sensorDeviceStateRepo.isRightDeviceConnected
+
+    val leftDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.leftDeviceSensorValue
+    val rightDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.rightDeviceSensorValue
+
+    private val _phase = MutableLiveData<Int>(0)
+    val phase: LiveData<Int> = _phase
+
+    private val _progressMax = MutableLiveData<Int>(100)
     val progressMax: LiveData<Int> = _progressMax
 
-    val _progress = MutableLiveData<Int>(100)
+    private val _progress = MutableLiveData<Int>(100)
     val progress: LiveData<Int> = _progress
+
+    private val _helperText = MutableLiveData<String>(context.getString(R.string.description_please_be_ready))
+    val helperText: LiveData<String> = _helperText
+
+    private val _isRunning = MutableLiveData<Boolean>(false)
+    val isRunning: LiveData<Boolean> = _isRunning
+
+    fun onCenterButtonClick() {
+
+    }
+
+    private fun render() {
+        if (isRunning.value == true) {
+
+        }
+    }
 }

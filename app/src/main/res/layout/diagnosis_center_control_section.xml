@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
+  ~
+  ~ This file is part of Preshoes (https://github.com/WBPBP).
+  ~
+  ~ Preshoes is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Preshoes is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.wbpbp.preshoes.feature.diagnose.UnifiedDiagnosisViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/center_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Left -->
+        <org.wbpbp.preshoes.common.widget.FootPressureView
+            android:id="@+id/pressure_view_left"
+            android:layout_width="150dp"
+            android:layout_height="280dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/pressure_view_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:side="left"
+            app:available="@{vm.isLeftDeviceConnected}"
+            app:sensorValue="@{vm.leftDeviceSensorValue}"/>
+
+        <!-- Start button -->
+        <Button
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="22sp"
+            android:text="시작"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintStart_toStartOf="@id/progress_ring"
+            app:layout_constraintEnd_toEndOf="@id/progress_ring"
+            app:layout_constraintBottom_toBottomOf="@id/progress_ring"
+            app:layout_constraintTop_toTopOf="@id/progress_ring" />
+
+        <!-- Progress ring -->
+        <ProgressBar
+            android:id="@+id/progress_ring"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/circular_progress_background"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.8"
+            android:max="@{vm.progressMax}"
+            android:progress="@{vm.progress}"
+            tools:progress="100"/>
+
+        <!-- Right -->
+        <org.wbpbp.preshoes.common.widget.FootPressureView
+            android:id="@+id/pressure_view_right"
+            android:layout_width="150dp"
+            android:layout_height="280dp"
+            app:layout_constraintStart_toEndOf="@id/pressure_view_left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:side="right"
+            app:available="@{vm.isRightDeviceConnected}"
+            app:sensorValue="@{vm.rightDeviceSensorValue}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

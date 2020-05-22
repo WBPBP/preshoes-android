@@ -19,8 +19,7 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -33,116 +32,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Phase view -->
-        <com.shuhart.stepview.StepView
-            android:id="@+id/diagnosis_phase_view"
-            android:padding="16dp"
+        <!-- Title section -->
+        <include
+            android:id="@+id/title_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/diagnosis_title_section"
+            app:vm="@{vm}" />
 
-            app:sv_steps="@array/unified_diagnosis_steps"
-
-            app:sv_doneCircleColor="?android:attr/colorAccent"
-            app:sv_doneStepLineColor="?android:attr/colorAccent"
-            app:sv_doneTextColor="?android:attr/textColorPrimary"
-            app:sv_doneCircleRadius="12dp"
-
-            app:sv_selectedCircleColor="?android:attr/colorAccent"
-            app:sv_selectedTextColor="?android:attr/colorAccent"
-            app:sv_selectedCircleRadius="12dp"
-            app:sv_selectedStepNumberColor="?android:attr/textColorPrimary"
-
-            app:sv_nextStepLineColor="?android:attr/colorAccent"
-            app:sv_nextTextColor="?android:attr/textColorPrimary"
-
-            app:sv_stepViewStyle="@style/StepView"
-            app:sv_doneStepMarkColor="?android:attr/colorAccent"
-            app:sv_stepNumberTextSize="16sp"
-            app:sv_textSize="16sp"
-            app:sv_animationType="Line" />
-
-        <!-- Center foot pressure and button view -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/center_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <!-- Left -->
-            <org.wbpbp.preshoes.common.widget.FootPressureView
-                android:id="@+id/pressure_view_left"
-                android:layout_width="150dp"
-                android:layout_height="280dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/pressure_view_right"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:side="left" />
-
-            <!-- Start button -->
-            <Button
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="22sp"
-                android:text="시작"
-                android:background="?selectableItemBackgroundBorderless"
-                app:layout_constraintStart_toStartOf="@id/progress_ring"
-                app:layout_constraintEnd_toEndOf="@id/progress_ring"
-                app:layout_constraintBottom_toBottomOf="@id/progress_ring"
-                app:layout_constraintTop_toTopOf="@id/progress_ring" />
-
-            <!-- Progress ring -->
-            <ProgressBar
-                android:id="@+id/progress_ring"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:background="@drawable/circular_progress_background"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.8"
-                android:max="@{vm.progressMax}"
-                android:progress="@{vm.progress}"
-                tools:progress="100"/>
-
-            <!-- Right -->
-            <org.wbpbp.preshoes.common.widget.FootPressureView
-                android:id="@+id/pressure_view_right"
-                android:layout_width="150dp"
-                android:layout_height="280dp"
-                app:layout_constraintStart_toEndOf="@id/pressure_view_left"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:side="right" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:layout_marginTop="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            style="@style/TextPrimary"
+        <!-- Center section-->
+        <include
+            android:id="@+id/center_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/center_view"
-            android:text="두 발로 바르게 선 뒤 시작 버튼을 눌러 주세요." />
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/diagnosis_center_control_section"
+            app:vm="@{vm}" />
+
+        <!-- Information section -->
+        <include
+            android:id="@+id/info_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/center_section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            layout="@layout/diagnosis_information_section"
+            app:vm="@{vm}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

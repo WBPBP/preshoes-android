@@ -19,11 +19,11 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-import androidx.lifecycle.ViewModel
 import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.util.SingleLiveEvent
 
-class DiagnoseViewModel : ViewModel() {
+class DiagnoseViewModel : BaseViewModel() {
     val navigateEvent = SingleLiveEvent<Int>()
 
     fun startUnifiedDiagnosis() {
