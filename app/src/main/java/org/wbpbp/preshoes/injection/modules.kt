@@ -21,12 +21,12 @@ package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
 import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.repository.SensorConnectionRepository
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.service.SensorDeviceService
 import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
-import org.wbpbp.preshoes.storage.SensorConnectionRepositoryImpl
-import org.wbpbp.preshoes.storage.SensorStateRepositoryImpl
+import org.wbpbp.preshoes.storage.SensorDeviceConnectionRepositoryImpl
+import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 
 val myModules = module {
 
@@ -57,10 +57,10 @@ val myModules = module {
      * Repository
      ****************/
     single {
-        SensorConnectionRepositoryImpl() as SensorConnectionRepository
+        SensorDeviceConnectionRepositoryImpl() as SensorDeviceConnectionRepository
     }
 
     single {
-        SensorStateRepositoryImpl() as SensorStateRepository
+        SensorDeviceStateRepositoryImpl() as SensorDeviceStateRepository
     }
 }

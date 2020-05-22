@@ -23,20 +23,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.SampleRepository
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.util.CombinedLiveData
 import timber.log.Timber
 
 class SampleRepositoryImpl(
-    sensorStateRepo: SensorStateRepository
+    sensorDeviceStateRepo: SensorDeviceStateRepository
 ) : SampleRepository {
 
     private val state = State()
     private val accumulatedSamplePairs: MutableList<SamplePair> = mutableListOf()
 
     private val samplePairsLiveData = CombinedLiveData(
-        sensorStateRepo.leftDeviceSensorValue,
-        sensorStateRepo.rightDeviceSensorValue
+        sensorDeviceStateRepo.leftDeviceSensorValue,
+        sensorDeviceStateRepo.rightDeviceSensorValue
     ) { leftSample, rightSample ->
         leftSample?.let { left ->
             rightSample?.let { right ->

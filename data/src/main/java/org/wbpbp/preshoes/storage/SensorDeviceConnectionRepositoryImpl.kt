@@ -19,7 +19,7 @@
 
 package org.wbpbp.preshoes.storage
 
-import org.wbpbp.preshoes.repository.SensorConnectionRepository
+import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
 
-class SensorConnectionRepositoryImpl : SensorConnectionRepository {
+class SensorDeviceConnectionRepositoryImpl : SensorDeviceConnectionRepository {
 }

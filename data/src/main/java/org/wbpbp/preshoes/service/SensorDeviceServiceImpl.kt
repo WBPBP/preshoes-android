@@ -20,19 +20,19 @@
 package org.wbpbp.preshoes.service
 
 import org.wbpbp.preshoes.entity.Sample
-import org.wbpbp.preshoes.repository.SensorConnectionRepository
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 
 class SensorDeviceServiceImpl(
-    private val connectionRepo: SensorConnectionRepository,
-    private val stateRepo: SensorStateRepository
+    private val deviceConnectionRepo: SensorDeviceConnectionRepository,
+    private val deviceStateRepo: SensorDeviceStateRepository
 ) : SensorDeviceService {
 
     // TODO remove these all after test
     private var base: Int = 0
 
     override fun enterRandomState() {
-        with(stateRepo) {
+        with(deviceStateRepo) {
             isRightDeviceConnected.postValue(true)
             isLeftDeviceConnected.postValue(/*base % 200 > 100*/true)
 

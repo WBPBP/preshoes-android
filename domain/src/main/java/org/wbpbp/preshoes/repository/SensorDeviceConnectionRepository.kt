@@ -19,5 +19,5 @@
 
 package org.wbpbp.preshoes.repository
 
-interface SensorConnectionRepository {
+interface SensorDeviceConnectionRepository {
 }

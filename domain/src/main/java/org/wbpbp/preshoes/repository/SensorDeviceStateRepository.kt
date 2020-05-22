@@ -22,7 +22,7 @@ package org.wbpbp.preshoes.repository
 import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
 
-interface SensorStateRepository {
+interface SensorDeviceStateRepository {
     val isLeftDeviceConnected: MutableLiveData<Boolean>
     val isRightDeviceConnected: MutableLiveData<Boolean>
 

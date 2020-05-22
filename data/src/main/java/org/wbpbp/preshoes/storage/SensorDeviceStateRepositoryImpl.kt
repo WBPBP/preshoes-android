@@ -21,9 +21,9 @@ package org.wbpbp.preshoes.storage
 
 import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 
-class SensorStateRepositoryImpl : SensorStateRepository {
+class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
     private val _isLeftDeviceConnected = MutableLiveData<Boolean>()
     private val _isRightDeviceConnected = MutableLiveData<Boolean>()
 

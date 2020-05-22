@@ -22,4 +22,8 @@ package org.wbpbp.preshoes.service
 interface SensorDeviceService {
     // TODO
     fun enterRandomState()
+
+
+    fun connectLeftSensorDevice(deviceName: String)
+    fun connectRightSensorDevice(deviceName: String)
 }
