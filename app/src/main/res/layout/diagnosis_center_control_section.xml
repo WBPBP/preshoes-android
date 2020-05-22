@@ -56,12 +56,15 @@
             android:layout_height="115dp"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="22sp"
-            android:text="시작"
+            android:enabled="@{!vm.isOnGoing}"
+            android:text="@{vm.centerButtonText}"
+            android:onClick="@{() -> vm.onCenterButtonClick()}"
             android:background="?selectableItemBackgroundBorderless"
             app:layout_constraintStart_toStartOf="@id/progress_ring"
             app:layout_constraintEnd_toEndOf="@id/progress_ring"
             app:layout_constraintBottom_toBottomOf="@id/progress_ring"
-            app:layout_constraintTop_toTopOf="@id/progress_ring" />
+            app:layout_constraintTop_toTopOf="@id/progress_ring"
+            tools:text="@string/button_start" />
 
         <!-- Progress ring -->
         <ProgressBar

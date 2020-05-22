@@ -41,24 +41,14 @@
 
             app:sv_steps="@array/unified_diagnosis_steps"
 
-            app:sv_doneCircleColor="?android:attr/colorAccent"
-            app:sv_doneStepLineColor="?android:attr/colorAccent"
-            app:sv_doneTextColor="?android:attr/textColorPrimary"
-            app:sv_doneCircleRadius="12dp"
-
-            app:sv_selectedCircleColor="?android:attr/colorAccent"
-            app:sv_selectedTextColor="?android:attr/colorAccent"
-            app:sv_selectedCircleRadius="12dp"
+            app:sv_doneCircleColor="?android:attr/colorPrimary"
+            app:sv_doneStepMarkColor="?android:attr/textColorPrimary"
+            app:sv_selectedCircleColor="?android:attr/colorPrimary"
             app:sv_selectedStepNumberColor="?android:attr/textColorPrimary"
 
-            app:sv_nextStepLineColor="?android:attr/colorAccent"
-            app:sv_nextTextColor="?android:attr/textColorPrimary"
-
-            app:sv_stepViewStyle="@style/StepView"
-            app:sv_doneStepMarkColor="?android:attr/colorAccent"
-            app:sv_stepNumberTextSize="16sp"
             app:sv_textSize="16sp"
             app:sv_animationType="Line"
+            app:sv_animationDuration="200"
 
             app:phase="@{vm.phase}"/>
 

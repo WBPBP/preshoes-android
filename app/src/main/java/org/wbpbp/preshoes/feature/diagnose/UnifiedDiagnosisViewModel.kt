@@ -20,6 +20,7 @@
 package org.wbpbp.preshoes.feature.diagnose
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.koin.core.inject
@@ -27,10 +28,13 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.SingleLiveEvent
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
+
+    val navigateUpEvent = SingleLiveEvent<Unit>()
 
     val isLeftDeviceConnected: LiveData<Boolean> = sensorDeviceStateRepo.isLeftDeviceConnected
     val isRightDeviceConnected: LiveData<Boolean> = sensorDeviceStateRepo.isRightDeviceConnected
@@ -50,16 +54,51 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val _helperText = MutableLiveData<String>(context.getString(R.string.description_please_be_ready))
     val helperText: LiveData<String> = _helperText
 
-    private val _isRunning = MutableLiveData<Boolean>(false)
-    val isRunning: LiveData<Boolean> = _isRunning
+    private val _isOnGoing = MutableLiveData<Boolean>(false)
+    val isOnGoing: LiveData<Boolean> = _isOnGoing
+
+    private val _centerButtonText = MutableLiveData<String>(context.getString(R.string.button_start))
+    val centerButtonText: LiveData<String> = _centerButtonText
 
     fun onCenterButtonClick() {
-
-    }
-
-    private fun render() {
-        if (isRunning.value == true) {
-
+        if (_isOnGoing.value == true) {
+            stopDiagnosis()
+        } else {
+            startDiagnosis()
         }
     }
+
+    private fun startDiagnosis() {
+        _isOnGoing.postValue(true)
+        _centerButtonText.postValue(str(R.string.button_finish))
+
+        goToNextPhase()
+        startTimer()
+    }
+
+    private fun stopDiagnosis() {
+        _isOnGoing.postValue(false)
+        _centerButtonText.postValue(str(R.string.button_start))
+
+        stopTimer()
+        navigateUp()
+    }
+
+    private fun goToNextPhase() {
+        _phase.postValue((_phase.value ?: 0) + 1)
+    }
+
+    private fun startTimer() {
+
+    }
+
+    private fun stopTimer() {
+
+    }
+
+    private fun navigateUp() {
+
+    }
+
+    private fun str(@StringRes id: Int) = context.getString(id)
 }
