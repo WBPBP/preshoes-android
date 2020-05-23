@@ -58,6 +58,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    testImplementation "junit:junit:$junit_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":common")

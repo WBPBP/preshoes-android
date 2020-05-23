@@ -102,8 +102,19 @@ class SensorDeviceServiceImpl(
     }
 
     private fun whenReceivedSomethingFromSocketThenDoThis(socket: BluetoothSocket, body: (ByteArray) -> Any?) {
-        val toDoWhenNewThreadIsLaunched = Runnable {
+
+        val toDoWhenNewThreadIsLaunched = {
+            // TODO for display
+            val generator = FakeDataGenerator()
+
+
             while (true) {
+                // TODO for display
+                Handler(Looper.getMainLooper()).post { body(generator.getNextFake()) }
+
+                Thread.sleep(100)
+                continue
+
                 if (!socket.isConnected) {
                     break
                 }
@@ -118,12 +129,21 @@ class SensorDeviceServiceImpl(
 
                     break
                 }
+
             }
 
             Timber.i("Background runnable is done.")
         }
 
-        Thread(toDoWhenNewThreadIsLaunched).start()
+        val runnable = Runnable {
+            try {
+                toDoWhenNewThreadIsLaunched()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        Thread(runnable).start()
     }
 
     private fun readRawData(inputStream: InputStream, delimiter: Byte): ByteArray {

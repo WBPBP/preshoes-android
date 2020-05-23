@@ -57,7 +57,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testApi "junit:junit:$junit_version"
     androidTestApi "androidx.test.ext:junit:$test_junit_version"
