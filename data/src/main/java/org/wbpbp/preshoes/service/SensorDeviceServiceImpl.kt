@@ -124,7 +124,7 @@ class SensorDeviceServiceImpl(
                 // TODO for display
                 Handler(Looper.getMainLooper()).post { body(generator.getNextFake(channel)) }
 
-                Thread.sleep(80)
+                Thread.sleep(100)
 /*
                 if (!socket.isConnected) {
                     break

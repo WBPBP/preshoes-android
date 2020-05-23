@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/datetime"
-                    android:text="2020년 5월 22일" />
+                    android:text="2020년 5월 23일" />
 
             </LinearLayout>
 
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/datetime"
-                        android:text="288" />
+                        android:text="39" />
 
                     <!-- Label -->
                     <TextView
@@ -314,7 +314,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/datetime"
-                        android:text="03:12" />
+                        android:text="00:20" />
 
                     <!-- Label -->
                     <TextView
