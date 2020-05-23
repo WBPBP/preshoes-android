@@ -22,6 +22,7 @@ package org.wbpbp.preshoes.service
 import android.bluetooth.BluetoothSocket
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.helper.BluetoothHelper
 import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
@@ -71,9 +72,11 @@ class SensorDeviceServiceImpl(
 
         Timber.i("Socket connected: $socket")
 
-        whenReceivedSomethingFromSocketThenDoThis(socket) { data ->
-            Timber.i(data.map { it.toInt() }.joinToString(", "))
+        whenReceivedSomethingFromSocketThenDoThis(socket) {
+            setData(it, deviceStateRepo.leftDeviceSensorValue)
         }
+
+        deviceStateRepo.isLeftDeviceConnected.postValue(true)
 
         Timber.d("Reading raw data from left sensor device, in background thread.")
 
@@ -88,8 +91,10 @@ class SensorDeviceServiceImpl(
         }
 
         whenReceivedSomethingFromSocketThenDoThis(socket) {
-            Timber.i(it.toString())
+            setData(it, deviceStateRepo.rightDeviceSensorValue)
         }
+
+        deviceStateRepo.isRightDeviceConnected.postValue(true)
 
         Timber.d("Reading raw data from right sensor device, in background thread.")
 
@@ -133,6 +138,12 @@ class SensorDeviceServiceImpl(
         }
 
         return bytes.toByteArray()
+    }
+
+    private fun setData(data: ByteArray, destination: MutableLiveData<Sample>) {
+        val sample = Sample(data.map { it.toInt() })
+
+        destination.postValue(sample)
     }
 
     companion object {
