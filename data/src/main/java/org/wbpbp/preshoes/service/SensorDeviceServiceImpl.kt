@@ -69,8 +69,10 @@ class SensorDeviceServiceImpl(
             return false
         }
 
-        whenReceivedSomethingFromSocketThenDoThis(socket) {
-            Timber.i(it.toString())
+        Timber.i("Socket connected: $socket")
+
+        whenReceivedSomethingFromSocketThenDoThis(socket) { data ->
+            Timber.i(data.map { it.toInt() }.joinToString(", "))
         }
 
         Timber.d("Reading raw data from left sensor device, in background thread.")
@@ -120,15 +122,13 @@ class SensorDeviceServiceImpl(
     }
 
     private fun readRawData(inputStream: InputStream, delimiter: Byte): ByteArray {
-        val noData = (-1).toByte()
         val bytes: MutableList<Byte> = mutableListOf()
 
         while (true) {
             inputStream
                 .read()
-                .toByte()
-                .takeIf { it != noData && it != delimiter }
-                ?.let(bytes::add)
+                .takeIf { it != -1 && it.toByte() != delimiter }
+                ?.let { bytes.add(it.toByte()) }
                 ?: break
         }
 

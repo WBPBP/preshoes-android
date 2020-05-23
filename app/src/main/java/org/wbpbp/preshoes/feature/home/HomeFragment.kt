@@ -20,7 +20,6 @@
 package org.wbpbp.preshoes.feature.home
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
@@ -56,15 +55,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val handler = Handler()
-        val runnable = object: Runnable {
-            override fun run() {
-                deviceService.enterRandomState()
-
-                handler.postDelayed(this, 200)
-            }
-        }
-
-        handler.postDelayed(runnable, 200)
+        deviceService.connectLeftSensorDevice("PreshoesLeft")
     }
 }
