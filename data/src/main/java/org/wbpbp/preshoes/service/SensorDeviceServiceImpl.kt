@@ -33,11 +33,13 @@ import java.io.InputStream
 class SensorDeviceServiceImpl(
     private val deviceConnectionRepo: SensorDeviceConnectionRepository,
     private val deviceStateRepo: SensorDeviceStateRepository,
-    private val bluetoothHelper: BluetoothHelper
+    private val bluetoothHelper: BluetoothHelper,
+    private val generator: FakeDataGenerator
 ) : SensorDeviceService {
 
     // TODO remove these all after test
     private var base: Int = 0
+    private lateinit var thread: Thread
 
     override fun enterRandomState() {
         with(deviceStateRepo) {
@@ -61,60 +63,69 @@ class SensorDeviceServiceImpl(
         }
     }
 
-
-
     override fun connectLeftSensorDevice(deviceName: String): Boolean {
-        val socket = bluetoothHelper.connectDeviceByName(deviceName)
-        if (socket == null) {
-            Timber.w("Failed to connect '${deviceName}' as left sensor device")
+        if (deviceStateRepo.isLeftDeviceConnected.value == true) {
             return false
         }
 
-        Timber.i("Socket connected: $socket")
-
-        whenReceivedSomethingFromSocketThenDoThis(socket) {
-            setData(it, deviceStateRepo.leftDeviceSensorValue)
-        }
-
-        deviceStateRepo.isLeftDeviceConnected.postValue(true)
-
-        Timber.d("Reading raw data from left sensor device, in background thread.")
-
-        return true
+        return connectSensorDevice(
+            deviceName,
+            deviceStateRepo.isLeftDeviceConnected,
+            deviceStateRepo.leftDeviceSensorValue,
+            FakeDataGenerator.CHANNEL_LEFT
+        )
     }
 
     override fun connectRightSensorDevice(deviceName: String): Boolean {
+        if (deviceStateRepo.isRightDeviceConnected.value == true) {
+            return false
+        }
+
+        return connectSensorDevice(
+            deviceName,
+            deviceStateRepo.isRightDeviceConnected,
+            deviceStateRepo.rightDeviceSensorValue,
+            FakeDataGenerator.CHANNEL_RIGHT
+        )
+    }
+
+    private fun connectSensorDevice(
+        deviceName: String,
+        connectedLiveData: MutableLiveData<Boolean>,
+        sensorValueLiveData: MutableLiveData<Sample>,
+        channel: Int
+    ): Boolean {
+        /*
         val socket = bluetoothHelper.connectDeviceByName(deviceName)
         if (socket == null) {
             Timber.w("Failed to connect '${deviceName}' as right sensor device")
             return false
         }
 
-        whenReceivedSomethingFromSocketThenDoThis(socket) {
-            setData(it, deviceStateRepo.rightDeviceSensorValue)
+         */
+
+        whenReceivedSomethingFromSocketThenDoThis(null, channel) {
+            setData(it, sensorValueLiveData)
         }
 
-        deviceStateRepo.isRightDeviceConnected.postValue(true)
+        connectedLiveData.postValue(true)
 
-        Timber.d("Reading raw data from right sensor device, in background thread.")
+        Timber.d("Reading raw data from ${deviceName}, in background thread.")
 
         return true;
     }
 
-    private fun whenReceivedSomethingFromSocketThenDoThis(socket: BluetoothSocket, body: (ByteArray) -> Any?) {
+    private fun whenReceivedSomethingFromSocketThenDoThis(socket: BluetoothSocket?, channel: Int, body: (ByteArray) -> Any?) {
 
         val toDoWhenNewThreadIsLaunched = {
             // TODO for display
-            val generator = FakeDataGenerator()
-
 
             while (true) {
                 // TODO for display
-                Handler(Looper.getMainLooper()).post { body(generator.getNextFake()) }
+                Handler(Looper.getMainLooper()).post { body(generator.getNextFake(channel)) }
 
-                Thread.sleep(100)
-                continue
-
+                Thread.sleep(80)
+/*
                 if (!socket.isConnected) {
                     break
                 }
@@ -129,7 +140,7 @@ class SensorDeviceServiceImpl(
 
                     break
                 }
-
+*/
             }
 
             Timber.i("Background runnable is done.")

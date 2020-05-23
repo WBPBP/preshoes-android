@@ -27,6 +27,7 @@ import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SystemStateRepository
+import org.wbpbp.preshoes.service.FakeDataGenerator
 import org.wbpbp.preshoes.service.SensorDeviceService
 import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
 import org.wbpbp.preshoes.storage.SampleRepositoryImpl
@@ -35,6 +36,13 @@ import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
 
 val myModules = module {
+
+    /**
+     * TODO
+     */
+    single {
+        FakeDataGenerator()
+    }
 
     /****************
      * Common
@@ -64,7 +72,8 @@ val myModules = module {
         SensorDeviceServiceImpl(
             deviceConnectionRepo = get(),
             deviceStateRepo = get(),
-            bluetoothHelper = get()
+            bluetoothHelper = get(),
+            generator = get()
         ) as SensorDeviceService
     }
 

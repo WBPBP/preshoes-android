@@ -20,12 +20,23 @@
 package org.wbpbp.preshoes.service
 
 class FakeDataGenerator {
-    private var currentPhase = 0
+    private var phase: Long = 0
 
-    fun getNextFake() = generateFake((currentPhase++) % phases)
+    var state: Int = STATE_STANDING
 
-    fun generateFake(phase: Int): ByteArray {
-        val sectionWeights = phaseToSectionWeights[phase]
+    fun getNextFake(channel: Int): ByteArray {
+        val phaseToUse = (phase++ % phaseToSectionWeights.size).toInt()
+
+        return if (state == STATE_STANDING) {
+            generateStandingFake(phaseToUse)
+        } else {
+            generateWalkingFake(phaseToUse, channel)
+        }
+    }
+
+    private fun generateWalkingFake(phase: Int, channel: Int): ByteArray {
+        val phaseChannelApplied = (phase + if (channel == CHANNEL_RIGHT) phaseToSectionWeights.size/2 else 0) % phaseToSectionWeights.size
+        val sectionWeights = phaseToSectionWeights[phaseChannelApplied]
 
         val values = Array<Byte>(values) {0}
 
@@ -40,8 +51,17 @@ class FakeDataGenerator {
         return values.toByteArray()
     }
 
+    private fun generateStandingFake(phase: Int): ByteArray {
+        return (0..11).map { 12.toByte() }.toByteArray()
+    }
+
     companion object {
-        private const val phases = 10
+        const val CHANNEL_LEFT = 0
+        const val CHANNEL_RIGHT = 1
+
+        const val STATE_STANDING = 0
+        const val STATE_WALKING = 1
+
         private const val values = 12
         private const val pressureMax = 15
 
@@ -54,15 +74,33 @@ class FakeDataGenerator {
 
         private val phaseToSectionWeights = arrayOf(
             listOf(0f, 0f, 0f, 0f),
+            listOf(0f, 0f, 0f, 0f),
+            listOf(0f, 0f, 0f, 0f),
+
+            listOf(0f, 0f, 0f, 0f),
+            listOf(0.25f, 0f, 0f, 0f),
             listOf(0.5f, 0f, 0f, 0f),
+            listOf(0.75f, 0f, 0f, 0f),
             listOf(1f, 0f, 0f, 0f),
+            listOf(1f, 0.3f, 0f, 0f),
+            listOf(1f, 0.6f, 0f, 0f),
             listOf(1f, 1f, 0f, 0f),
+            listOf(0.75f, 1f, 0.5f, 0f),
             listOf(0.5f, 1f, 1f, 0f),
 
             listOf(0f, 1f, 1f, 0.5f),
+            listOf(0f, 0.5f, 1f, 0.75f),
             listOf(0f, 0f, 1f, 1f),
+            listOf(0f, 0f, 0.6f, 1f),
+            listOf(0f, 0f, 0.3f, 1f),
             listOf(0f, 0f, 0f, 1f),
+            listOf(0f, 0f, 0f, 0.75f),
             listOf(0f, 0f, 0f, 0.5f),
+            listOf(0f, 0f, 0f, 0.25f),
+            listOf(0f, 0f, 0f, 0f),
+
+            listOf(0f, 0f, 0f, 0f),
+            listOf(0f, 0f, 0f, 0f),
             listOf(0f, 0f, 0f, 0f)
         )
     }

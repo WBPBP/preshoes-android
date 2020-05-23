@@ -56,5 +56,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         super.onActivityCreated(savedInstanceState)
 
         deviceService.connectLeftSensorDevice("PreshoesLeft")
+        deviceService.connectRightSensorDevice("PreshoesRight")
+
     }
 }
