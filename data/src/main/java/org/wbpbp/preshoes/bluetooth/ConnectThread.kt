@@ -38,6 +38,7 @@ internal class ConnectThread(
     private val onFail: () -> Any?,
     private val onCancel: () -> Any? = {}
 ) : Thread("ConnectThread-${device.name}") {
+
     private val mainHandler = Handler(Looper.getMainLooper())
     private val socket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
         SocketCreator(device).createSocket()
