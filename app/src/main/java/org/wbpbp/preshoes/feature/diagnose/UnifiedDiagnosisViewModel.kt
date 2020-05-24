@@ -83,6 +83,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
         _progressMax.postValue(duration)
         _phase.postValue(PHASE_STAND)
 
+        generator.state = FakeDataGenerator.STATE_STANDING
+
         val task = object: TimerTask() {
             override fun run() {
                 _progress.postValue(timeLeft)

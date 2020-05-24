@@ -23,6 +23,10 @@ class FakeDataGenerator {
     private var phase: Long = 0
 
     var state: Int = STATE_STANDING
+        set(value) {
+            phase = 0
+            field = value
+        }
 
     fun getNextFake(channel: Int): ByteArray {
         val phaseToUse = (phase++ % phaseToSectionWeights.size).toInt()
