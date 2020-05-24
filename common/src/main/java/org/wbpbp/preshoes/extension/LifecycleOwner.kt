@@ -17,27 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.base
+package org.wbpbp.preshoes.extension
 
-import org.wbpbp.preshoes.base.Failable
+import androidx.lifecycle.LifecycleOwner
+import org.wbpbp.preshoes.base.Failure
+import org.wbpbp.preshoes.util.Fail
 
-interface FailableHandler {
-
-    val observedFailables: MutableList<Failable>
-
-    /**
-     * What to do when some failure occur
-     */
-    fun onFail(failure: Failable.Failure)
-
-    /**
-     * Add failables to manage.
-     */
-    fun startObservingFailables(failables: List<Failable>)
-
-    /**
-     * Stop managing failables.
-     * This clears observedFailables.
-     */
-    fun stopObservingFailables()
+fun LifecycleOwner.onFail(body: (Failure, Int) -> Any?) {
+    Fail.observe(this) { failure, channel ->
+        body(failure, channel)
+    }
 }

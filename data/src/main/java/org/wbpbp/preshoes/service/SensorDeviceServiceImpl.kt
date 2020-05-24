@@ -20,9 +20,11 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.helper.BluetoothHelper
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.Fail
 import timber.log.Timber
 
 class SensorDeviceServiceImpl(
@@ -75,12 +77,20 @@ class SensorDeviceServiceImpl(
         connectedLiveData: MutableLiveData<Boolean>,
         sensorValueLiveData: MutableLiveData<Sample>
     ): Boolean {
+        if (!bluetoothHelper.isBluetoothEnabled()) {
+            Fail.usual(R.string.fail_bt_off)
+            Timber.w("Bluetooth not enabled!")
+            return false
+        }
+
         if (bluetoothHelper.isConnected(deviceName)) {
+            Fail.usual(R.string.fail_already_connected)
             Timber.w("Device $deviceName already connected!")
             return false
         }
 
         val device = bluetoothHelper.findDevice(deviceName) ?: run {
+            Fail.usual(R.string.fail_not_paired)
             Timber.w("No such device as $deviceName!")
             return false
         }
@@ -90,6 +100,7 @@ class SensorDeviceServiceImpl(
         }
 
         val onFail = {
+            Fail.usual(R.string.fail_disconnected)
             connectedLiveData.postValue(false)
         }
 
@@ -106,10 +117,5 @@ class SensorDeviceServiceImpl(
         val sample = Sample(data.map { it.toInt() })
 
         destination.postValue(sample)
-    }
-
-    companion object {
-        private const val SOCKET_LEFT = 0
-        private const val SOCKET_RIGHT = 1
     }
 }

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.wbpbp.preshoes.injection.myModules
+import org.wbpbp.preshoes.util.Fail
 import timber.log.Timber
 
 class MyApplication : Application() {
@@ -33,6 +34,7 @@ class MyApplication : Application() {
         initTimber()
         initKoin()
         setDarkMode()
+        setFail()
     }
 
     private fun initTimber() {
@@ -48,5 +50,9 @@ class MyApplication : Application() {
 
     private fun setDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+
+    private fun setFail() {
+        Fail.initialize(this)
     }
 }

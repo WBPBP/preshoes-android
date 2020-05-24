@@ -17,17 +17,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.base
+package org.wbpbp.preshoes.extension
 
-import org.wbpbp.preshoes.base.Failable
-
-/**
- * A component that has Failable inside.
- */
-interface FailableContainer {
-
-    /**
-     * List of failables to handle.
-     */
-    val failables: MutableList<Failable>
+fun Int.has(other: Int): Boolean {
+    return this.or(other) != 0
 }
