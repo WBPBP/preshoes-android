@@ -19,29 +19,8 @@
 
 package org.wbpbp.preshoes.base
 
-import androidx.annotation.StringRes
-import androidx.lifecycle.MutableLiveData
-
-/**
- * Represents a component that can fail.
- */
-interface Failable {
-
-    /**
-     * Get failure Live Data.
-     */
-    fun getFailure(): MutableLiveData<Failure>
-
-    /**
-     * Set failure Live Data.
-     */
-    fun setFailure(failure: Failure)
-
-    /**
-     * Compact.
-     * Call setFailure inside it.
-     */
-    fun fail(@StringRes message: Int, vararg formatArgs: Any?, show: Boolean = false)
-
-    data class Failure(val message: String, val show: Boolean = false)
+open class Failure(val message: String) {
+    override fun toString(): String {
+        return message
+    }
 }

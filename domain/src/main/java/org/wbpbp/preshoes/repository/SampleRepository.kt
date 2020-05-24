@@ -19,19 +19,13 @@
 
 package org.wbpbp.preshoes.repository
 
-import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.FootPressure
+import androidx.lifecycle.LiveData
+import org.wbpbp.preshoes.entity.SamplePair
 
-interface SensorStateRepository {
-    val isLeftDeviceConnected: MutableLiveData<Boolean>
-    val isRightDeviceConnected: MutableLiveData<Boolean>
+interface SampleRepository {
+    fun startRecording()
+    fun finishRecording(): List<SamplePair>
 
-    val leftDeviceSensorValue: MutableLiveData<FootPressure>
-    val rightDeviceSensorValue: MutableLiveData<FootPressure>
-
-    val isLeftDeviceCharging: MutableLiveData<Boolean>
-    val isRightDeviceCharging: MutableLiveData<Boolean>
-
-    val leftDeviceBatteryLevel: MutableLiveData<Int>
-    val rightDeviceBatteryLevel: MutableLiveData<Int>
+    fun isRecording(): Boolean
+    fun isRecordingLiveData(): LiveData<Boolean>
 }

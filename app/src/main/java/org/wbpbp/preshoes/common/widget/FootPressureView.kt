@@ -31,7 +31,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.entity.FootPressure
+import org.wbpbp.preshoes.entity.Sample
 
 class FootPressureView(context: Context, private val attrs: AttributeSet)
     : ConstraintLayout(context, attrs) {
@@ -134,7 +134,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
     /**
      * Set pressure values.
      */
-    fun setSensorValue(footPressure: FootPressure?) {
+    fun setSensorValue(footPressure: Sample?) {
         if (!available) {
             return
         }
@@ -162,7 +162,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
         }
     }
 
-    private fun getDataPoints(footPressure: FootPressure) =
+    private fun getDataPoints(footPressure: Sample) =
         footPressure.values.mapIndexed { index, value ->
             when(side) {
                 SIDE_LEFT -> sensorPointsLeft

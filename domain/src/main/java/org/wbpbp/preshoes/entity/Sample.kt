@@ -17,16 +17,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.report
+package org.wbpbp.preshoes.entity
 
-import org.wbpbp.preshoes.common.base.BaseViewModel
-import org.wbpbp.preshoes.entity.Report
-import org.wbpbp.preshoes.util.SingleLiveEvent
-
-class ReportsViewModel : BaseViewModel() {
-    val reportClickEvent = SingleLiveEvent<Report>()
-
-    fun showReportDetail(report: Report) {
-        reportClickEvent.postValue(report)
-    }
-}
+data class Sample(val values: List<Int>)

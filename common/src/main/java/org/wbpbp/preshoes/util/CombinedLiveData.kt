@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.util
+package org.wbpbp.preshoes.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

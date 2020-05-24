@@ -20,39 +20,39 @@
 package org.wbpbp.preshoes.storage
 
 import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.FootPressure
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 
-class SensorStateRepositoryImpl : SensorStateRepository {
+class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
     private val _isLeftDeviceConnected = MutableLiveData<Boolean>()
     private val _isRightDeviceConnected = MutableLiveData<Boolean>()
 
-    private val _leftDeviceSensorValue = MutableLiveData<FootPressure>()
-    private val _rightDeviceSensorValue = MutableLiveData<FootPressure>()
+    private val _leftDeviceSensorValue = MutableLiveData<Sample>()
+    private val _rightDeviceSensorValue = MutableLiveData<Sample>()
 
-    private val _isLeftDeviceCharging = MutableLiveData<Boolean>()
-    private val _isRightDeviceCharging = MutableLiveData<Boolean>()
+    private val _isLeftDeviceCharging = MutableLiveData<Boolean>(false)
+    private val _isRightDeviceCharging = MutableLiveData<Boolean>(false)
 
-    private val _leftDeviceBatteryLevel = MutableLiveData<Int>()
-    private val _rightDeviceBatteryLevel = MutableLiveData<Int>()
+    private val _leftDeviceBatteryLevel = MutableLiveData<Int>(100)
+    private val _rightDeviceBatteryLevel = MutableLiveData<Int>(91)
 
-    override val isLeftDeviceConnected: MutableLiveData<Boolean>
+    override val isLeftDeviceConnected
         get() = _isLeftDeviceConnected
-    override val isRightDeviceConnected: MutableLiveData<Boolean>
+    override val isRightDeviceConnected
         get() = _isRightDeviceConnected
 
-    override val leftDeviceSensorValue: MutableLiveData<FootPressure>
+    override val leftDeviceSensorValue
         get() = _leftDeviceSensorValue
-    override val rightDeviceSensorValue: MutableLiveData<FootPressure>
+    override val rightDeviceSensorValue
         get() = _rightDeviceSensorValue
 
-    override val isLeftDeviceCharging: MutableLiveData<Boolean>
+    override val isLeftDeviceCharging
         get() = _isLeftDeviceCharging
-    override val isRightDeviceCharging: MutableLiveData<Boolean>
+    override val isRightDeviceCharging
         get() = _isRightDeviceCharging
 
-    override val leftDeviceBatteryLevel: MutableLiveData<Int>
+    override val leftDeviceBatteryLevel
         get() = _leftDeviceBatteryLevel
-    override val rightDeviceBatteryLevel: MutableLiveData<Int>
+    override val rightDeviceBatteryLevel
         get() = _rightDeviceBatteryLevel
 }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
   ~
@@ -17,11 +18,11 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<manifest
-    package="org.wbpbp.preshoes.data"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <string name="fail_bt_off">블루투스가 비활성화되어 있습니다. 블루투스를 켜 주세요.</string>
+    <string name="fail_not_paired">기기가 페어링되지 않았습니다. 최초 페어링 후 다시 시도해 주시기 바랍니다.</string>
+    <string name="fail_already_connected">기기가 이미 연결되어 있습니다.</string>
+    <string name="fail_disconnected">신발과의 연결이 끊어졌습니다.</string>
 
-</manifest>
+</resources>

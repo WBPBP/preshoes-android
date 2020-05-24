@@ -1,6 +1,6 @@
 package org.wbpbp.preshoes.feature.report
 
-import androidx.lifecycle.ViewModel
+import org.wbpbp.preshoes.common.base.BaseViewModel
 
-class ReportDetailViewModel : ViewModel() {
+class ReportDetailViewModel : BaseViewModel() {
 }

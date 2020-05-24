@@ -19,20 +19,25 @@
 
 package org.wbpbp.preshoes.service
 
-import org.wbpbp.preshoes.entity.FootPressure
-import org.wbpbp.preshoes.repository.SensorConnectionRepository
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.data.R
+import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.helper.BluetoothHelper
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.Fail
+import timber.log.Timber
 
 class SensorDeviceServiceImpl(
-    private val connectionRepo: SensorConnectionRepository,
-    private val stateRepo: SensorStateRepository
+    private val deviceStateRepo: SensorDeviceStateRepository,
+    private val bluetoothHelper: BluetoothHelper
 ) : SensorDeviceService {
 
     // TODO remove these all after test
     private var base: Int = 0
 
+    // TODO remove these all after test
     override fun enterRandomState() {
-        with(stateRepo) {
+        with(deviceStateRepo) {
             isRightDeviceConnected.postValue(true)
             isLeftDeviceConnected.postValue(/*base % 200 > 100*/true)
 
@@ -47,9 +52,70 @@ class SensorDeviceServiceImpl(
         }
     }
 
-    private fun getRandomFootPressureValue(): FootPressure {
-        return FootPressure(IntArray(12) {base%16}).also {
+    private fun getRandomFootPressureValue(): Sample {
+        return Sample(List(12) {base%16}).also {
             base++
         }
+    }
+
+    override fun connectLeftSensorDevice(deviceName: String) =
+        connectSensorDevice(
+            deviceName,
+            deviceStateRepo.isLeftDeviceConnected,
+            deviceStateRepo.leftDeviceSensorValue
+        )
+
+    override fun connectRightSensorDevice(deviceName: String) =
+        connectSensorDevice(
+            deviceName,
+            deviceStateRepo.isRightDeviceConnected,
+            deviceStateRepo.rightDeviceSensorValue
+        )
+
+    private fun connectSensorDevice(
+        deviceName: String,
+        connectedLiveData: MutableLiveData<Boolean>,
+        sensorValueLiveData: MutableLiveData<Sample>
+    ): Boolean {
+        if (!bluetoothHelper.isBluetoothEnabled()) {
+            Fail.usual(R.string.fail_bt_off)
+            Timber.w("Bluetooth not enabled!")
+            return false
+        }
+
+        if (bluetoothHelper.isConnected(deviceName)) {
+            Fail.usual(R.string.fail_already_connected)
+            Timber.w("Device $deviceName already connected!")
+            return false
+        }
+
+        val device = bluetoothHelper.findDevice(deviceName) ?: run {
+            Fail.usual(R.string.fail_not_paired)
+            Timber.w("No such device as $deviceName!")
+            return false
+        }
+
+        val onReceive = { data: ByteArray ->
+            setData(data, sensorValueLiveData)
+        }
+
+        val onFail = {
+            Fail.usual(R.string.fail_disconnected)
+            connectedLiveData.postValue(false)
+        }
+
+        bluetoothHelper.connectDevice(device, onReceive, onFail).also {
+            connectedLiveData.postValue(true)
+        }
+
+        Timber.d("Reading raw data from ${deviceName}, in background thread")
+
+        return true
+    }
+
+    private fun setData(data: ByteArray, destination: MutableLiveData<Sample>) {
+        val sample = Sample(data.map { it.toInt() })
+
+        destination.postValue(sample)
     }
 }

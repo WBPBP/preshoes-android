@@ -47,7 +47,8 @@
         app:layout_constraintTop_toTopOf="@id/background_foot"
         app:minOpacity="0"
         app:maxOpacity="255"
-
-        app:radius="200dp"/>
+        app:maxDrawingHeight="30dp"
+        app:maxDrawingWidth="30dp"
+        app:radius="40dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

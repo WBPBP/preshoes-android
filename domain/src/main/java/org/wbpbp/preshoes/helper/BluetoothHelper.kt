@@ -17,27 +17,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.base
+package org.wbpbp.preshoes.helper
 
-import org.wbpbp.preshoes.base.Failable
+import android.bluetooth.BluetoothDevice
 
-interface FailableHandler {
+interface BluetoothHelper {
+    fun isConnected(deviceName: String): Boolean
 
-    val observedFailables: MutableList<Failable>
+    fun findDevice(deviceName: String): BluetoothDevice?
 
-    /**
-     * What to do when some failure occur
-     */
-    fun onFail(failure: Failable.Failure)
+    fun connectDevice(
+        device: BluetoothDevice,
+        onReceive: (ByteArray) -> Any?,
+        onFail: () -> Any?,
+        onCancel: () -> Any? = {} // For the future. Currently disconnect is not supported.
+    )
 
-    /**
-     * Add failables to manage.
-     */
-    fun startObservingFailables(failables: List<Failable>)
-
-    /**
-     * Stop managing failables.
-     * This clears observedFailables.
-     */
-    fun stopObservingFailables()
+    fun isBluetoothEnabled(): Boolean
 }

@@ -21,14 +21,26 @@ package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
 import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.repository.SensorConnectionRepository
-import org.wbpbp.preshoes.repository.SensorStateRepository
+import org.wbpbp.preshoes.helper.BluetoothHelper
+import org.wbpbp.preshoes.helper.BluetoothHelperImpl
+import org.wbpbp.preshoes.repository.SampleRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.repository.SystemStateRepository
+import org.wbpbp.preshoes.service.FakeDataGenerator
 import org.wbpbp.preshoes.service.SensorDeviceService
 import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
-import org.wbpbp.preshoes.storage.SensorConnectionRepositoryImpl
-import org.wbpbp.preshoes.storage.SensorStateRepositoryImpl
+import org.wbpbp.preshoes.storage.SampleRepositoryImpl
+import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
+import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
 
 val myModules = module {
+
+    /**
+     * TODO
+     */
+    single {
+        FakeDataGenerator()
+    }
 
     /****************
      * Common
@@ -43,13 +55,21 @@ val myModules = module {
      * Use Case
      ****************/
 
+
+    /****************
+     * Helper
+     ****************/
+    single {
+        BluetoothHelperImpl() as BluetoothHelper
+    }
+
     /****************
      * Service
      ****************/
     single {
         SensorDeviceServiceImpl(
-            connectionRepo = get(),
-            stateRepo = get()
+            deviceStateRepo = get(),
+            bluetoothHelper = get()
         ) as SensorDeviceService
     }
 
@@ -57,10 +77,16 @@ val myModules = module {
      * Repository
      ****************/
     single {
-        SensorConnectionRepositoryImpl() as SensorConnectionRepository
+        SampleRepositoryImpl(
+            sensorDeviceStateRepo = get()
+        ) as SampleRepository
     }
 
     single {
-        SensorStateRepositoryImpl() as SensorStateRepository
+        SensorDeviceStateRepositoryImpl() as SensorDeviceStateRepository
+    }
+
+    single {
+        SystemStateRepositoryImpl() as SystemStateRepository
     }
 }

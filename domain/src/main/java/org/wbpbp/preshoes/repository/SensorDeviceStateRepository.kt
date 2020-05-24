@@ -17,16 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.report
+package org.wbpbp.preshoes.repository
 
-import org.wbpbp.preshoes.common.base.BaseViewModel
-import org.wbpbp.preshoes.entity.Report
-import org.wbpbp.preshoes.util.SingleLiveEvent
+import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.entity.Sample
 
-class ReportsViewModel : BaseViewModel() {
-    val reportClickEvent = SingleLiveEvent<Report>()
+interface SensorDeviceStateRepository {
+    // Need to be set from activity.
 
-    fun showReportDetail(report: Report) {
-        reportClickEvent.postValue(report)
-    }
+    val isLeftDeviceConnected: MutableLiveData<Boolean>
+    val isRightDeviceConnected: MutableLiveData<Boolean>
+
+    val leftDeviceSensorValue: MutableLiveData<Sample>
+    val rightDeviceSensorValue: MutableLiveData<Sample>
+
+    val isLeftDeviceCharging: MutableLiveData<Boolean>
+    val isRightDeviceCharging: MutableLiveData<Boolean>
+
+    val leftDeviceBatteryLevel: MutableLiveData<Int>
+    val rightDeviceBatteryLevel: MutableLiveData<Int>
 }

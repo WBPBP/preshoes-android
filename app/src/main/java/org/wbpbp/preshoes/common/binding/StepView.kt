@@ -17,17 +17,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.base
+package org.wbpbp.preshoes.common.binding
 
-import org.wbpbp.preshoes.base.Failable
+import androidx.databinding.BindingAdapter
+import com.shuhart.stepview.StepView
 
-/**
- * A component that has Failable inside.
- */
-interface FailableContainer {
-
-    /**
-     * List of failables to handle.
-     */
-    val failables: MutableList<Failable>
+@BindingAdapter("app:phase")
+fun setPhase(view: StepView, phase: Int /* from zero */) {
+    view.go(phase, true)
 }

@@ -48,4 +48,13 @@
     <string name="title_static_horizontal_bias">정적 압력 분포 가로 편향</string>
     <string name="description_elapsed_time">소요 시간</string>
     <string name="description_measure_date">측정 일자</string>
+    <string name="description_please_be_ready">양 발로 바르게 선 다음 시작 버튼을 눌러 주세요.</string>
+    <string name="button_start">시작</string>
+    <string name="button_finish">종료</string>
+    <string name="button_resume">계속</string>
+    <string name="description_static_diagnosis">5초간 제자리에 정지하여 주세요.</string>
+    <string name="description_walk_diagnosis">일정한 속도로 걸어 주세요.</string>
+    <string name="description_keep_next_is_walk">계속 버튼을 누른 뒤 천천히 걸어 주세요.</string>
+    <string name="description_diagnosis_done">검사가 종료되었습니다. 감사합니다.</string>
+
 </resources>

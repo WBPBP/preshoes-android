@@ -64,6 +64,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    testImplementation "junit:junit:$junit_version"
+
     /** AppCompat */
     implementation "androidx.appcompat:appcompat:$appcompat_version"
 

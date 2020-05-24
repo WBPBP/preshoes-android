@@ -17,7 +17,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.storage
 
-interface SensorConnectionRepository {
+import android.bluetooth.BluetoothAdapter
+import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.repository.SystemStateRepository
+
+class SystemStateRepositoryImpl : SystemStateRepository {
+    private val _isBluetoothEnabled = MutableLiveData<Boolean>(BluetoothAdapter.getDefaultAdapter().isEnabled)
+
+    override val isBluetoothEnabled
+        get() = _isBluetoothEnabled
 }

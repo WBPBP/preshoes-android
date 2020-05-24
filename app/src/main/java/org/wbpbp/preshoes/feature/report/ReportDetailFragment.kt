@@ -65,6 +65,7 @@ class ReportDetailFragment : BaseFragment<ReportDetailFragmentBinding>() {
                 color = requireActivity().resolveThemeColor(android.R.attr.colorPrimaryDark)
             }
 
+
             val dataSets = listOf(leftDataSet, rightDataSet)
 
             legend.isEnabled = false

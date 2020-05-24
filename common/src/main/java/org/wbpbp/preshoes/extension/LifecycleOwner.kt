@@ -17,21 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.extension
 
-data class FootPressure(val values: IntArray) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+import androidx.lifecycle.LifecycleOwner
+import org.wbpbp.preshoes.base.Failure
+import org.wbpbp.preshoes.util.Fail
 
-        other as FootPressure
-
-        if (!values.contentEquals(other.values)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return values.contentHashCode()
+fun LifecycleOwner.onFail(body: (Failure, Int) -> Any?) {
+    Fail.observe(this) { failure, channel ->
+        body(failure, channel)
     }
 }

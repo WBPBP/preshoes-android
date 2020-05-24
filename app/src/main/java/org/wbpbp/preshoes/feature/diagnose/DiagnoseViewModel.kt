@@ -19,16 +19,14 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
-import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.util.SingleLiveEvent
+import org.wbpbp.preshoes.common.base.BaseViewModel
+import org.wbpbp.preshoes.util.SingleLiveEvent
 
-class DiagnoseViewModel : ViewModel() {
+class DiagnoseViewModel : BaseViewModel() {
     val navigateEvent = SingleLiveEvent<Int>()
 
-    fun startUnifiedDiagnosis(view: View) {
+    fun startUnifiedDiagnosis() {
         navigateEvent.postValue(R.id.action_unified_diagnosis)
     }
 }
