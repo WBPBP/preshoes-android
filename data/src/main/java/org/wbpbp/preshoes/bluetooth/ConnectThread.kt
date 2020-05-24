@@ -32,11 +32,12 @@ import java.io.InputStream
  * Heavy duty bluetooth connect & listen thread.
  * All throwable errors are handled, but once an error is thrown, it will stop working.
  */
-private class ConnectThread(
+internal class ConnectThread(
     private val device: BluetoothDevice,
     private val onReceive: (ByteArray) -> Any?,
-    private val onFail: () -> Any?
-) : Thread() {
+    private val onFail: () -> Any?,
+    private val onCancel: () -> Any? = {}
+) : Thread("ConnectThread-${device.name}") {
     private val mainHandler = Handler(Looper.getMainLooper())
     private val socket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
         SocketCreator(device).createSocket()
@@ -120,6 +121,8 @@ private class ConnectThread(
      * MUST be called when thread is terminated from outside.
      */
     fun cancel() {
+        onCancel()
+
         try {
             socket?.close()
         } catch (e: IOException) {

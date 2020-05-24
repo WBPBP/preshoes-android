@@ -20,5 +20,5 @@
 package org.wbpbp.preshoes.bluetooth
 
 object TwelveDProtocol {
-    val delimiter: Int = 0xff
+    const val delimiter: Int = 0xff
 }

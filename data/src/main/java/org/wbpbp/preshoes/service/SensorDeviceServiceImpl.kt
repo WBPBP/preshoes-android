@@ -19,28 +19,21 @@
 
 package org.wbpbp.preshoes.service
 
-import android.bluetooth.BluetoothSocket
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.helper.BluetoothHelper
-import org.wbpbp.preshoes.repository.SensorDeviceConnectionRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import timber.log.Timber
-import java.io.InputStream
 
 class SensorDeviceServiceImpl(
-    private val deviceConnectionRepo: SensorDeviceConnectionRepository,
     private val deviceStateRepo: SensorDeviceStateRepository,
-    private val bluetoothHelper: BluetoothHelper,
-    private val generator: FakeDataGenerator
+    private val bluetoothHelper: BluetoothHelper
 ) : SensorDeviceService {
 
     // TODO remove these all after test
     private var base: Int = 0
-    private lateinit var thread: Thread
 
+    // TODO remove these all after test
     override fun enterRandomState() {
         with(deviceStateRepo) {
             isRightDeviceConnected.postValue(true)
@@ -63,112 +56,50 @@ class SensorDeviceServiceImpl(
         }
     }
 
-    override fun connectLeftSensorDevice(deviceName: String): Boolean {
-        if (deviceStateRepo.isLeftDeviceConnected.value == true) {
-            return false
-        }
-
-        return connectSensorDevice(
+    override fun connectLeftSensorDevice(deviceName: String) =
+        connectSensorDevice(
             deviceName,
             deviceStateRepo.isLeftDeviceConnected,
-            deviceStateRepo.leftDeviceSensorValue,
-            FakeDataGenerator.CHANNEL_LEFT
+            deviceStateRepo.leftDeviceSensorValue
         )
-    }
 
-    override fun connectRightSensorDevice(deviceName: String): Boolean {
-        if (deviceStateRepo.isRightDeviceConnected.value == true) {
-            return false
-        }
-
-        return connectSensorDevice(
+    override fun connectRightSensorDevice(deviceName: String) =
+        connectSensorDevice(
             deviceName,
             deviceStateRepo.isRightDeviceConnected,
-            deviceStateRepo.rightDeviceSensorValue,
-            FakeDataGenerator.CHANNEL_RIGHT
+            deviceStateRepo.rightDeviceSensorValue
         )
-    }
 
     private fun connectSensorDevice(
         deviceName: String,
         connectedLiveData: MutableLiveData<Boolean>,
-        sensorValueLiveData: MutableLiveData<Sample>,
-        channel: Int
+        sensorValueLiveData: MutableLiveData<Sample>
     ): Boolean {
-        /*
-        val socket = bluetoothHelper.connectDeviceByName(deviceName)
-        if (socket == null) {
-            Timber.w("Failed to connect '${deviceName}' as right sensor device")
+        if (bluetoothHelper.isConnected(deviceName)) {
+            Timber.w("Device $deviceName already connected!")
             return false
         }
 
-         */
-
-        whenReceivedSomethingFromSocketThenDoThis(null, channel) {
-            setData(it, sensorValueLiveData)
+        val device = bluetoothHelper.findDevice(deviceName) ?: run {
+            Timber.w("No such device as $deviceName!")
+            return false
         }
 
-        connectedLiveData.postValue(true)
-
-        Timber.d("Reading raw data from ${deviceName}, in background thread.")
-
-        return true;
-    }
-
-    private fun whenReceivedSomethingFromSocketThenDoThis(socket: BluetoothSocket?, channel: Int, body: (ByteArray) -> Any?) {
-
-        val toDoWhenNewThreadIsLaunched = {
-            // TODO for display
-
-            while (true) {
-                // TODO for display
-                Handler(Looper.getMainLooper()).post { body(generator.getNextFake(channel)) }
-
-                Thread.sleep(100)
-/*
-                if (!socket.isConnected) {
-                    break
-                }
-
-                try {
-                    readRawData(socket.inputStream, (0xff).toByte()).let { rawData ->
-                        Handler(Looper.getMainLooper()).post { body(rawData) }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    Timber.e("Failed to read raw data from socket.")
-
-                    break
-                }
-*/
-            }
-
-            Timber.i("Background runnable is done.")
+        val onReceive = { data: ByteArray ->
+            setData(data, sensorValueLiveData)
         }
 
-        val runnable = Runnable {
-            try {
-                toDoWhenNewThreadIsLaunched()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+        val onFail = {
+            connectedLiveData.postValue(false)
         }
 
-        Thread(runnable).start()
-    }
-
-    private fun readRawData(inputStream: InputStream, delimiter: Byte): ByteArray {
-        val bytes: MutableList<Byte> = mutableListOf()
-
-        while (true) {
-            inputStream
-                .read()
-                .takeIf { it != -1 && it.toByte() != delimiter }
-                ?.let { bytes.add(it.toByte()) }
-                ?: break
+        bluetoothHelper.connectDevice(device, onReceive, onFail).also {
+            connectedLiveData.postValue(true)
         }
 
-        return bytes.toByteArray()
+        Timber.d("Reading raw data from ${deviceName}, in background thread")
+
+        return true
     }
 
     private fun setData(data: ByteArray, destination: MutableLiveData<Sample>) {

@@ -19,8 +19,19 @@
 
 package org.wbpbp.preshoes.helper
 
-import android.bluetooth.BluetoothSocket
+import android.bluetooth.BluetoothDevice
 
 interface BluetoothHelper {
-    fun connectDeviceByName(deviceName: String): BluetoothSocket?
+    fun isConnected(deviceName: String): Boolean
+
+    fun findDevice(deviceName: String): BluetoothDevice?
+
+    fun connectDevice(
+        device: BluetoothDevice,
+        onReceive: (ByteArray) -> Any?,
+        onFail: () -> Any?,
+        onCancel: () -> Any? = {} // For the future. Currently disconnect is not supported.
+    )
+
+    fun isBluetoothEnabled(): Boolean
 }
