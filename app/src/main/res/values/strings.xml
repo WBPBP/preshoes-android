@@ -36,7 +36,7 @@
     <string name="text_settings">설정</string>
     <string name="title_activity_settings">Settings</string>
     <string name="text_information_unavailable">정보 없음</string>
-    <string name="title_connect_device">기기 연결</string>
+    <string name="title_connect_device">신발 연결</string>
     <string name="text_please_connect_device">압력 측정을 위해 Preshoes 센서 모듈이 필요합니다. 아래 버튼을 눌러 연결하여 주세요.</string>
     <string name="title_unified_diagnosis">통합 족압 검사</string>
     <string name="description_unified_diagnosis">정적 족저압 검사와 짧은 걷기로 이루어진 검사입니다. 양 발 무게 균형, 보행 시 발 각도 등 다양한 특징을 진단할 수 있습니다.</string>

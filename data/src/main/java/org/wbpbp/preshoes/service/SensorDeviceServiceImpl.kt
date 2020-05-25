@@ -24,6 +24,9 @@ import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.helper.BluetoothHelper
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_NOT_CONNECTED
 import org.wbpbp.preshoes.util.Fail
 import timber.log.Timber
 
@@ -38,8 +41,8 @@ class SensorDeviceServiceImpl(
     // TODO remove these all after test
     override fun enterRandomState() {
         with(deviceStateRepo) {
-            isRightDeviceConnected.postValue(true)
-            isLeftDeviceConnected.postValue(/*base % 200 > 100*/true)
+            rightDeviceConnectionState.postValue(STATE_CONNECTED)
+            leftDeviceConnectionState.postValue(/*base % 200 > 100*/STATE_CONNECTED)
 
             leftDeviceBatteryLevel.postValue(45)
             rightDeviceBatteryLevel.postValue(67)
@@ -61,20 +64,20 @@ class SensorDeviceServiceImpl(
     override fun connectLeftSensorDevice(deviceName: String) =
         connectSensorDevice(
             deviceName,
-            deviceStateRepo.isLeftDeviceConnected,
+            deviceStateRepo.leftDeviceConnectionState,
             deviceStateRepo.leftDeviceSensorValue
         )
 
     override fun connectRightSensorDevice(deviceName: String) =
         connectSensorDevice(
             deviceName,
-            deviceStateRepo.isRightDeviceConnected,
+            deviceStateRepo.rightDeviceConnectionState,
             deviceStateRepo.rightDeviceSensorValue
         )
 
     private fun connectSensorDevice(
         deviceName: String,
-        connectedLiveData: MutableLiveData<Boolean>,
+        connectionStateLiveData: MutableLiveData<Int>,
         sensorValueLiveData: MutableLiveData<Sample>
     ): Boolean {
         if (!bluetoothHelper.isBluetoothEnabled()) {
@@ -95,20 +98,30 @@ class SensorDeviceServiceImpl(
             return false
         }
 
+        val onConnect = {
+            Timber.d("onConnect: device is connected")
+
+            connectionStateLiveData.postValue(STATE_CONNECTED)
+        }
+
         val onReceive = { data: ByteArray ->
+            Timber.d("onReceive: ${data.map { it.toInt() }.joinToString("m")}")
+
             setData(data, sensorValueLiveData)
         }
 
         val onFail = {
+            Timber.w("onFail: device failed")
             Fail.usual(R.string.fail_disconnected)
-            connectedLiveData.postValue(false)
+
+            connectionStateLiveData.postValue(STATE_NOT_CONNECTED)
         }
 
-        bluetoothHelper.connectDevice(device, onReceive, onFail).also {
-            connectedLiveData.postValue(true)
+        bluetoothHelper.connectDevice(device, onConnect, onReceive, onFail).also {
+            connectionStateLiveData.postValue(STATE_CONNECTING)
         }
 
-        Timber.d("Reading raw data from ${deviceName}, in background thread")
+        Timber.d("Trying to read raw data from ${deviceName}, in background thread")
 
         return true
     }

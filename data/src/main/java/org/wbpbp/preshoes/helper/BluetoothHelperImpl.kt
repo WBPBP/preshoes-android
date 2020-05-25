@@ -43,12 +43,13 @@ class BluetoothHelperImpl : BluetoothHelper {
 
     override fun connectDevice(
         device: BluetoothDevice,
+        onConnect: () -> Any?,
         onReceive: (ByteArray) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any?
     ) {
         if (!isConnected(device.name)) {
-            ConnectThread(device, onReceive, onFail, onCancel).start()
+            ConnectThread(device, onConnect, onReceive, onFail, onCancel).start()
         }
     }
 

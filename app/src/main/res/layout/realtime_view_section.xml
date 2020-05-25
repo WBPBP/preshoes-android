@@ -23,6 +23,7 @@
 
     <data>
         <import type="android.view.View" />
+        <import type="org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion" />
         <variable
             name="vm"
             type="org.wbpbp.preshoes.feature.home.HomeViewModel" />
@@ -65,7 +66,7 @@
                         android:layout_width="@dimen/footWidth"
                         android:layout_height="@dimen/footHeight"
                         app:side="left"
-                        app:available="@{vm.isLeftDeviceConnected}"
+                        app:available="@{vm.leftDeviceConnectionState == Companion.STATE_CONNECTED}"
                         app:sensorValue="@{vm.leftDeviceSensorValue}"/>
 
                     <!-- Right foot -->
@@ -74,7 +75,7 @@
                         android:layout_width="@dimen/footWidth"
                         android:layout_height="@dimen/footHeight"
                         app:side="right"
-                        app:available="@{vm.isRightDeviceConnected}"
+                        app:available="@{vm.rightDeviceConnectionState == Companion.STATE_CONNECTED}"
                         app:sensorValue="@{vm.rightDeviceSensorValue}"/>
 
                 </LinearLayout>

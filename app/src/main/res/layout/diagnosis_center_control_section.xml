@@ -23,6 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion" />
         <variable
             name="vm"
             type="org.wbpbp.preshoes.feature.diagnose.UnifiedDiagnosisViewModel" />
@@ -47,7 +48,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:side="left"
-            app:available="@{vm.isLeftDeviceConnected}"
+            app:available="@{vm.leftDeviceConnectionState == Companion.STATE_CONNECTED}"
             app:sensorValue="@{vm.leftDeviceSensorValue}"/>
 
         <!-- Start button -->
@@ -93,7 +94,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:side="right"
-            app:available="@{vm.isRightDeviceConnected}"
+            app:available="@{vm.rightDeviceConnectionState == Companion.STATE_CONNECTED}"
             app:sensorValue="@{vm.rightDeviceSensorValue}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,12 +17,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.service
+package org.wbpbp.preshoes.usecase
 
-interface SensorDeviceService {
-    // TODO
-    fun enterRandomState()
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.SensorDeviceService
 
-    fun connectLeftSensorDevice(deviceName: String): Boolean
-    fun connectRightSensorDevice(deviceName: String): Boolean
+class ConnectDevices(
+    private val service: SensorDeviceService
+) : UseCase<Pair<String, String>, Boolean>() {
+
+    override suspend fun run(params: Pair<String, String>)=
+        Result.of {
+            service.connectLeftSensorDevice(params.first)
+                    //service.connectRightSensorDevice(params.second)
+        }
 }

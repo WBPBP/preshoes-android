@@ -20,6 +20,8 @@
 package org.wbpbp.preshoes.util
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
@@ -37,6 +39,7 @@ object Fail {
     private const val level = DEBUG
 
     private var context: Context? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     private val allChannels = mapOf<Int, MutableLiveData<Failure>>(
         Pair(DEBUG, MutableLiveData()),
@@ -77,7 +80,9 @@ object Fail {
 
     private fun toast(message: String) {
         context?.let {
-            Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+            mainHandler.post {
+                Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

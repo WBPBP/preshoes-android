@@ -28,6 +28,7 @@ interface BluetoothHelper {
 
     fun connectDevice(
         device: BluetoothDevice,
+        onConnect: () -> Any?,
         onReceive: (ByteArray) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any? = {} // For the future. Currently disconnect is not supported.
