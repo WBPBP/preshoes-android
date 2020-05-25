@@ -34,6 +34,7 @@ import java.io.InputStream
  */
 internal class ConnectThread(
     private val device: BluetoothDevice,
+    private val onConnect: () -> Any?,
     private val onReceive: (ByteArray) -> Any?,
     private val onFail: () -> Any?,
     private val onCancel: () -> Any? = {}
@@ -45,6 +46,8 @@ internal class ConnectThread(
     }
 
     override fun run() {
+        Timber.i("$name started")
+
         cancelDiscovery()
 
         try {
@@ -52,9 +55,14 @@ internal class ConnectThread(
         } catch (e: Exception) {
             Timber.e("Unhandled failure with socket: $e")
         } finally {
-            onFail()
+            runCallbackOnMainThread {
+                onFail()
+            }
+
             Timber.w("Finishing thread")
         }
+
+        Timber.i("$name being finished")
     }
 
     private fun cancelDiscovery() = BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
@@ -72,6 +80,10 @@ internal class ConnectThread(
     }
 
     private fun onConnectionSuccess(socket: BluetoothSocket) {
+        runCallbackOnMainThread {
+            onConnect()
+        }
+
         try {
             readForeverAndLaunchCallback(socket.inputStream)
         } catch (e: IOException) {
@@ -104,13 +116,15 @@ internal class ConnectThread(
     }
 
     private fun onReceiveData(data: ByteArray) {
-        runCallbackOnMainThread(data)
+        runCallbackOnMainThread {
+            onReceive(data)
+        }
     }
 
-    private fun runCallbackOnMainThread(data: ByteArray) {
+    private fun runCallbackOnMainThread(callback: () -> Any?) {
         mainHandler.post {
             try {
-                onReceive(data)
+                callback()
             } catch (e: Exception) {
                 Timber.e("Error inside onReceive callback: $e")
             }
@@ -122,7 +136,9 @@ internal class ConnectThread(
      * MUST be called when thread is terminated from outside.
      */
     fun cancel() {
-        onCancel()
+        runCallbackOnMainThread {
+            onCancel
+        }
 
         try {
             socket?.close()

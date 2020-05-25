@@ -19,15 +19,12 @@
 
 package org.wbpbp.preshoes.feature.home
 
-import android.os.Bundle
 import android.view.View
-import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
 import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.HomeFragmentBinding
-import org.wbpbp.preshoes.service.SensorDeviceService
 
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override val viewModel: HomeViewModel by getViewModel()
@@ -40,23 +37,5 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun initBinding(binding: HomeFragmentBinding) {
         binding.vm = viewModel
-    }
-
-
-
-
-
-
-
-    // TODO: this is for test
-    private val deviceService: SensorDeviceService by inject()
-
-    // TODO: this is for test
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        deviceService.connectLeftSensorDevice("PreshoesLeft")
-        deviceService.connectRightSensorDevice("PreshoesRight")
-
     }
 }

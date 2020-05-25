@@ -51,11 +51,12 @@
                 app:vm="@{vm}" />
 
             <!-- Foot view section -->
+
+            <!-- Battery section -->
             <include
                 layout="@layout/realtime_view_section"
                 app:vm="@{vm}" />
 
-            <!-- Battery section -->
             <include
                 layout="@layout/battery_section"
                 app:vm="@{vm}" />

@@ -74,7 +74,17 @@
                     app:layout_constraintTop_toBottomOf="@id/no_device_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{() -> vm.onConnectButtonClick()}"
                     android:text="@string/button_connect_device"/>
+
+                <!-- Connecting progress bar -->
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
+                    android:visibility="@{vm.connectingInProgress ? View.VISIBLE : View.GONE}"
+                    />
 
             </LinearLayout>
 

@@ -24,8 +24,12 @@ import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 
 class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
-    private val _isLeftDeviceConnected = MutableLiveData<Boolean>()
-    private val _isRightDeviceConnected = MutableLiveData<Boolean>()
+    private val _leftDeviceConnectionState = MutableLiveData<Int>(
+        SensorDeviceStateRepository.STATE_NOT_CONNECTED
+    )
+    private val _rightDeviceConnectionState = MutableLiveData<Int>(
+        SensorDeviceStateRepository.STATE_NOT_CONNECTED
+    )
 
     private val _leftDeviceSensorValue = MutableLiveData<Sample>()
     private val _rightDeviceSensorValue = MutableLiveData<Sample>()
@@ -34,12 +38,12 @@ class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
     private val _isRightDeviceCharging = MutableLiveData<Boolean>(false)
 
     private val _leftDeviceBatteryLevel = MutableLiveData<Int>(100)
-    private val _rightDeviceBatteryLevel = MutableLiveData<Int>(91)
+    private val _rightDeviceBatteryLevel = MutableLiveData<Int>(100)
 
-    override val isLeftDeviceConnected
-        get() = _isLeftDeviceConnected
-    override val isRightDeviceConnected
-        get() = _isRightDeviceConnected
+    override val leftDeviceConnectionState
+        get() = _leftDeviceConnectionState
+    override val rightDeviceConnectionState
+        get() = _rightDeviceConnectionState
 
     override val leftDeviceSensorValue
         get() = _leftDeviceSensorValue

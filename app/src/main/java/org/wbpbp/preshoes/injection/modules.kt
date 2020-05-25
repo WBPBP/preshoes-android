@@ -32,6 +32,7 @@ import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
 import org.wbpbp.preshoes.storage.SampleRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
+import org.wbpbp.preshoes.usecase.ConnectDevices
 
 val myModules = module {
 
@@ -54,7 +55,11 @@ val myModules = module {
     /****************
      * Use Case
      ****************/
-
+    single {
+        ConnectDevices(
+            service = get()
+        )
+    }
 
     /****************
      * Helper

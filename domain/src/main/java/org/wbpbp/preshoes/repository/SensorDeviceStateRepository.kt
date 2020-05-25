@@ -25,8 +25,8 @@ import org.wbpbp.preshoes.entity.Sample
 interface SensorDeviceStateRepository {
     // Need to be set from activity.
 
-    val isLeftDeviceConnected: MutableLiveData<Boolean>
-    val isRightDeviceConnected: MutableLiveData<Boolean>
+    val leftDeviceConnectionState: MutableLiveData<Int>
+    val rightDeviceConnectionState: MutableLiveData<Int>
 
     val leftDeviceSensorValue: MutableLiveData<Sample>
     val rightDeviceSensorValue: MutableLiveData<Sample>
@@ -36,4 +36,10 @@ interface SensorDeviceStateRepository {
 
     val leftDeviceBatteryLevel: MutableLiveData<Int>
     val rightDeviceBatteryLevel: MutableLiveData<Int>
+
+    companion object {
+        const val STATE_CONNECTED = 1
+        const val STATE_CONNECTING = 2
+        const val STATE_NOT_CONNECTED = 3
+    }
 }
