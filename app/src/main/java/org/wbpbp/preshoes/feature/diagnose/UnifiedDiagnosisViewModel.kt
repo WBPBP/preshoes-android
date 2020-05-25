@@ -29,8 +29,10 @@ import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.service.FakeDataGenerator
+import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
 import java.util.*
+import kotlin.math.ceil
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
@@ -67,40 +69,47 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
     fun onCenterButtonClick() {
         when (phase.value) {
-            PHASE_READY -> startStaticDiagnosis()
+            PHASE_READY -> startStaticDiagnosis(5000 /* 5 sec */)
             PHASE_STAND -> startWalkDiagnosis()
             PHASE_WALK -> finishDiagnosis()
         }
     }
 
-    private fun startStaticDiagnosis() {
-        _isOnGoing.postValue(true)
+    private fun startStaticDiagnosis(duration: Int) {
+        setViewForDiagnosisStart(duration)
 
-        val duration = 5
-        var timeLeft = duration
-
-        _helperText.postValue(str(R.string.description_static_diagnosis))
-        _progressMax.postValue(duration)
-        _phase.postValue(PHASE_STAND)
-
-        generator.state = FakeDataGenerator.STATE_STANDING
-
-        val task = object: TimerTask() {
-            override fun run() {
-                _progress.postValue(timeLeft)
-                _centerButtonText.postValue("00:0${timeLeft}")
-                if (timeLeft-- <= 0) {
-                    _progress.postValue(duration)
-                    _isOnGoing.postValue(false)
-                    _centerButtonText.postValue(str(R.string.button_resume))
-                    _helperText.postValue(str(R.string.description_keep_next_is_walk))
-                    this.cancel()
-                }
-            }
+        val updateProgressRingTask = MultipleIntervalLimitedTaskTimer.Task(10L) { elapsed ->
+            _progress.postValue(elapsed.toInt())
         }
 
-        Timer().schedule(task, 0, 1000)
+        val updateButtonText = MultipleIntervalLimitedTaskTimer.Task(1000L) { elapsed ->
+            // TODO
+            _centerButtonText.postValue("00:0${ceil((duration - elapsed).toDouble()/1000).toInt()}")
+        }
+
+        MultipleIntervalLimitedTaskTimer(
+            duration.toLong(),
+            updateProgressRingTask,
+            updateButtonText
+        ) {
+            setViewForDiagnosisEnd(duration)
+        }.start()
     }
+
+    private fun setViewForDiagnosisStart(duration: Int) {
+        _phase.postValue(PHASE_STAND)
+        _isOnGoing.postValue(true)
+        _helperText.postValue(str(R.string.description_static_diagnosis))
+        _progressMax.postValue(duration.toInt())
+    }
+
+    private fun setViewForDiagnosisEnd(duration: Int) {
+        _progress.postValue(duration)
+        _helperText.postValue(str(R.string.description_keep_next_is_walk))
+        _isOnGoing.postValue(false)
+        _centerButtonText.postValue(str(R.string.button_resume))
+    }
+
 
     private fun startWalkDiagnosis() {
         _isOnGoing.postValue(true)

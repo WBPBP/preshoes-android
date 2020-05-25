@@ -20,54 +20,59 @@
 package org.wbpbp.preshoes.util
 
 import java.util.*
+import kotlin.concurrent.fixedRateTimer
 
-class MultipleIntervalTaskTimer(
-    vararg tasks: Task
+class MultipleIntervalLimitedTaskTimer(
+    private val duration: Long,
+    vararg tasks: Task,
+    private val onFinish: () -> Any?
 ) {
     private val _tasks: List<Task> by lazy(tasks::toList)
-    private val _lastTaskExecutionTimes = mutableMapOf<Task, Long>()
 
-    private val _timer = Timer()
-    private val _timerTask: TimerTask by lazy(::getTimerTask)
+    private val timers = mutableListOf<Timer>()
+    private var startTime: Long = 0
 
-    private fun getTimerTask() =
-        object: TimerTask() {
-            override fun run() {
-                _tasks.forEach {
-                    if (isItTimeToExecuteTask(it)) {
-                        executeTask(it, this)
-                    }
+    private fun scheduleTasks() {
+        startTime = getCurrentTime()
+
+        val activeTimers = _tasks.map {
+            fixedRateTimer(period = it.interval) {
+                if (isItTimeToEnd()) {
+                    onFinish()
+                    cancel()
                 }
+
+                it.body(getElapsedTime())
             }
         }
 
-    private fun isItTimeToExecuteTask(task: Task): Boolean {
-        val lastExecutionTime = _lastTaskExecutionTimes[task] ?: return true
-        val now = getCurrentTime()
-
-        return now - lastExecutionTime > task.interval
+        timers.clear()
+        timers.addAll(activeTimers)
     }
 
-    private fun executeTask(task: Task, holderTimerTask: TimerTask) {
-        task.body(holderTimerTask)
+    private fun isItTimeToEnd(): Boolean {
+        return getElapsedTime() > duration
+    }
 
-        _lastTaskExecutionTimes[task] = getCurrentTime()
+    private fun getElapsedTime(): Long {
+        return getCurrentTime() - startTime
     }
 
     private fun getCurrentTime() = Date().time
 
     fun start() {
-        _timer.schedule(_timerTask, minInterval)
+        scheduleTasks()
     }
 
     fun cancel() {
-        _timerTask.cancel()
-        _timer.cancel()
+        timers.forEach {
+            it.cancel()
+        }
     }
 
     class Task(
         val interval: Long,
-        val body: TimerTask.() -> Any?
+        val body: (Long) -> Any? /* elapsed */
     )
 
     companion object {
