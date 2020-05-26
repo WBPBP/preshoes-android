@@ -24,7 +24,7 @@ import org.wbpbp.preshoes.entity.Record
 import java.util.*
 
 interface RecordRepository {
-    fun addNewRecord(features: Features, date: Date=Date()): Int?
+    fun addNewRecord(features: Features, date: Date=Date()): Int
 
     fun getAllRecords(): List<Record>
     fun getRecordById(it: Int): Record?

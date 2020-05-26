@@ -44,18 +44,18 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val finishRecording: FinishRecording by inject()
     private val createReport: CreateReport by inject()
 
-    val navigateUpEvent = SingleLiveEvent<Unit>()
-
     private var staticDiagnosisRecordId: Int = -1
     private var walkDiagnosisRecordId: Int = -1
+
+    val navigateUpEvent = SingleLiveEvent<Unit>()
 
     val leftDeviceConnectionState: LiveData<Int> = sensorDeviceStateRepo.leftDeviceConnectionState
     val rightDeviceConnectionState: LiveData<Int> = sensorDeviceStateRepo.rightDeviceConnectionState
 
-    private val deviceComplete = sensorDeviceStateRepo.allConnected
-
     val leftDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.leftDeviceSensorValue
     val rightDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.rightDeviceSensorValue
+
+    private val deviceComplete = sensorDeviceStateRepo.allConnected
 
     private val _phase = MutableLiveData<Int>(PHASE_READY)
     val phase: LiveData<Int> = _phase

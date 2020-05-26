@@ -26,13 +26,14 @@ import org.wbpbp.preshoes.helper.BluetoothHelperImpl
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SystemStateRepository
-import org.wbpbp.preshoes.service.FakeDataGenerator
-import org.wbpbp.preshoes.service.SensorDeviceService
-import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
+import org.wbpbp.preshoes.service.*
 import org.wbpbp.preshoes.storage.SampleRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
 import org.wbpbp.preshoes.usecase.ConnectDevices
+import org.wbpbp.preshoes.usecase.CreateReport
+import org.wbpbp.preshoes.usecase.FinishRecording
+import org.wbpbp.preshoes.usecase.StartRecording
 
 val myModules = module {
 
@@ -61,6 +62,24 @@ val myModules = module {
         )
     }
 
+    single {
+        CreateReport(
+            service = get()
+        )
+    }
+
+    single {
+        FinishRecording(
+            service = get()
+        )
+    }
+
+    single {
+        StartRecording(
+            service = get()
+        )
+    }
+
     /****************
      * Helper
      ****************/
@@ -71,6 +90,13 @@ val myModules = module {
     /****************
      * Service
      ****************/
+    single {
+        RecordServiceImpl(
+            sampleRepo = get(),
+            recordRepo = get()
+        ) as RecordService
+    }
+
     single {
         SensorDeviceServiceImpl(
             deviceStateRepo = get(),

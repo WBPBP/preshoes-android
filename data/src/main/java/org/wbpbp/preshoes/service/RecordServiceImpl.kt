@@ -19,6 +19,8 @@
 
 package org.wbpbp.preshoes.service
 
+import org.wbpbp.preshoes.entity.Features
+import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.RecordRepository
 import org.wbpbp.preshoes.repository.SampleRepository
 import timber.log.Timber
@@ -45,8 +47,12 @@ class RecordServiceImpl(
 
         val samples = sampleRepo.finishRecording()
 
-        //
+        val features = extractFeatures(samples)
 
-        return 1
+        return recordRepo.addNewRecord(features)
+    }
+
+    private fun extractFeatures(samples: List<SamplePair>): Features {
+        return Features(0, 0.0, 0, listOf(), listOf())
     }
 }
