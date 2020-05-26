@@ -40,9 +40,9 @@ class MultipleIntervalLimitedTaskTimer(
                 if (isItTimeToEnd()) {
                     onFinish()
                     cancel()
+                } else {
+                    it.body(getElapsedTime())
                 }
-
-                it.body(getElapsedTime())
             }
         }
 
