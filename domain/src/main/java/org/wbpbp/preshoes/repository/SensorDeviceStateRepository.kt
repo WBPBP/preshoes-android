@@ -19,11 +19,15 @@
 
 package org.wbpbp.preshoes.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
 
 interface SensorDeviceStateRepository {
     // Need to be set from activity.
+
+    val allConnected: LiveData<Boolean>
+    val atLeastOneConnected: LiveData<Boolean>
 
     val leftDeviceConnectionState: MutableLiveData<Int>
     val rightDeviceConnectionState: MutableLiveData<Int>

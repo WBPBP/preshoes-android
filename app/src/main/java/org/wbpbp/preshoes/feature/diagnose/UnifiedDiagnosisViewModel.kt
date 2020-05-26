@@ -28,6 +28,7 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.Fail
 import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
 import java.util.concurrent.TimeUnit
@@ -40,6 +41,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
     val leftDeviceConnectionState: LiveData<Int> = sensorDeviceStateRepo.leftDeviceConnectionState
     val rightDeviceConnectionState: LiveData<Int> = sensorDeviceStateRepo.rightDeviceConnectionState
+
+    private val deviceComplete = sensorDeviceStateRepo.allConnected
 
     val leftDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.leftDeviceSensorValue
     val rightDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.rightDeviceSensorValue
@@ -65,6 +68,13 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private var diagnosisSession: MultipleIntervalLimitedTaskTimer? = null
 
     fun onCenterButtonClick() {
+        val readyToGo = deviceComplete.value ?: false
+
+        if (!readyToGo) {
+            Fail.usual(R.string.fail_not_paired)
+            return
+        }
+
         when (phase.value) {
             PHASE_READY -> startStaticDiagnosis(5000L /* 5 sec */)
             PHASE_STAND -> startWalkDiagnosis(10000L /* 10 sec */)

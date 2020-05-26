@@ -19,9 +19,11 @@
 
 package org.wbpbp.preshoes.storage
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.CombinedLiveData
 
 class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
     private val _leftDeviceConnectionState = MutableLiveData<Int>(
@@ -31,6 +33,22 @@ class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
         SensorDeviceStateRepository.STATE_NOT_CONNECTED
     )
 
+    private val _atLeastOneConnected = CombinedLiveData(
+        leftDeviceConnectionState,
+        rightDeviceConnectionState
+    ) { left, right ->
+        (left == SensorDeviceStateRepository.STATE_CONNECTED) ||
+                (right == SensorDeviceStateRepository.STATE_CONNECTED)
+    }
+
+    private val _allConnected = CombinedLiveData(
+        leftDeviceConnectionState,
+        rightDeviceConnectionState
+    ) { left, right ->
+        (left == SensorDeviceStateRepository.STATE_CONNECTED) &&
+                (right == SensorDeviceStateRepository.STATE_CONNECTED)
+    }
+
     private val _leftDeviceSensorValue = MutableLiveData<Sample>()
     private val _rightDeviceSensorValue = MutableLiveData<Sample>()
 
@@ -39,6 +57,12 @@ class SensorDeviceStateRepositoryImpl : SensorDeviceStateRepository {
 
     private val _leftDeviceBatteryLevel = MutableLiveData<Int>(100)
     private val _rightDeviceBatteryLevel = MutableLiveData<Int>(100)
+
+    override val atLeastOneConnected: LiveData<Boolean>
+        get() = _atLeastOneConnected
+
+    override val allConnected: LiveData<Boolean>
+        get() = _allConnected
 
     override val leftDeviceConnectionState
         get() = _leftDeviceConnectionState
