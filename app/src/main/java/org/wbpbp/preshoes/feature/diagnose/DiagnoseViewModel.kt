@@ -23,7 +23,7 @@ import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
-import org.wbpbp.preshoes.util.Fail
+import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.SingleLiveEvent
 
 class DiagnoseViewModel : BaseViewModel() {
@@ -35,7 +35,7 @@ class DiagnoseViewModel : BaseViewModel() {
         val readyToGo = sensorDeviceStateRepo.allConnected.value ?: false
 
         if (!readyToGo) {
-            Fail.usual(R.string.fail_not_paired)
+            Alert.usual(R.string.fail_not_paired)
             return
         }
 

@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.wbpbp.preshoes.injection.myModules
-import org.wbpbp.preshoes.util.Fail
+import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 
 class MyApplication : Application() {
@@ -53,6 +53,6 @@ class MyApplication : Application() {
     }
 
     private fun setFail() {
-        Fail.initialize(this)
+        Alert.initialize(this)
     }
 }

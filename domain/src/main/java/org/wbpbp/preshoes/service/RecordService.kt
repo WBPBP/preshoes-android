@@ -17,17 +17,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.service
 
-import org.wbpbp.preshoes.entity.Features
-import org.wbpbp.preshoes.entity.Record
-import java.util.*
-
-interface RecordRepository {
-    fun addNewRecord(features: Features, date: Date=Date()): Int?
-
-    fun getAllRecords(): List<Record>
-    fun getRecordById(it: Int): Record?
-
-    fun getLastRecord(): Record?
+interface RecordService {
+    fun startRecording()
+    fun finishRecordingAndSave(): Int
 }

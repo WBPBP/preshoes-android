@@ -22,6 +22,6 @@ package org.wbpbp.preshoes.service
 import org.wbpbp.preshoes.entity.Features
 
 interface ReportService {
-    fun createReport(recordId: Int): Int?
-    fun insertFeaturesAndCreateReport(features: Features): Int?
+    fun createReport(staticRecordId: Int, walkRecordId: Int): Int
+    fun insertFeaturesAndCreateReport(features: Features): Int
 }
