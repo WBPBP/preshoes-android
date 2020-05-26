@@ -145,7 +145,7 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
                 TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSec))
 
         val s = TimeUnit.MILLISECONDS.toSeconds(milliSec) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSec)) + 1
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSec))
 
         return String.format("%02d:%02d", m, s)
     }
