@@ -20,8 +20,10 @@
 package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
+import org.wbpbp.preshoes.BuildConfig
 import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
+import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.repository.ReportRepository
 import org.wbpbp.preshoes.repository.SampleRepository
@@ -92,7 +94,11 @@ val myModules = module {
      * Bluetooth
      ****************/
     single {
-        BluetoothHelperImpl() as BluetoothHelper
+        when (BuildConfig.FLAVOR) {
+            "real" -> BluetoothHelperImpl()
+            "fake" -> BluetoothHelperTestImpl()
+            else -> BluetoothHelperImpl()
+        } as BluetoothHelper
     }
 
     /****************

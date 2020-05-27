@@ -53,6 +53,16 @@ android {
         }
     }
 
+    flavorDimensions "bluetooth"
+    productFlavors {
+        real {
+            dimension "bluetooth"
+        }
+        fake {
+            dimension "bluetooth"
+        }
+    }
+
     dataBinding {
         enabled = true
     }

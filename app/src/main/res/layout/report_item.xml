@@ -40,6 +40,7 @@
         android:padding="12dp">
 
         <!-- Date and time -->
+        <!-- TODO toLocaleString is deprecated-->
         <TextView
             style="@style/TextPrimary"
             android:id="@+id/datetime"
