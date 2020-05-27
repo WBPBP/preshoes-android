@@ -28,24 +28,22 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
-import org.wbpbp.preshoes.usecase.CreateReport
-import org.wbpbp.preshoes.usecase.FinishRecording
-import org.wbpbp.preshoes.usecase.StartRecording
+import org.wbpbp.preshoes.usecase.*
 import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
+import org.wbpbp.preshoes.util.TimeString
 import java.util.concurrent.TimeUnit
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
 
-    private val startRecording: StartRecording by inject()
-    private val finishRecording: FinishRecording by inject()
+    private val startStandingRecording: StartStandingRecording by inject()
+    private val finishStandingRecording: FinishStandingRecording by inject()
+    private val startWalkingRecording: StartWalkingRecording by inject()
+    private val finishWalkingRecording: FinishWalkingRecording by inject()
     private val createReport: CreateReport by inject()
-
-    private var staticDiagnosisRecordId: Int = -1
-    private var walkDiagnosisRecordId: Int = -1
 
     val navigateUpEvent = SingleLiveEvent<Unit>()
 
@@ -87,8 +85,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
         when (phase.value) {
             PHASE_READY -> startStaticDiagnosis(5000L /* 5 sec */)
-            PHASE_STAND -> startWalkDiagnosis(10000L /* 10 sec */)
-            PHASE_WALK -> finishDiagnosis()
+            PHASE_STANDING -> startWalkDiagnosis(10000L /* 10 sec */)
+            PHASE_WALKING -> finishDiagnosis()
         }
     }
 
@@ -102,7 +100,7 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
         // Updating button text(time left) happens every 1 seconds
         val updateButtonText = MultipleIntervalLimitedTaskTimer.Task(1000L) { elapsed ->
-            _centerButtonText.postValue(getMMSSLabel(duration - elapsed))
+            _centerButtonText.postValue(TimeString.millisToMMSS(duration - elapsed))
         }
 
         diagnosisSession = MultipleIntervalLimitedTaskTimer(
@@ -119,21 +117,20 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
         startDiagnosis(
             duration,
             onStart = {
-                startRecording(Unit) { result ->
+                startStandingRecording(Unit) { result ->
                     result
                         .onError { Alert.usual(R.string.fail_to_start_recording) }
                 }
 
-                _phase.postValue(PHASE_STAND)
+                _phase.postValue(PHASE_STANDING)
                 _isOnGoing.postValue(true)
                 _progressMax.postValue(duration)
 
                 _helperText.postValue(str(R.string.description_static_diagnosis))
             },
             onFinish = {
-                 finishRecording(Unit) { result ->
+                 finishStandingRecording(Unit) { result ->
                      result
-                         .onSuccess { staticDiagnosisRecordId = it }
                          .onError { Alert.usual(R.string.fail_to_finish_recording) }
                  }
 
@@ -150,21 +147,20 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
         startDiagnosis(
             duration,
             onStart = {
-                startRecording(Unit) { result ->
+                startWalkingRecording(Unit) { result ->
                     result
                         .onError { Alert.usual(R.string.fail_to_start_recording) }
                 }
 
-                _phase.postValue(PHASE_WALK)
+                _phase.postValue(PHASE_WALKING)
                 _isOnGoing.postValue(true)
                 _progressMax.postValue(duration)
 
                 _helperText.postValue(str(R.string.description_walk_diagnosis))
             },
             onFinish = {
-                finishRecording(Unit) { result ->
+                finishWalkingRecording(Unit) { result ->
                     result
-                        .onSuccess { walkDiagnosisRecordId = it }
                         .onError { Alert.usual(R.string.fail_to_finish_recording) }
                 }
 
@@ -178,30 +174,13 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     }
 
     private fun finishDiagnosis() {
-        if (staticDiagnosisRecordId <= 0 || walkDiagnosisRecordId <= 0) {
-            Alert.usual(R.string.fail_no_record_secured)
-            navigateUpEvent.postValue(Unit)
-
-            return
-        }
-
-        createReport(Pair(staticDiagnosisRecordId, walkDiagnosisRecordId)) { result ->
+        createReport(Unit) { result ->
             result
                 .onSuccess { Alert.usual(R.string.notify_report_done) }
                 .onError { Alert.usual(R.string.fail_report_done) }
         }
 
         navigateUpEvent.postValue(Unit)
-    }
-
-    private fun getMMSSLabel(milliSec: Long): String {
-        val m = TimeUnit.MILLISECONDS.toMinutes(milliSec) -
-                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSec))
-
-        val s = TimeUnit.MILLISECONDS.toSeconds(milliSec) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSec))
-
-        return String.format("%02d:%02d", m, s)
     }
 
     private fun str(@StringRes id: Int) = context.getString(id)
@@ -212,8 +191,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     }
 
     companion object {
-        private const val PHASE_READY = 0
-        private const val PHASE_STAND = 1
-        private const val PHASE_WALK = 2
+        const val PHASE_READY = 0
+        const val PHASE_STANDING = 1
+        const val PHASE_WALKING = 2
     }
 }

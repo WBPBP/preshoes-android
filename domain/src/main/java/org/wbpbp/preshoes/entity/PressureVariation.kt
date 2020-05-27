@@ -17,14 +17,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.entity
 
 import io.realm.RealmList
-import org.wbpbp.preshoes.entity.Report
+import io.realm.RealmObject
 
-interface ReportRepository {
-    fun addNewReport(report: Report)
-
-    fun getAllReports(): RealmList<Report>
-    fun getReportById(id: Int): Report?
-}
+open class PressureVariation(
+    var values: RealmList<Int> = RealmList()
+) : RealmObject()

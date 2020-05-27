@@ -17,9 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.service
+package org.wbpbp.preshoes.usecase
 
-interface RecordService {
-    fun startRecording()
-    fun finishRecordingAndSave(): Int
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.ReportService
+
+class FinishWalkingRecording(
+    private val service: ReportService
+) : UseCase<Unit, Unit>() {
+
+    override suspend fun run(params: Unit) = Result.of {
+        service.finishRecordingWalkingPressureDistribution()
+    }
 }

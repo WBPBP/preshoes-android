@@ -25,9 +25,9 @@ import org.wbpbp.preshoes.service.ReportService
 
 class CreateReport(
     private val service: ReportService
-) : UseCase<Pair<Int, Int>, Int>() {
+) : UseCase<Unit, Unit>() {
 
-    override suspend fun run(params: Pair<Int, Int>) = Result.of {
-        service.createReport(params.first, params.second)
+    override suspend fun run(params: Unit) = Result.of {
+        service.finishRecordingAndCreateReport()
     }
 }

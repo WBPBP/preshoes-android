@@ -19,13 +19,17 @@
 
 package org.wbpbp.preshoes.entity
 
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.time.Duration
 import java.util.*
 
-data class Report(
-    val id: Int,
-    val date: Date,
-    val duration: Duration,
-    val features: Features,
-    val commentary: Commentary
-)
+open class Report(
+    @PrimaryKey
+    var id: Int = 0,
+
+    var date: Date = Date(),
+    var duration: Long = 0,
+    var features: Features? = null,
+    var commentary: Commentary? = null
+) : RealmObject()

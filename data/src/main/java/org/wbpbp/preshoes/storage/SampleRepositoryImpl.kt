@@ -19,13 +19,13 @@
 
 package org.wbpbp.preshoes.storage
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import org.wbpbp.preshoes.entity.Record
 import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.util.CombinedLiveData
-import timber.log.Timber
+import java.util.*
 
 class SampleRepositoryImpl(
     sensorDeviceStateRepo: SensorDeviceStateRepository
@@ -46,37 +46,42 @@ class SampleRepositoryImpl(
     }
 
     private val observer = Observer<SamplePair?> { pair ->
-        pair?.takeIf { state.isRecording.value == true }?.let(accumulatedSamplePairs::add)
+        pair?.takeIf { state.isRecording }?.let(accumulatedSamplePairs::add)
     }
 
     override fun startRecording() {
-        if (state.isRecording.value == true) {
-            Timber.d("Already in recording.")
+        if (state.isRecording) {
+            throw Exception("Already in recording.")
         }
 
-        state.isRecording.postValue(true)
+        state.isRecording = true
+        state.startTime = Date().time
 
         samplePairsLiveData.observeForever(observer)
     }
 
-    override fun finishRecording(): List<SamplePair> {
-        if (state.isRecording.value == false) {
-            return listOf()
+    override fun finishRecording(): Record {
+        if (!state.isRecording) {
+            throw Exception("Already in recording.")
         }
-
-        state.isRecording.postValue(false)
 
         samplePairsLiveData.removeObserver(observer)
 
-        return accumulatedSamplePairs
+        state.isRecording = false
+
+        val elapsed = Date().time - state.startTime
+
+        return Record(
+            elapsed,
+            accumulatedSamplePairs
+        )
     }
 
-    override fun isRecording() = state.isRecording.value == true
-
-    override fun isRecordingLiveData() = state.isRecording
+    override fun isRecording() = state.isRecording
 
     inner class State(
-        val isRecording: MutableLiveData<Boolean> = MutableLiveData(false),
+        var isRecording: Boolean = false,
+        var startTime: Long = 0,
         var lastId: Int = INITIAL_ID
     )
 

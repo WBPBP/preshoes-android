@@ -17,28 +17,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.storage
+package org.wbpbp.preshoes.util
 
-import org.wbpbp.preshoes.entity.Features
-import org.wbpbp.preshoes.entity.Record
-import org.wbpbp.preshoes.repository.RecordRepository
-import java.util.*
+import java.util.concurrent.TimeUnit
 
-class RecordRepositoryImpl : RecordRepository {
-    override fun addNewRecord(features: Features, date: Date): Int {
-        TODO("Not yet implemented")
+class TimeString {
+    companion object {
+        fun millisToMMSS(millis: Long): String {
+            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
+
+            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+
+            return String.format("%02d:%02d", m, s)
+        }
     }
-
-    override fun getAllRecords(): List<Record> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getRecordById(it: Int): Record? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getLastRecord(): Record? {
-        TODO("Not yet implemented")
-    }
-
 }

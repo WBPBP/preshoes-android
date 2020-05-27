@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toStartOf="@id/arrow"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="12dp"
-            android:text="@{report.duration.toMinutes() + `분`}"
+            android:text="@{(report.duration / 60000) + `분`}"
             tools:text="3분" />
 
         <!-- Horizontal bias balance -->

@@ -21,13 +21,13 @@ package org.wbpbp.preshoes.usecase
 
 import org.wbpbp.preshoes.functional.Result
 import org.wbpbp.preshoes.interactor.UseCase
-import org.wbpbp.preshoes.service.RecordService
+import org.wbpbp.preshoes.service.ReportService
 
-class FinishRecording(
-    private val service: RecordService
-) : UseCase<Unit, Int>() {
+class FinishStandingRecording(
+    private val service: ReportService
+) : UseCase<Unit, Unit>() {
 
     override suspend fun run(params: Unit) = Result.of {
-        service.finishRecordingAndSave()
+        service.finishRecordingWalkingPressureDistribution()
     }
 }
