@@ -20,7 +20,6 @@
 package org.wbpbp.preshoes.bluetooth
 
 class BluetoothHelperTestImpl : BluetoothHelper {
-
     override fun isBluetoothEnabled(): Boolean {
         TODO("Not yet implemented")
     }
