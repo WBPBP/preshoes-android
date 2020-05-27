@@ -28,6 +28,6 @@ class StartStandingRecording(
 ) : UseCase<Unit, Unit>() {
 
     override suspend fun run(params: Unit) = Result.of {
-        service.startRecordingWalkingPressureDistribution()
+        service.startRecordingStandingPressureDistribution()
     }
 }

@@ -22,5 +22,4 @@ package org.wbpbp.preshoes.common.base
 import androidx.lifecycle.ViewModel
 import org.koin.core.KoinComponent
 
-abstract class BaseViewModel : ViewModel(), KoinComponent {
-}
+abstract class BaseViewModel : ViewModel(), KoinComponent

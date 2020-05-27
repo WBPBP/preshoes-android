@@ -88,7 +88,7 @@ object Alert {
 
     private fun emitEvent(failure: Failure, channel: Int) {
         availableChannels[channel]?.let { channelFound ->
-            Timber.d("Failure set in channel $channel: $failure")
+            Timber.d("Alert set in channel $channel: $failure")
 
             channelFound.postValue(failure)
         }

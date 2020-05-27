@@ -105,7 +105,7 @@ class SensorDeviceServiceImpl(
         }
 
         val onReceive = { data: ByteArray ->
-            Timber.d("onReceive: ${data.map { it.toInt() }.joinToString("m")}")
+            // Timber.d("onReceive: ${data.map { it.toInt() }.joinToString(",")}")
 
             setData(data, sensorValueLiveData)
         }

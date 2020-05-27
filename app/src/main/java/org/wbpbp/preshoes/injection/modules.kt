@@ -27,22 +27,17 @@ import org.wbpbp.preshoes.repository.ReportRepository
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SystemStateRepository
-import org.wbpbp.preshoes.service.*
+import org.wbpbp.preshoes.service.ReportService
+import org.wbpbp.preshoes.service.ReportServiceImpl
+import org.wbpbp.preshoes.service.SensorDeviceService
+import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
 import org.wbpbp.preshoes.storage.ReportRepositoryImpl
 import org.wbpbp.preshoes.storage.SampleRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
-import org.wbpbp.preshoes.usecase.ConnectDevices
-import org.wbpbp.preshoes.usecase.CreateReport
+import org.wbpbp.preshoes.usecase.*
 
 val myModules = module {
-
-    /**
-     * TODO
-     */
-    single {
-        FakeDataGenerator()
-    }
 
     /****************
      * Common
@@ -68,6 +63,29 @@ val myModules = module {
         )
     }
 
+    single {
+        FinishStandingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        FinishWalkingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        StartStandingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        StartWalkingRecording(
+            service = get()
+        )
+    }
 
 
     /****************

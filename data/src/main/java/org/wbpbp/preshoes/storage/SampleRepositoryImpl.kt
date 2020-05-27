@@ -19,12 +19,16 @@
 
 package org.wbpbp.preshoes.storage
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.Observer
 import org.wbpbp.preshoes.entity.Record
+import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.util.CombinedLiveData
+import timber.log.Timber
 import java.util.*
 
 class SampleRepositoryImpl(
@@ -33,20 +37,24 @@ class SampleRepositoryImpl(
 
     private val state = State()
     private val accumulatedSamplePairs: MutableList<SamplePair> = mutableListOf()
+    private val handler = Handler(Looper.getMainLooper())
 
     private val samplePairsLiveData = CombinedLiveData(
         sensorDeviceStateRepo.leftDeviceSensorValue,
         sensorDeviceStateRepo.rightDeviceSensorValue
     ) { leftSample, rightSample ->
-        leftSample?.let { left ->
-            rightSample?.let { right ->
-                SamplePair(state.lastId++, left, right)
-            }
-        }
+        val left = leftSample ?: Sample(listOf())
+        val right = rightSample ?: Sample(listOf())
+
+        SamplePair(state.lastId++, left, right)
     }
 
     private val observer = Observer<SamplePair?> { pair ->
-        pair?.takeIf { state.isRecording }?.let(accumulatedSamplePairs::add)
+        pair?.takeIf { state.isRecording }?.let {
+            Timber.d("Collecting $it")
+
+            accumulatedSamplePairs.add(it)
+        }
     }
 
     override fun startRecording() {
@@ -57,15 +65,19 @@ class SampleRepositoryImpl(
         state.isRecording = true
         state.startTime = Date().time
 
-        samplePairsLiveData.observeForever(observer)
+        handler.post {
+            samplePairsLiveData.observeForever(observer)
+        }
     }
 
     override fun finishRecording(): Record {
         if (!state.isRecording) {
-            throw Exception("Already in recording.")
+            throw Exception("Not in recording.")
         }
 
-        samplePairsLiveData.removeObserver(observer)
+        handler.post {
+            samplePairsLiveData.removeObserver(observer)
+        }
 
         state.isRecording = false
 

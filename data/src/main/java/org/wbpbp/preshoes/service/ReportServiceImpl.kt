@@ -73,13 +73,13 @@ class ReportServiceImpl(
             throw Exception("Recording not finished!")
         }
 
-        val record = sampleRepo.finishRecording()
-
-        val features = extractFeatures(record.samplePairs)
+        val date = Date()
+        val duration = standingRecord.duration + walkingRecord.duration
+        val features = extractFeatures(standingRecord.samplePairs, walkingRecord.samplePairs)
 
         val newReport = Report(
-            date = Date(),
-            duration = record.duration,
+            date = date,
+            duration = duration,
             features = features
         )
 
@@ -87,8 +87,13 @@ class ReportServiceImpl(
     }
 
     // TODO
-    private fun extractFeatures(samples: List<SamplePair>): Features {
+    private fun extractFeatures(
+        standingSamples: List<SamplePair>,
+        walkingSamples: List<SamplePair>
+    ): Features {
         Timber.d("Extract features")
+
+        Timber.d("${standingSamples.size} samples for standing!")
 
         return Features()
     }

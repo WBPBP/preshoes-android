@@ -33,7 +33,6 @@ import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
 import org.wbpbp.preshoes.util.TimeString
-import java.util.concurrent.TimeUnit
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
