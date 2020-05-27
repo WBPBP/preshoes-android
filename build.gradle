@@ -50,6 +50,8 @@ buildscript {
     ext.stepview_version = '1.5.1'
     ext.preference_version = '1.1.1'
     ext.chart_version = 'v3.1.0'
+    ext.realm_version = '5.8.0'
+    ext.realm_adapters_version = '3.1.0'
 
     repositories {
         google()
@@ -59,6 +61,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         // 알겠쥬?

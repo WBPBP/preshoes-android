@@ -53,6 +53,6 @@ class RecordServiceImpl(
     }
 
     private fun extractFeatures(samples: List<SamplePair>): Features {
-        return Features(0, 0.0, 0, listOf(), listOf())
+        return Features.empty()
     }
 }

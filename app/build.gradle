@@ -33,6 +33,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 29
@@ -95,6 +96,9 @@ dependencies {
 
     /** 차트 */
     implementation "com.github.PhilJay:MPAndroidChart:$chart_version"
+
+    /** Realm adapter */
+    implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
 
     /** 프로젝트 모듈 */
     implementation project(":domain")

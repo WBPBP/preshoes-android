@@ -17,16 +17,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.storage
 
-data class Features(
-    val score: Int,
-    val staticHorizontalBiasMerged: Double,
-    val walks: Int,
-    val horizontalBiasVariationDuringWalkSession: List<Double>, // 1 sample per 30 seconds
-    val partialPressureVariationDuringAverageCycle: List<List<Int>> // 10 samples each
-) {
-    companion object {
-        fun empty() = Features(0, 0.0, 0, listOf(), listOf())
+import org.wbpbp.preshoes.entity.Features
+import org.wbpbp.preshoes.entity.Record
+import org.wbpbp.preshoes.repository.RecordRepository
+import java.util.*
+
+class RecordRepositoryImpl : RecordRepository {
+    override fun addNewRecord(features: Features, date: Date): Int {
+        TODO("Not yet implemented")
     }
+
+    override fun getAllRecords(): List<Record> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getRecordById(it: Int): Record? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getLastRecord(): Record? {
+        TODO("Not yet implemented")
+    }
+
 }
