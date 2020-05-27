@@ -20,9 +20,9 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
-import org.wbpbp.preshoes.helper.BluetoothHelper
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING

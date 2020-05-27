@@ -20,9 +20,9 @@
 package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
+import org.wbpbp.preshoes.bluetooth.BluetoothHelper
+import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.helper.BluetoothHelper
-import org.wbpbp.preshoes.helper.BluetoothHelperImpl
 import org.wbpbp.preshoes.repository.ReportRepository
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
@@ -89,7 +89,7 @@ val myModules = module {
 
 
     /****************
-     * Helper
+     * Bluetooth
      ****************/
     single {
         BluetoothHelperImpl() as BluetoothHelper

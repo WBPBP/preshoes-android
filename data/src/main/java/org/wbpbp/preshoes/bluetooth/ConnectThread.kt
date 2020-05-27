@@ -20,8 +20,6 @@
 package org.wbpbp.preshoes.bluetooth
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothSocket
 import android.os.Handler
 import android.os.Looper
 import timber.log.Timber
@@ -33,15 +31,15 @@ import java.io.InputStream
  * All throwable errors are handled, but once an error is thrown, it will stop working.
  */
 internal class ConnectThread(
-    private val device: BluetoothDevice,
+    private val device: BTDevice,
     private val onConnect: () -> Any?,
     private val onReceive: (ByteArray) -> Any?,
     private val onFail: () -> Any?,
     private val onCancel: () -> Any? = {}
-) : Thread("ConnectThread-${device.name}") {
+) : Thread("ConnectThread-${device.getName()}") {
 
     private val mainHandler = Handler(Looper.getMainLooper())
-    private val socket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
+    private val socket: BTSocket? by lazy(LazyThreadSafetyMode.NONE) {
         SocketCreator(device).createSocket()
     }
 
@@ -79,13 +77,13 @@ internal class ConnectThread(
         }
     }
 
-    private fun onConnectionSuccess(socket: BluetoothSocket) {
+    private fun onConnectionSuccess(socket: BTSocket) {
         runCallbackOnMainThread {
             onConnect()
         }
 
         try {
-            readForeverAndLaunchCallback(socket.inputStream)
+            readForeverAndLaunchCallback(socket.getInputStream())
         } catch (e: IOException) {
             Timber.e("Failed to read forever from input stream of connected socket: $e")
         } finally {

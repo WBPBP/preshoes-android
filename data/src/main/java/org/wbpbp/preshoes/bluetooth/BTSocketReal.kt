@@ -17,22 +17,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.helper
+package org.wbpbp.preshoes.bluetooth
 
-import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
+import java.io.InputStream
 
-interface BluetoothHelper {
-    fun isConnected(deviceName: String): Boolean
+class BTSocketReal(
+    private val socket: BluetoothSocket
+) : BTSocket {
 
-    fun findDevice(deviceName: String): BluetoothDevice?
+    override fun connect() {
+        socket.connect()
+    }
 
-    fun connectDevice(
-        device: BluetoothDevice,
-        onConnect: () -> Any?,
-        onReceive: (ByteArray) -> Any?,
-        onFail: () -> Any?,
-        onCancel: () -> Any? = {} // For the future. Currently disconnect is not supported.
-    )
+    override fun getInputStream(): InputStream {
+        return socket.inputStream
+    }
 
-    fun isBluetoothEnabled(): Boolean
+    override fun close() {
+        socket.close()
+    }
 }
