@@ -20,28 +20,26 @@
 package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
+import org.wbpbp.preshoes.BuildConfig
+import org.wbpbp.preshoes.bluetooth.BluetoothHelper
+import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
+import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.helper.BluetoothHelper
-import org.wbpbp.preshoes.helper.BluetoothHelperImpl
+import org.wbpbp.preshoes.repository.ReportRepository
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SystemStateRepository
-import org.wbpbp.preshoes.service.FakeDataGenerator
+import org.wbpbp.preshoes.service.ReportService
+import org.wbpbp.preshoes.service.ReportServiceImpl
 import org.wbpbp.preshoes.service.SensorDeviceService
 import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
+import org.wbpbp.preshoes.storage.ReportRepositoryImpl
 import org.wbpbp.preshoes.storage.SampleRepositoryImpl
 import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
 import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
-import org.wbpbp.preshoes.usecase.ConnectDevices
+import org.wbpbp.preshoes.usecase.*
 
 val myModules = module {
-
-    /**
-     * TODO
-     */
-    single {
-        FakeDataGenerator()
-    }
 
     /****************
      * Common
@@ -61,16 +59,58 @@ val myModules = module {
         )
     }
 
+    single {
+        CreateReport(
+            service = get()
+        )
+    }
+
+    single {
+        FinishStandingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        FinishWalkingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        StartStandingRecording(
+            service = get()
+        )
+    }
+
+    single {
+        StartWalkingRecording(
+            service = get()
+        )
+    }
+
+
     /****************
-     * Helper
+     * Bluetooth
      ****************/
     single {
-        BluetoothHelperImpl() as BluetoothHelper
+        when (BuildConfig.FLAVOR) {
+            "real" -> BluetoothHelperImpl()
+            "fake" -> BluetoothHelperTestImpl()
+            else -> BluetoothHelperImpl()
+        } as BluetoothHelper
     }
 
     /****************
      * Service
      ****************/
+    single {
+        ReportServiceImpl(
+            sampleRepo = get(),
+            reportRepo = get()
+        ) as ReportService
+    }
+
     single {
         SensorDeviceServiceImpl(
             deviceStateRepo = get(),
@@ -81,6 +121,10 @@ val myModules = module {
     /****************
      * Repository
      ****************/
+    single {
+        ReportRepositoryImpl() as ReportRepository
+    }
+
     single {
         SampleRepositoryImpl(
             sensorDeviceStateRepo = get()

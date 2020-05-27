@@ -85,7 +85,7 @@ internal class ConnectThread(
         }
 
         try {
-            readForeverAndLaunchCallback(socket.inputStream)
+            readForeverAndLaunchCallback(socket.getInputStream())
         } catch (e: IOException) {
             Timber.e("Failed to read forever from input stream of connected socket: $e")
         } finally {

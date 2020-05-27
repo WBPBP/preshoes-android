@@ -19,6 +19,8 @@
 
 package org.wbpbp.preshoes.entity
 
-data class Commentary(
-    val adviceOnHorizontalBias: String
-)
+import io.realm.RealmObject
+
+open class Commentary(
+    var adviceOnHorizontalBias: String = ""
+) : RealmObject()

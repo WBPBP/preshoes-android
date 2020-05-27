@@ -21,10 +21,10 @@ package org.wbpbp.preshoes.extension
 
 import androidx.lifecycle.LifecycleOwner
 import org.wbpbp.preshoes.base.Failure
-import org.wbpbp.preshoes.util.Fail
+import org.wbpbp.preshoes.util.Alert
 
 fun LifecycleOwner.onFail(body: (Failure, Int) -> Any?) {
-    Fail.observe(this) { failure, channel ->
+    Alert.observe(this) { failure, channel ->
         body(failure, channel)
     }
 }

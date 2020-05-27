@@ -19,9 +19,11 @@
 
 package org.wbpbp.preshoes.service
 
-import org.wbpbp.preshoes.entity.Features
-
 interface ReportService {
-    fun createReport(recordId: Int): Int?
-    fun insertFeaturesAndCreateReport(features: Features): Int?
+    fun startRecordingStandingPressureDistribution()
+    fun finishRecordingStandingPressureDistribution()
+    fun startRecordingWalkingPressureDistribution()
+    fun finishRecordingWalkingPressureDistribution()
+
+    fun finishRecordingAndCreateReport()
 }

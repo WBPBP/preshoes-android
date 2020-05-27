@@ -17,14 +17,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.bluetooth
 
-import io.realm.RealmList
-import org.wbpbp.preshoes.entity.Report
+class BluetoothHelperTestImpl : BluetoothHelper {
 
-interface ReportRepository {
-    fun addNewReport(report: Report)
+    override fun isBluetoothEnabled(): Boolean {
+        TODO("Not yet implemented")
+    }
 
-    fun getAllReports(): RealmList<Report>
-    fun getReportById(id: Int): Report?
+    override fun isDevicePaired(deviceName: String): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isDeviceConnected(deviceName: String): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun connectDevice(
+        deviceName: String,
+        onConnect: () -> Any?,
+        onReceive: (ByteArray) -> Any?,
+        onFail: () -> Any?,
+        onCancel: () -> Any?
+    ) {
+        TODO("Not yet implemented")
+    }
 }

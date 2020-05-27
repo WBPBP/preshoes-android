@@ -60,59 +60,10 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
             }
         }
 
-        setDummyData()
     }
 
     private fun showDetailedReport(report: Report) {
         findNavController().navigate(R.id.action_report_detail)
     }
 
-
-
-
-
-
-
-
-
-
-
-    private fun setDummyData() {
-        val f1 = Features(
-            score = 44,
-            staticHorizontalBiasMerged = 0.45,
-            walks = 39,
-            horizontalBiasVariationDuringWalkSession = listOf(0.43, 0.43, 0.43, 0.44, 0.43, 0.43, 0.43, 0.45, 0.45, 0.45),
-            partialPressureVariationDuringAverageCycle = listOf(
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0),
-                listOf(1, 2, 3, 4, 5, 4, 3, 2, 1, 0)
-            )
-        )
-
-        val c1 = Commentary(
-            adviceOnHorizontalBias = "Hmm...."
-        )
-
-        val d1 = Duration.ofSeconds(20)
-
-        val r1 = Report(
-            id = 1,
-            date = Date(),
-            duration = d1,
-            features = f1,
-            commentary = c1
-        )
-
-        adapter.setReports(listOf(r1))
-    }
 }

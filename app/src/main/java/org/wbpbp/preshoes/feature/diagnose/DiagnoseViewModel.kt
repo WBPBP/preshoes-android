@@ -19,14 +19,26 @@
 
 package org.wbpbp.preshoes.feature.diagnose
 
+import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
+import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
+import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.SingleLiveEvent
 
 class DiagnoseViewModel : BaseViewModel() {
+    private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
+
     val navigateEvent = SingleLiveEvent<Int>()
 
     fun startUnifiedDiagnosis() {
+        val readyToGo = sensorDeviceStateRepo.allConnected.value ?: false
+
+        if (!readyToGo) {
+            Alert.usual(R.string.fail_not_paired)
+            return
+        }
+
         navigateEvent.postValue(R.id.action_unified_diagnosis)
     }
 }

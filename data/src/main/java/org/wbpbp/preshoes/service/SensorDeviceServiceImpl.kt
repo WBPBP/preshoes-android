@@ -20,14 +20,14 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
-import org.wbpbp.preshoes.helper.BluetoothHelper
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_NOT_CONNECTED
-import org.wbpbp.preshoes.util.Fail
+import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 
 class SensorDeviceServiceImpl(
@@ -81,20 +81,20 @@ class SensorDeviceServiceImpl(
         sensorValueLiveData: MutableLiveData<Sample>
     ): Boolean {
         if (!bluetoothHelper.isBluetoothEnabled()) {
-            Fail.usual(R.string.fail_bt_off)
+            Alert.usual(R.string.fail_bt_off)
             Timber.w("Bluetooth not enabled!")
             return false
         }
 
-        if (bluetoothHelper.isConnected(deviceName)) {
-            Fail.usual(R.string.fail_already_connected)
-            Timber.w("Device $deviceName already connected!")
+        if (!bluetoothHelper.isDevicePaired(deviceName)) {
+            Alert.usual(R.string.fail_not_paired)
+            Timber.w("No such device as $deviceName!")
             return false
         }
 
-        val device = bluetoothHelper.findDevice(deviceName) ?: run {
-            Fail.usual(R.string.fail_not_paired)
-            Timber.w("No such device as $deviceName!")
+        if (bluetoothHelper.isDeviceConnected(deviceName)) {
+            Alert.usual(R.string.fail_already_connected)
+            Timber.w("Device $deviceName already connected!")
             return false
         }
 
@@ -105,19 +105,19 @@ class SensorDeviceServiceImpl(
         }
 
         val onReceive = { data: ByteArray ->
-            Timber.d("onReceive: ${data.map { it.toInt() }.joinToString("m")}")
+            // Timber.d("onReceive: ${data.map { it.toInt() }.joinToString(",")}")
 
             setData(data, sensorValueLiveData)
         }
 
         val onFail = {
             Timber.w("onFail: device failed")
-            Fail.usual(R.string.fail_disconnected)
+            Alert.usual(R.string.fail_disconnected)
 
             connectionStateLiveData.postValue(STATE_NOT_CONNECTED)
         }
 
-        bluetoothHelper.connectDevice(device, onConnect, onReceive, onFail).also {
+        bluetoothHelper.connectDevice(deviceName, onConnect, onReceive, onFail).also {
             connectionStateLiveData.postValue(STATE_CONNECTING)
         }
 

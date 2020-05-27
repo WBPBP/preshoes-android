@@ -31,7 +31,7 @@ import org.wbpbp.preshoes.base.Failure
 import org.wbpbp.preshoes.extension.has
 import timber.log.Timber
 
-object Fail {
+object Alert {
     private const val DEBUG = 0x01
     private const val USUAL = 0x02 // default
     private const val WTF = 0x04
@@ -88,7 +88,7 @@ object Fail {
 
     private fun emitEvent(failure: Failure, channel: Int) {
         availableChannels[channel]?.let { channelFound ->
-            Timber.d("Failure set in channel $channel: $failure")
+            Timber.d("Alert set in channel $channel: $failure")
 
             channelFound.postValue(failure)
         }

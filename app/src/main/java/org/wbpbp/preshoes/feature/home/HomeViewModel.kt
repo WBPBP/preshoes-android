@@ -38,20 +38,10 @@ class HomeViewModel : BaseViewModel() {
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
 
     /** At least one device is available */
-    val deviceAvailable = CombinedLiveData(
-        sensorDeviceStateRepo.leftDeviceConnectionState,
-        sensorDeviceStateRepo.rightDeviceConnectionState
-    ) { left, right ->
-        (left == STATE_CONNECTED) || (right == STATE_CONNECTED)
-    }
+    val deviceAvailable = sensorDeviceStateRepo.atLeastOneConnected
 
     /** Both devices are available */
-    val deviceComplete = CombinedLiveData(
-        sensorDeviceStateRepo.leftDeviceConnectionState,
-        sensorDeviceStateRepo.rightDeviceConnectionState
-    ) { left, right ->
-        (left == STATE_CONNECTED) && (right == STATE_CONNECTED)
-    }
+    val deviceComplete = sensorDeviceStateRepo.allConnected
 
     val connectingInProgress = CombinedLiveData(
         sensorDeviceStateRepo.leftDeviceConnectionState,

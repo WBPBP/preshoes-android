@@ -19,13 +19,17 @@
 
 package org.wbpbp.preshoes.storage
 
-import androidx.lifecycle.MutableLiveData
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.Observer
+import org.wbpbp.preshoes.entity.Record
+import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.entity.SamplePair
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.util.CombinedLiveData
 import timber.log.Timber
+import java.util.*
 
 class SampleRepositoryImpl(
     sensorDeviceStateRepo: SensorDeviceStateRepository
@@ -33,50 +37,63 @@ class SampleRepositoryImpl(
 
     private val state = State()
     private val accumulatedSamplePairs: MutableList<SamplePair> = mutableListOf()
+    private val handler = Handler(Looper.getMainLooper())
 
     private val samplePairsLiveData = CombinedLiveData(
         sensorDeviceStateRepo.leftDeviceSensorValue,
         sensorDeviceStateRepo.rightDeviceSensorValue
     ) { leftSample, rightSample ->
-        leftSample?.let { left ->
-            rightSample?.let { right ->
-                SamplePair(state.lastId++, left, right)
-            }
-        }
+        val left = leftSample ?: Sample(listOf())
+        val right = rightSample ?: Sample(listOf())
+
+        SamplePair(state.lastId++, left, right)
     }
 
     private val observer = Observer<SamplePair?> { pair ->
-        pair?.takeIf { state.isRecording.value == true }?.let(accumulatedSamplePairs::add)
+        pair?.takeIf { state.isRecording }?.let {
+            Timber.d("Collecting $it")
+
+            accumulatedSamplePairs.add(it)
+        }
     }
 
     override fun startRecording() {
-        if (state.isRecording.value == true) {
-            Timber.d("Already in recording.")
+        if (state.isRecording) {
+            throw Exception("Already in recording.")
         }
 
-        state.isRecording.postValue(true)
+        state.isRecording = true
+        state.startTime = Date().time
 
-        samplePairsLiveData.observeForever(observer)
+        handler.post {
+            samplePairsLiveData.observeForever(observer)
+        }
     }
 
-    override fun finishRecording(): List<SamplePair> {
-        if (state.isRecording.value == false) {
-            return listOf()
+    override fun finishRecording(): Record {
+        if (!state.isRecording) {
+            throw Exception("Not in recording.")
         }
 
-        state.isRecording.postValue(false)
+        handler.post {
+            samplePairsLiveData.removeObserver(observer)
+        }
 
-        samplePairsLiveData.removeObserver(observer)
+        state.isRecording = false
 
-        return accumulatedSamplePairs
+        val elapsed = Date().time - state.startTime
+
+        return Record(
+            elapsed,
+            accumulatedSamplePairs
+        )
     }
 
-    override fun isRecording() = state.isRecording.value == true
-
-    override fun isRecordingLiveData() = state.isRecording
+    override fun isRecording() = state.isRecording
 
     inner class State(
-        val isRecording: MutableLiveData<Boolean> = MutableLiveData(false),
+        var isRecording: Boolean = false,
+        var startTime: Long = 0,
         var lastId: Int = INITIAL_ID
     )
 

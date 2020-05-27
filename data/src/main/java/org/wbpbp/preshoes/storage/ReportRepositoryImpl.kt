@@ -17,14 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.storage
 
 import io.realm.RealmList
 import org.wbpbp.preshoes.entity.Report
+import org.wbpbp.preshoes.repository.ReportRepository
+import timber.log.Timber
 
-interface ReportRepository {
-    fun addNewReport(report: Report)
+class ReportRepositoryImpl() : ReportRepository {
+    override fun addNewReport(report: Report) {
+        Timber.d("Add new report!")
+    }
 
-    fun getAllReports(): RealmList<Report>
-    fun getReportById(id: Int): Report?
+    override fun getAllReports(): RealmList<Report> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReportById(id: Int): Report? {
+        TODO("Not yet implemented")
+    }
 }

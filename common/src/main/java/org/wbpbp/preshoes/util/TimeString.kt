@@ -17,14 +17,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.util
 
-import io.realm.RealmList
-import org.wbpbp.preshoes.entity.Report
+import java.util.concurrent.TimeUnit
 
-interface ReportRepository {
-    fun addNewReport(report: Report)
+class TimeString {
+    companion object {
+        fun millisToMMSS(millis: Long): String {
+            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
 
-    fun getAllReports(): RealmList<Report>
-    fun getReportById(id: Int): Report?
+            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+
+            return String.format("%02d:%02d", m, s)
+        }
+    }
 }

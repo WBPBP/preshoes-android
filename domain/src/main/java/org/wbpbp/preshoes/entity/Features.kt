@@ -19,10 +19,13 @@
 
 package org.wbpbp.preshoes.entity
 
-data class Features(
-    val score: Int,
-    val staticHorizontalBiasMerged: Double,
-    val walks: Int,
-    val horizontalBiasVariationDuringWalkSession: List<Double>, // 1 sample per 30 seconds
-    val partialPressureVariationDuringAverageCycle: List<List<Int>> // 10 samples each
-)
+import io.realm.RealmList
+import io.realm.RealmObject
+
+open class Features(
+    var score: Int = 0,
+    var staticHorizontalBiasMerged: Double = 0.0,
+    var walks: Int = 0,
+    var horizontalBiasVariationDuringWalkSession: RealmList<Double> = RealmList(), // 1 sample per 30 seconds
+    var partialPressureVariationDuringAverageCycle: RealmList<PressureVariation> = RealmList() // 10 samples each
+) : RealmObject()

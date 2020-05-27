@@ -28,16 +28,21 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
-import org.wbpbp.preshoes.service.FakeDataGenerator
+import org.wbpbp.preshoes.usecase.*
+import org.wbpbp.preshoes.util.Alert
+import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
-import java.util.*
+import org.wbpbp.preshoes.util.TimeString
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
 
-    // TODO for display
-    private val generator: FakeDataGenerator by inject()
+    private val startStandingRecording: StartStandingRecording by inject()
+    private val finishStandingRecording: FinishStandingRecording by inject()
+    private val startWalkingRecording: StartWalkingRecording by inject()
+    private val finishWalkingRecording: FinishWalkingRecording by inject()
+    private val createReport: CreateReport by inject()
 
     val navigateUpEvent = SingleLiveEvent<Unit>()
 
@@ -47,14 +52,16 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     val leftDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.leftDeviceSensorValue
     val rightDeviceSensorValue: LiveData<Sample> = sensorDeviceStateRepo.rightDeviceSensorValue
 
+    private val deviceComplete = sensorDeviceStateRepo.allConnected
+
     private val _phase = MutableLiveData<Int>(PHASE_READY)
     val phase: LiveData<Int> = _phase
 
-    private val _progressMax = MutableLiveData<Int>(100)
-    val progressMax: LiveData<Int> = _progressMax
+    private val _progressMax = MutableLiveData<Long>(100L)
+    val progressMax: LiveData<Long> = _progressMax
 
-    private val _progress = MutableLiveData<Int>(100)
-    val progress: LiveData<Int> = _progress
+    private val _progress = MutableLiveData<Long>(100L)
+    val progress: LiveData<Long> = _progress
 
     private val _helperText = MutableLiveData<String>(context.getString(R.string.description_please_be_ready))
     val helperText: LiveData<String> = _helperText
@@ -65,85 +72,126 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val _centerButtonText = MutableLiveData<String>(context.getString(R.string.button_start))
     val centerButtonText: LiveData<String> = _centerButtonText
 
+    private var diagnosisSession: MultipleIntervalLimitedTaskTimer? = null
+
     fun onCenterButtonClick() {
+        val readyToGo = deviceComplete.value ?: false
+
+        if (!readyToGo) {
+            Alert.usual(R.string.fail_not_paired)
+            return
+        }
+
         when (phase.value) {
-            PHASE_READY -> startStaticDiagnosis()
-            PHASE_STAND -> startWalkDiagnosis()
-            PHASE_WALK -> finishDiagnosis()
+            PHASE_READY -> startStaticDiagnosis(5000L /* 5 sec */)
+            PHASE_STANDING -> startWalkDiagnosis(10000L /* 10 sec */)
+            PHASE_WALKING -> finishDiagnosis()
         }
     }
 
-    private fun startStaticDiagnosis() {
-        _isOnGoing.postValue(true)
+    private fun startDiagnosis(duration: Long, onStart: () -> Any?, onFinish: () -> Any?) {
+        onStart()
 
-        val duration = 5
-        var timeLeft = duration
-
-        _helperText.postValue(str(R.string.description_static_diagnosis))
-        _progressMax.postValue(duration)
-        _phase.postValue(PHASE_STAND)
-
-        generator.state = FakeDataGenerator.STATE_STANDING
-
-        val task = object: TimerTask() {
-            override fun run() {
-                _progress.postValue(timeLeft)
-                _centerButtonText.postValue("00:0${timeLeft}")
-                if (timeLeft-- <= 0) {
-                    _progress.postValue(duration)
-                    _isOnGoing.postValue(false)
-                    _centerButtonText.postValue(str(R.string.button_resume))
-                    _helperText.postValue(str(R.string.description_keep_next_is_walk))
-                    this.cancel()
-                }
-            }
+        // Updating progress ring happens every 0.01 seconds
+        val updateProgressRingTask = MultipleIntervalLimitedTaskTimer.Task(10L) { elapsed ->
+            _progress.postValue(duration - elapsed)
         }
 
-        Timer().schedule(task, 0, 1000)
+        // Updating button text(time left) happens every 1 seconds
+        val updateButtonText = MultipleIntervalLimitedTaskTimer.Task(1000L) { elapsed ->
+            _centerButtonText.postValue(TimeString.millisToMMSS(duration - elapsed))
+        }
+
+        diagnosisSession = MultipleIntervalLimitedTaskTimer(
+            duration,
+            updateProgressRingTask,
+            updateButtonText
+        ) {
+            clearSession()
+            onFinish()
+        }.apply { start() }
     }
 
-    private fun startWalkDiagnosis() {
-        _isOnGoing.postValue(true)
-
-        val duration = 20
-        var timeLeft = duration
-
-        _helperText.postValue(str(R.string.description_walk_diagnosis))
-        _progressMax.postValue(duration)
-        _phase.postValue(PHASE_WALK)
-
-        generator.state = FakeDataGenerator.STATE_WALKING
-
-        val task = object: TimerTask() {
-            override fun run() {
-                _progress.postValue(timeLeft)
-                _centerButtonText.postValue("00:${timeLeft.toString().padStart(2, '0')}")
-                if (timeLeft-- <= 0) {
-                    generator.state = FakeDataGenerator.STATE_STANDING
-
-                    _progress.postValue(duration)
-                    _isOnGoing.postValue(false)
-                    _centerButtonText.postValue(str(R.string.button_finish))
-                    _helperText.postValue(str(R.string.description_diagnosis_done))
-                    this.cancel()
+    private fun startStaticDiagnosis(duration: Long) {
+        startDiagnosis(
+            duration,
+            onStart = {
+                startStandingRecording(Unit) { result ->
+                    result
+                        .onError { Alert.usual(R.string.fail_to_start_recording) }
                 }
+
+                _phase.postValue(PHASE_STANDING)
+                _isOnGoing.postValue(true)
+                _progressMax.postValue(duration)
+
+                _helperText.postValue(str(R.string.description_static_diagnosis))
+            },
+            onFinish = {
+                 finishStandingRecording(Unit) { result ->
+                     result
+                         .onError { Alert.usual(R.string.fail_to_finish_recording) }
+                 }
+
+                _isOnGoing.postValue(false)
+                _progress.postValue(duration)
+
+                _centerButtonText.postValue(str(R.string.button_resume))
+                _helperText.postValue(str(R.string.description_keep_next_is_walk))
             }
-        }
+        )
+    }
 
-        Timer().schedule(task, 0, 1000)
+    private fun startWalkDiagnosis(duration: Long) {
+        startDiagnosis(
+            duration,
+            onStart = {
+                startWalkingRecording(Unit) { result ->
+                    result
+                        .onError { Alert.usual(R.string.fail_to_start_recording) }
+                }
 
+                _phase.postValue(PHASE_WALKING)
+                _isOnGoing.postValue(true)
+                _progressMax.postValue(duration)
+
+                _helperText.postValue(str(R.string.description_walk_diagnosis))
+            },
+            onFinish = {
+                finishWalkingRecording(Unit) { result ->
+                    result
+                        .onError { Alert.usual(R.string.fail_to_finish_recording) }
+                }
+
+                _isOnGoing.postValue(false)
+                _progress.postValue(duration)
+
+                _centerButtonText.postValue(str(R.string.button_finish))
+                _helperText.postValue(str(R.string.description_diagnosis_done))
+            }
+        )
     }
 
     private fun finishDiagnosis() {
+        createReport(Unit) { result ->
+            result
+                .onSuccess { Alert.usual(R.string.notify_report_done) }
+                .onError { Alert.usual(R.string.fail_report_done) }
+        }
 
-
+        navigateUpEvent.postValue(Unit)
     }
 
     private fun str(@StringRes id: Int) = context.getString(id)
 
+    fun clearSession() {
+        diagnosisSession?.cancel()
+        diagnosisSession = null
+    }
+
     companion object {
-        private const val PHASE_READY = 0
-        private const val PHASE_STAND = 1
-        private const val PHASE_WALK = 2
+        const val PHASE_READY = 0
+        const val PHASE_STANDING = 1
+        const val PHASE_WALKING = 2
     }
 }

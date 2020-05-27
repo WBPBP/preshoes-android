@@ -17,14 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.repository
+package org.wbpbp.preshoes.usecase
 
-import io.realm.RealmList
-import org.wbpbp.preshoes.entity.Report
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.ReportService
 
-interface ReportRepository {
-    fun addNewReport(report: Report)
+class StartStandingRecording(
+    private val service: ReportService
+) : UseCase<Unit, Unit>() {
 
-    fun getAllReports(): RealmList<Report>
-    fun getReportById(id: Int): Report?
+    override suspend fun run(params: Unit) = Result.of {
+        service.startRecordingStandingPressureDistribution()
+    }
 }

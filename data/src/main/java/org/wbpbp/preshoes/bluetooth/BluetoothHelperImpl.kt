@@ -17,43 +17,55 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.helper
+package org.wbpbp.preshoes.bluetooth
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import org.wbpbp.preshoes.bluetooth.ConnectThread
 import timber.log.Timber
 
 class BluetoothHelperImpl : BluetoothHelper {
-    override fun isConnected(deviceName: String) =
+
+    override fun isBluetoothEnabled(): Boolean = getBTAdapter().isEnabled
+
+    override fun isDeviceConnected(deviceName: String) =
         Thread.getAllStackTraces().keys
             .find { it.name == "ConnectThread-$deviceName" }
             ?.let{ true } ?: false
 
-    override fun findDevice(deviceName: String): BluetoothDevice? {
+    override fun isDevicePaired(deviceName: String): Boolean {
         val found = getBTAdapter()
+            .bondedDevices
+            .find { device -> device.name == deviceName } != null
+
+        if (!found) {
+            Timber.w("No device with name '${deviceName}' found")
+        }
+
+        return found
+    }
+
+    private fun findDevice(deviceName: String) =
+        getBTAdapter()
             .bondedDevices
             .find { device -> device.name == deviceName }
 
-        return found ?: run {
-            Timber.w("No device with name '${deviceName}' found")
-            null
-        }
-    }
-
     override fun connectDevice(
-        device: BluetoothDevice,
+        deviceName: String,
         onConnect: () -> Any?,
         onReceive: (ByteArray) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any?
     ) {
-        if (!isConnected(device.name)) {
+        val device = findDevice(deviceName)
+
+        if (device == null) {
+            Timber.w("No such device as ${deviceName}! Check if it is paired first!")
+            return
+        }
+
+        if (!isDeviceConnected(device.name)) {
             ConnectThread(device, onConnect, onReceive, onFail, onCancel).start()
         }
     }
-
-    override fun isBluetoothEnabled(): Boolean = getBTAdapter().isEnabled
 
     private fun getBTAdapter() = BluetoothAdapter.getDefaultAdapter()
 }

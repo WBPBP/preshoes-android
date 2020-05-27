@@ -24,6 +24,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.wbpbp.preshoes.functional.Result
+import timber.log.Timber
 
 /**
  * Abstract class for Use Case (Interactor in terms of Clean Architecture).
@@ -36,6 +37,8 @@ abstract class UseCase<in Params, out Type> {
      * Execute [run] in Global Scope co-routine and launch onResult on Main conversation.
      */
     operator fun invoke(params: Params, onResult: (Result<Type>) -> Unit = {}) {
+        Timber.i("Use case '${this::class.java.name}' running")
+
         val job = GlobalScope.async { run(params) }
 
         MainScope().launch {

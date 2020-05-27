@@ -61,6 +61,7 @@ sealed class Result<out T> {
             return try {
                 Success(body())
             } catch (e: Exception) {
+                e.printStackTrace()
                 Error(e)
             }
         }
