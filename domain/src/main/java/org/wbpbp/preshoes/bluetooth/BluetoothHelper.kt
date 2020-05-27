@@ -39,17 +39,17 @@
 package org.wbpbp.preshoes.bluetooth
 
 interface BluetoothHelper {
-    fun isConnected(deviceName: String): Boolean
+    fun isBluetoothEnabled(): Boolean
 
-    fun findDevice(deviceName: String): BTDevice?
+    fun isDevicePaired(deviceName: String): Boolean
+
+    fun isDeviceConnected(deviceName: String): Boolean
 
     fun connectDevice(
-        device: BTDevice,
+        deviceName: String,
         onConnect: () -> Any?,
         onReceive: (ByteArray) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any? = {} // For the future. Currently disconnect is not supported.
     )
-
-    fun isBluetoothEnabled(): Boolean
 }

@@ -19,22 +19,27 @@
 
 package org.wbpbp.preshoes.bluetooth
 
-import android.bluetooth.BluetoothSocket
-import java.io.InputStream
+class BluetoothHelperTestImpl : BluetoothHelper {
 
-class BTSocketReal(
-    private val socket: BluetoothSocket
-) : BTSocket {
-
-    override fun connect() {
-        socket.connect()
+    override fun isBluetoothEnabled(): Boolean {
+        TODO("Not yet implemented")
     }
 
-    override fun getInputStream(): InputStream {
-        return socket.inputStream
+    override fun isDevicePaired(deviceName: String): Boolean {
+        TODO("Not yet implemented")
     }
 
-    override fun close() {
-        socket.close()
+    override fun isDeviceConnected(deviceName: String): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun connectDevice(
+        deviceName: String,
+        onConnect: () -> Any?,
+        onReceive: (ByteArray) -> Any?,
+        onFail: () -> Any?,
+        onCancel: () -> Any?
+    ) {
+        TODO("Not yet implemented")
     }
 }

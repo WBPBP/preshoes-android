@@ -19,11 +19,13 @@
 
 package org.wbpbp.preshoes.bluetooth
 
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
 import timber.log.Timber
 import java.util.*
 
-class SocketCreator(private val device: BTDevice) {
-    fun createSocket(): BTSocket? {
+class SocketCreator(private val device: BluetoothDevice) {
+    public fun createSocket(): BluetoothSocket? {
         return try {
             Timber.i( "1st attempt: trying with UUID...")
 
@@ -37,7 +39,7 @@ class SocketCreator(private val device: BTDevice) {
         }
     }
 
-    private fun createFallbackSocket(): BTSocket? {
+    private fun createFallbackSocket(): BluetoothSocket? {
         return try {
             Timber.w( "2nd attempt: trying fallback reflection method...")
 
@@ -51,8 +53,11 @@ class SocketCreator(private val device: BTDevice) {
         }
     }
 
-    private fun createRfcommSocketByReflection(): BTSocket {
-        return device.createRfcommSocket(1)
+    private fun createRfcommSocketByReflection(): BluetoothSocket {
+        val paramTypes = arrayOf<Class<*>?>(Int::class.javaPrimitiveType)
+        val method = device::class.java.getMethod("createRfcommSocket", *paramTypes)
+
+        return method.invoke(device, 1) as BluetoothSocket
     }
 
     companion object {

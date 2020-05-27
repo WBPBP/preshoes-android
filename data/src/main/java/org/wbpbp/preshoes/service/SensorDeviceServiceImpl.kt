@@ -86,15 +86,15 @@ class SensorDeviceServiceImpl(
             return false
         }
 
-        if (bluetoothHelper.isConnected(deviceName)) {
-            Alert.usual(R.string.fail_already_connected)
-            Timber.w("Device $deviceName already connected!")
+        if (!bluetoothHelper.isDevicePaired(deviceName)) {
+            Alert.usual(R.string.fail_not_paired)
+            Timber.w("No such device as $deviceName!")
             return false
         }
 
-        val device = bluetoothHelper.findDevice(deviceName) ?: run {
-            Alert.usual(R.string.fail_not_paired)
-            Timber.w("No such device as $deviceName!")
+        if (bluetoothHelper.isDeviceConnected(deviceName)) {
+            Alert.usual(R.string.fail_already_connected)
+            Timber.w("Device $deviceName already connected!")
             return false
         }
 
@@ -117,7 +117,7 @@ class SensorDeviceServiceImpl(
             connectionStateLiveData.postValue(STATE_NOT_CONNECTED)
         }
 
-        bluetoothHelper.connectDevice(device, onConnect, onReceive, onFail).also {
+        bluetoothHelper.connectDevice(deviceName, onConnect, onReceive, onFail).also {
             connectionStateLiveData.postValue(STATE_CONNECTING)
         }
 

@@ -20,6 +20,8 @@
 package org.wbpbp.preshoes.bluetooth
 
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
 import android.os.Handler
 import android.os.Looper
 import timber.log.Timber
@@ -31,15 +33,15 @@ import java.io.InputStream
  * All throwable errors are handled, but once an error is thrown, it will stop working.
  */
 internal class ConnectThread(
-    private val device: BTDevice,
+    private val device: BluetoothDevice,
     private val onConnect: () -> Any?,
     private val onReceive: (ByteArray) -> Any?,
     private val onFail: () -> Any?,
     private val onCancel: () -> Any? = {}
-) : Thread("ConnectThread-${device.getName()}") {
+) : Thread("ConnectThread-${device.name}") {
 
     private val mainHandler = Handler(Looper.getMainLooper())
-    private val socket: BTSocket? by lazy(LazyThreadSafetyMode.NONE) {
+    private val socket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
         SocketCreator(device).createSocket()
     }
 
@@ -77,7 +79,7 @@ internal class ConnectThread(
         }
     }
 
-    private fun onConnectionSuccess(socket: BTSocket) {
+    private fun onConnectionSuccess(socket: BluetoothSocket) {
         runCallbackOnMainThread {
             onConnect()
         }

@@ -29,7 +29,7 @@ class ConnectDevices(
 
     override suspend fun run(params: Pair<String, String>)=
         Result.of {
-            service.connectLeftSensorDevice(params.first)
-                    //service.connectRightSensorDevice(params.second)
+            service.connectLeftSensorDevice(params.first) &&
+                    service.connectRightSensorDevice(params.second)
         }
 }
