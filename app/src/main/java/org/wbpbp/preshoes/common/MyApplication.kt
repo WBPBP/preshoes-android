@@ -20,7 +20,9 @@
 package org.wbpbp.preshoes.common
 
 import android.app.Application
+import android.app.UiModeManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.getSystemService
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.koin.android.ext.koin.androidContext
@@ -63,6 +65,8 @@ class MyApplication : Application() {
     }
 
     private fun setDarkMode() {
+        getSystemService<UiModeManager>()?.nightMode = UiModeManager.MODE_NIGHT_YES
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
