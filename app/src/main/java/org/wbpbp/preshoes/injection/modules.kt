@@ -66,6 +66,12 @@ val myModules = module {
     }
 
     single {
+        DeleteReport(
+            repo = get()
+        )
+    }
+
+    single {
         FinishStandingRecording(
             service = get()
         )
@@ -74,6 +80,12 @@ val myModules = module {
     single {
         FinishWalkingRecording(
             service = get()
+        )
+    }
+
+    single {
+        GetReports(
+            repo = get()
         )
     }
 

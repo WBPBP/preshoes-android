@@ -30,9 +30,11 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Content -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reports_recyclerview"
             android:layout_width="0dp"
@@ -43,6 +45,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/report_item" />
+
+        <!-- Empty view -->
+        <TextView
+            android:id="@+id/empty_view"
+            style="@style/TextPrimary"
+            android:gravity="center"
+            android:padding="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/description_no_reports" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

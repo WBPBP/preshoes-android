@@ -19,15 +19,20 @@
 
 package org.wbpbp.preshoes.feature.report
 
-import io.realm.RealmResults
 import org.koin.core.inject
+import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.entity.Report
 import org.wbpbp.preshoes.repository.ReportRepository
+import org.wbpbp.preshoes.usecase.DeleteReport
+import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.SingleLiveEvent
 
 class ReportsViewModel : BaseViewModel() {
+    private val deleteReport: DeleteReport by inject()
     private val reportRepo: ReportRepository by inject()
+
+    val reports = reportRepo.getAllReports()
 
     val reportClickEvent = SingleLiveEvent<Report>()
 
@@ -35,7 +40,11 @@ class ReportsViewModel : BaseViewModel() {
         reportClickEvent.postValue(report)
     }
 
-    fun getReports(): RealmResults<Report> {
-        return reportRepo.getAllReports()
+    fun deleteReport(id: Int) {
+        deleteReport(id) {
+            it
+                .onSuccess { Alert.usual(R.string.notify_report_deleted) }
+                .onError { Alert.usual(R.string.fail_report_delete_failed) }
+        }
     }
 }

@@ -29,12 +29,16 @@ class ReportRepositoryImpl : ReportRepository {
     override fun addNewReport(report: Report) {
         Timber.d("Add new report!")
 
+        val newId = getLastReportId()?.let { it.toInt() + 1 } ?: 0
+
         Realm.getDefaultInstance().executeTransaction {
-            it.copyToRealm(report)
+            it.copyToRealm(report.apply { id = newId })
         }
 
         Timber.d("Report copied to realm")
     }
+
+    private fun getLastReportId() = Realm.getDefaultInstance().where(Report::class.java).max("id")
 
     override fun getAllReports(): RealmResults<Report> {
         return Realm.getDefaultInstance()
@@ -47,5 +51,15 @@ class ReportRepositoryImpl : ReportRepository {
             .where(Report::class.java)
             .equalTo("id", id)
             .findFirst()
+    }
+
+    override fun deleteReportById(id: Int) {
+        Realm.getDefaultInstance().executeTransaction {
+            val report = it.where(Report::class.java).equalTo("id", id).findFirst()
+
+            report?.features?.deleteFromRealm()
+            report?.commentary?.deleteFromRealm()
+            report?.deleteFromRealm()
+        }
     }
 }

@@ -27,4 +27,6 @@ interface ReportRepository {
 
     fun getAllReports(): RealmResults<Report>
     fun getReportById(id: Int): Report?
+
+    fun deleteReportById(id: Int)
 }

@@ -11,7 +11,7 @@ class ReportsAdapter(private val viewModel: ReportsViewModel)
     : BaseRealmAdapter<Report>() {
 
     init {
-        updateData(viewModel.getReports())
+        updateData(viewModel.reports)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -25,11 +25,15 @@ class ReportsAdapter(private val viewModel: ReportsViewModel)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val report = getItem(position)
-
-        (holder.binding as? ReportItemBinding)?.let {
-            it.report = report
-            it.vm = viewModel
+        getItem(position)?.let { report ->
+            (holder.binding as? ReportItemBinding)?.let {
+                it.report = report
+                it.vm = viewModel
+                it.rootLayout.setOnLongClickListener {
+                    viewModel.deleteReport(report.id)
+                    true
+                }
+            }
         }
     }
 }

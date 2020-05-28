@@ -45,7 +45,7 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
 
         with(root.reports_recyclerview) {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = this@ReportsFragment.adapter
+            adapter = this@ReportsFragment.adapter.apply { emptyView = root.empty_view }
         }
     }
 
@@ -55,7 +55,6 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
                 it?.let(::showDetailedReport)
             }
         }
-
     }
 
     private fun showDetailedReport(report: Report) {

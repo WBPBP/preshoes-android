@@ -33,6 +33,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_layout"
         android:onClick="@{(view) -> vm.showReportDetail(report)}"
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
