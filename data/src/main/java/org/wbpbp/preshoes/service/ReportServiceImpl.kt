@@ -54,7 +54,8 @@ class ReportServiceImpl(
 
     override fun startRecordingWalkingPressureDistribution() {
         if (sampleRepo.isRecording()) {
-            throw Exception("Already recording!")
+            Timber.w("Already recording! It might have been called twice")
+            return
         }
 
         sampleRepo.startRecording()
@@ -62,7 +63,8 @@ class ReportServiceImpl(
 
     override fun finishRecordingWalkingPressureDistribution() {
         if (!sampleRepo.isRecording()) {
-            throw Exception("Not recording!")
+            Timber.w("Not recording! It might have been called twice")
+            return
         }
 
         walkingRecord = sampleRepo.finishRecording()
@@ -70,7 +72,8 @@ class ReportServiceImpl(
 
     override fun finishRecordingAndCreateReport() {
         if (sampleRepo.isRecording()) {
-            throw Exception("Recording not finished!")
+            Timber.w("Recording not finished! It might have been called twice")
+            return
         }
 
         val date = Date()
@@ -94,6 +97,7 @@ class ReportServiceImpl(
         Timber.d("Extract features")
 
         Timber.d("${standingSamples.size} samples for standing!")
+        Timber.d("${walkingSamples.size} samples for walking!")
 
         return Features()
     }

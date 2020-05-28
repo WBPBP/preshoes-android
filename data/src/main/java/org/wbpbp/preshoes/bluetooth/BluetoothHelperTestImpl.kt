@@ -19,17 +19,32 @@
 
 package org.wbpbp.preshoes.bluetooth
 
+import org.wbpbp.preshoes.service.FakeDataGenerator
+import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.CHANNEL_LEFT
+import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.CHANNEL_RIGHT
+import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.STATE_WALKING
+
 class BluetoothHelperTestImpl : BluetoothHelper {
+    private var paired = mutableMapOf(
+        "PreshoesLeft" to true,
+        "PreshoesRight" to true
+    )
+
+    private var connected = mutableMapOf(
+        "PreshoesLeft" to false,
+        "PreshoesRight" to false
+    )
+
     override fun isBluetoothEnabled(): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun isDevicePaired(deviceName: String): Boolean {
-        TODO("Not yet implemented")
+        return paired[deviceName] ?: false
     }
 
     override fun isDeviceConnected(deviceName: String): Boolean {
-        TODO("Not yet implemented")
+        return connected[deviceName] ?: false
     }
 
     override fun connectDevice(
@@ -39,6 +54,34 @@ class BluetoothHelperTestImpl : BluetoothHelper {
         onFail: () -> Any?,
         onCancel: () -> Any?
     ) {
-        TODO("Not yet implemented")
+        if (connected[deviceName] == true) {
+            onFail()
+        }
+
+        connected[deviceName] = true
+
+        val generator = FakeDataGenerator().apply {
+            state = STATE_WALKING
+        }
+
+        val channel = when(deviceName) {
+            "PreshoesLeft" -> CHANNEL_LEFT
+            "PreshoesRight" -> CHANNEL_RIGHT
+            else -> CHANNEL_LEFT
+        }
+
+        Thread {
+            try {
+                onConnect()
+
+                while(true) {
+                    onReceive(generator.getNextFake(channel))
+                    Thread.sleep(50) // 20 samples a sec
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                onFail()
+            }
+        }.start()
     }
 }

@@ -36,8 +36,9 @@ class SampleRepositoryImpl(
 ) : SampleRepository {
 
     private val state = State()
-    private val accumulatedSamplePairs: MutableList<SamplePair> = mutableListOf()
     private val handler = Handler(Looper.getMainLooper())
+
+    private lateinit var accumulatedSamplePairs: MutableList<SamplePair>
 
     private val samplePairsLiveData = CombinedLiveData(
         sensorDeviceStateRepo.leftDeviceSensorValue,
@@ -64,6 +65,8 @@ class SampleRepositoryImpl(
 
         state.isRecording = true
         state.startTime = Date().time
+
+        accumulatedSamplePairs = mutableListOf()
 
         handler.post {
             samplePairsLiveData.observeForever(observer)
