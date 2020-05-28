@@ -19,21 +19,33 @@
 
 package org.wbpbp.preshoes.storage
 
-import io.realm.RealmList
+import io.realm.Realm
+import io.realm.RealmResults
 import org.wbpbp.preshoes.entity.Report
 import org.wbpbp.preshoes.repository.ReportRepository
 import timber.log.Timber
 
-class ReportRepositoryImpl() : ReportRepository {
+class ReportRepositoryImpl : ReportRepository {
     override fun addNewReport(report: Report) {
         Timber.d("Add new report!")
+
+        Realm.getDefaultInstance().executeTransaction {
+            it.copyToRealm(report)
+        }
+
+        Timber.d("Report copied to realm")
     }
 
-    override fun getAllReports(): RealmList<Report> {
-        TODO("Not yet implemented")
+    override fun getAllReports(): RealmResults<Report> {
+        return Realm.getDefaultInstance()
+            .where(Report::class.java)
+            .findAll()
     }
 
     override fun getReportById(id: Int): Report? {
-        TODO("Not yet implemented")
+        return Realm.getDefaultInstance()
+            .where(Report::class.java)
+            .equalTo("id", id)
+            .findFirst()
     }
 }

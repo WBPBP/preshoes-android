@@ -17,25 +17,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.feature.report
+package org.wbpbp.preshoes.common.extension
 
-import io.realm.RealmResults
-import org.koin.core.inject
-import org.wbpbp.preshoes.common.base.BaseViewModel
-import org.wbpbp.preshoes.entity.Report
-import org.wbpbp.preshoes.repository.ReportRepository
-import org.wbpbp.preshoes.util.SingleLiveEvent
+import android.view.View
 
-class ReportsViewModel : BaseViewModel() {
-    private val reportRepo: ReportRepository by inject()
-
-    val reportClickEvent = SingleLiveEvent<Report>()
-
-    fun showReportDetail(report: Report) {
-        reportClickEvent.postValue(report)
-    }
-
-    fun getReports(): RealmResults<Report> {
-        return reportRepo.getAllReports()
-    }
+fun View.setVisible(visible: Boolean) {
+    this.visibility = if (visible) View.VISIBLE else View.GONE
 }

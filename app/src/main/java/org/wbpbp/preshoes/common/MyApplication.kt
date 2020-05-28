@@ -21,6 +21,8 @@ package org.wbpbp.preshoes.common
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.wbpbp.preshoes.injection.myModules
@@ -33,6 +35,7 @@ class MyApplication : Application() {
 
         initTimber()
         initKoin()
+        initRealm()
         setDarkMode()
         setFail()
     }
@@ -46,6 +49,17 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
             modules(myModules)
         }
+    }
+
+    private fun initRealm() {
+        Realm.init(this)
+        Realm.setDefaultConfiguration(
+            RealmConfiguration.Builder()
+                .compactOnLaunch()
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build()
+        )
     }
 
     private fun setDarkMode() {
