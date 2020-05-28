@@ -17,20 +17,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.util
+package org.wbpbp.preshoes.common.base
 
-import java.util.concurrent.TimeUnit
+import android.view.View
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
 
-class TimeString {
-    companion object {
-        fun millisToMMSS(millis: Long, addOneSec: Boolean = true): String {
-            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
+open class BaseViewHolder(
+    val binding: ViewDataBinding
+) : RecyclerView.ViewHolder(binding.root), LayoutContainer {
 
-            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-
-            return String.format("%02d:%02d", m, s + (if (addOneSec) 1 else 0))
-        }
-    }
+    override val containerView: View = binding.root
 }

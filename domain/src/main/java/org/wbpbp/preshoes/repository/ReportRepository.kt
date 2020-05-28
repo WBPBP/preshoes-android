@@ -19,12 +19,14 @@
 
 package org.wbpbp.preshoes.repository
 
-import io.realm.RealmList
+import io.realm.RealmResults
 import org.wbpbp.preshoes.entity.Report
 
 interface ReportRepository {
     fun addNewReport(report: Report)
 
-    fun getAllReports(): RealmList<Report>
+    fun getAllReports(): RealmResults<Report>
     fun getReportById(id: Int): Report?
+
+    fun deleteReportById(id: Int)
 }

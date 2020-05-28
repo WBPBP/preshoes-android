@@ -29,15 +29,11 @@ import org.wbpbp.preshoes.common.extension.getViewModel
 import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.ReportsFragmentBinding
-import org.wbpbp.preshoes.entity.Commentary
-import org.wbpbp.preshoes.entity.Features
 import org.wbpbp.preshoes.entity.Report
-import java.time.Duration
-import java.util.*
 
 class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
-    private val adapter: ReportsRecyclerViewAdapter by lazy {
-        ReportsRecyclerViewAdapter(viewModel)
+    private val adapter: ReportsAdapter by lazy {
+        ReportsAdapter(viewModel)
     }
 
     override val viewModel: ReportsViewModel by getViewModel()
@@ -49,7 +45,7 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
 
         with(root.reports_recyclerview) {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = this@ReportsFragment.adapter
+            adapter = this@ReportsFragment.adapter.apply { emptyView = root.empty_view }
         }
     }
 
@@ -59,7 +55,6 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
                 it?.let(::showDetailedReport)
             }
         }
-
     }
 
     private fun showDetailedReport(report: Report) {

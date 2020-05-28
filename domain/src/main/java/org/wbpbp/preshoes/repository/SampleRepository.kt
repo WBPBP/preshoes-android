@@ -19,9 +19,7 @@
 
 package org.wbpbp.preshoes.repository
 
-import androidx.lifecycle.LiveData
 import org.wbpbp.preshoes.entity.Record
-import org.wbpbp.preshoes.entity.SamplePair
 
 interface SampleRepository {
     fun startRecording()

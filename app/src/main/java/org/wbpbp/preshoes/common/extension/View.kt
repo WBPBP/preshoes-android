@@ -17,20 +17,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.util
+package org.wbpbp.preshoes.common.extension
 
-import java.util.concurrent.TimeUnit
+import android.view.View
 
-class TimeString {
-    companion object {
-        fun millisToMMSS(millis: Long, addOneSec: Boolean = true): String {
-            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
-
-            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-
-            return String.format("%02d:%02d", m, s + (if (addOneSec) 1 else 0))
-        }
-    }
+fun View.setVisible(visible: Boolean) {
+    this.visibility = if (visible) View.VISIBLE else View.GONE
 }

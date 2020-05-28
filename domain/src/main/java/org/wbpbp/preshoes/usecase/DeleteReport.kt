@@ -17,20 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.util
+package org.wbpbp.preshoes.usecase
 
-import java.util.concurrent.TimeUnit
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.repository.ReportRepository
 
-class TimeString {
-    companion object {
-        fun millisToMMSS(millis: Long, addOneSec: Boolean = true): String {
-            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
+class DeleteReport(
+    private val repo: ReportRepository
+) : UseCase<Int, Unit>() {
 
-            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-
-            return String.format("%02d:%02d", m, s + (if (addOneSec) 1 else 0))
-        }
+    override suspend fun run(params: Int) = Result.of {
+        repo.deleteReportById(params)
     }
 }
