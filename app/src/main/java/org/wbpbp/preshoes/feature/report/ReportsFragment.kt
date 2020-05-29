@@ -20,6 +20,7 @@
 package org.wbpbp.preshoes.feature.report
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.reports_fragment.view.*
@@ -58,7 +59,9 @@ class ReportsFragment : BaseFragment<ReportsFragmentBinding>() {
     }
 
     private fun showDetailedReport(report: Report) {
-        findNavController().navigate(R.id.action_report_detail)
+        val bundle = bundleOf("reportId" to report.id)
+
+        findNavController().navigate(R.id.action_report_detail, bundle)
     }
 
 }

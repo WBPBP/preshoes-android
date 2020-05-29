@@ -5,7 +5,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.report_detail_fragment.view.*
+import kotlinx.android.synthetic.main.report_detail_lower_part.view.*
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseFragment
 import org.wbpbp.preshoes.common.extension.getViewModel
@@ -22,7 +22,9 @@ class ReportDetailFragment : BaseFragment<ReportDetailFragmentBinding>() {
     }
 
     override fun initBinding(binding: ReportDetailFragmentBinding) {
-        binding.vm = viewModel
+        binding.vm = viewModel.apply {
+            reportId = arguments?.getInt("reportId", -1) ?: -1
+        }
     }
 
     private fun initChart(chart: LineChart) {

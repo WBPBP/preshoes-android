@@ -42,6 +42,12 @@
     <fragment
         android:id="@+id/report_detail_dest"
         android:name="org.wbpbp.preshoes.feature.report.ReportDetailFragment"
-        android:label="@string/title_details" />
+        android:label="@string/title_details"
+        tools:layout="@layout/report_detail_fragment" >
+        <argument
+            android:name="reportId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
 </navigation>
