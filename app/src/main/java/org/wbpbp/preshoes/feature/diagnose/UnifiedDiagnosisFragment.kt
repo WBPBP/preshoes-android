@@ -47,6 +47,6 @@ class UnifiedDiagnosisFragment : BaseFragment<UnifiedDiagnosisFragmentBinding>()
         super.onDestroy()
 
         // The recording session must survive on 'onStop'.
-        viewModel.clearSession()
+        viewModel.onDestroy()
     }
 }

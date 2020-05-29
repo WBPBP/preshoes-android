@@ -25,6 +25,7 @@ import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
+import org.wbpbp.preshoes.entity.Config
 import org.wbpbp.preshoes.repository.ReportRepository
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
@@ -44,6 +45,10 @@ val myModules = module {
     /****************
      * Common
      ****************/
+    single {
+        Config()
+    }
+
     single {
         Navigator(
             context = get()

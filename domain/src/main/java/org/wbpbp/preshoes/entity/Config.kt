@@ -17,20 +17,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.util
+package org.wbpbp.preshoes.entity
 
-import java.util.concurrent.TimeUnit
-
-class TimeString {
-    companion object {
-        fun millisToMMSS(millis: Long, addOneSec: Boolean = false): String {
-            val m = TimeUnit.MILLISECONDS.toMinutes(millis) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))
-
-            val s = TimeUnit.MILLISECONDS.toSeconds(millis) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-
-            return String.format("%02d:%02d", m, s + (if (addOneSec) 1 else 0))
-        }
-    }
-}
+data class Config(
+    val standingDiagnosisDurationMillis: Long = 5000L,
+    val walkingDiagnosisDurationMillis: Long = 10000L
+)

@@ -26,6 +26,7 @@ import androidx.lifecycle.MutableLiveData
 import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
+import org.wbpbp.preshoes.entity.Config
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.usecase.*
@@ -33,6 +34,7 @@ import org.wbpbp.preshoes.util.Alert
 import org.wbpbp.preshoes.util.MultipleIntervalLimitedTaskTimer
 import org.wbpbp.preshoes.util.SingleLiveEvent
 import org.wbpbp.preshoes.util.TimeString
+import timber.log.Timber
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val context: Context by inject()
@@ -45,6 +47,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val createReport: CreateReport by inject()
     private val haltReport: HaltRecording by inject()
 
+    private val config: Config by inject()
+
     val navigateUpEvent = SingleLiveEvent<Unit>()
 
     val leftDeviceConnectionState: LiveData<Int> = sensorDeviceStateRepo.leftDeviceConnectionState
@@ -55,22 +59,22 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
     private val deviceComplete = sensorDeviceStateRepo.allConnected
 
-    private val _phase = MutableLiveData<Int>(PHASE_READY)
+    private val _phase = MutableLiveData(PHASE_READY)
     val phase: LiveData<Int> = _phase
 
-    private val _progressMax = MutableLiveData<Long>(100L)
+    private val _progressMax = MutableLiveData(100L)
     val progressMax: LiveData<Long> = _progressMax
 
-    private val _progress = MutableLiveData<Long>(100L)
+    private val _progress = MutableLiveData(100L)
     val progress: LiveData<Long> = _progress
 
-    private val _helperText = MutableLiveData<String>(context.getString(R.string.description_please_be_ready))
+    private val _helperText = MutableLiveData(context.getString(R.string.description_please_be_ready))
     val helperText: LiveData<String> = _helperText
 
-    private val _isOnGoing = MutableLiveData<Boolean>(false)
+    private val _isOnGoing = MutableLiveData(false)
     val isOnGoing: LiveData<Boolean> = _isOnGoing
 
-    private val _centerButtonText = MutableLiveData<String>(context.getString(R.string.button_start))
+    private val _centerButtonText = MutableLiveData(context.getString(R.string.button_start))
     val centerButtonText: LiveData<String> = _centerButtonText
 
     private var diagnosisSession: MultipleIntervalLimitedTaskTimer? = null
@@ -84,8 +88,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
         }
 
         when (phase.value) {
-            PHASE_READY -> startStaticDiagnosis(5000L /* 5 sec */)
-            PHASE_STANDING -> startWalkDiagnosis(10000L /* 10 sec */)
+            PHASE_READY -> startStaticDiagnosis(config.standingDiagnosisDurationMillis)
+            PHASE_STANDING -> startWalkDiagnosis(config.walkingDiagnosisDurationMillis)
             PHASE_WALKING -> finishDiagnosis()
         }
     }
@@ -174,6 +178,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     }
 
     private fun finishDiagnosis() {
+        _phase.postValue(PHASE_DONE)
+
         createReport(Unit) { result ->
             result
                 .onSuccess { Alert.usual(R.string.notify_report_done) }
@@ -185,17 +191,32 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
     private fun str(@StringRes id: Int) = context.getString(id)
 
-    fun clearSession() {
+    fun onDestroy() {
+        when (phase.value) {
+            PHASE_READY -> {}
+            PHASE_STANDING -> onUnexpectedEscape()
+            PHASE_WALKING -> onUnexpectedEscape()
+            PHASE_DONE -> {}
+        }
+    }
+
+    private fun onUnexpectedEscape() {
+        Timber.w("Unexpected escape from diagnosis!")
+
         cancelTimerTasks()
         cancelRecording()
     }
 
     private fun cancelTimerTasks() {
+        Timber.d("Cancel timer tasks")
+
         diagnosisSession?.cancel()
         diagnosisSession = null
     }
 
     private fun cancelRecording() {
+        Timber.d("Cancel recoding: halt")
+
         haltReport(Unit) {
             it
                 .onSuccess { Alert.usual(R.string.notify_session_canceled) }
@@ -207,5 +228,6 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
         const val PHASE_READY = 0
         const val PHASE_STANDING = 1
         const val PHASE_WALKING = 2
+        const val PHASE_DONE = 3
     }
 }
