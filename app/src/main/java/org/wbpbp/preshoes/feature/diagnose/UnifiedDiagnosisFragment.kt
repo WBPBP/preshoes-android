@@ -43,11 +43,10 @@ class UnifiedDiagnosisFragment : BaseFragment<UnifiedDiagnosisFragmentBinding>()
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
 
-        // Diagnosis session must be cleared when the fragments view is lost:
-        // The session contains reference of the view.
+        // The recording session must survive on 'onStop'.
         viewModel.clearSession()
     }
 }

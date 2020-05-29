@@ -90,6 +90,12 @@ val myModules = module {
     }
 
     single {
+        HaltRecording(
+            service = get()
+        )
+    }
+
+    single {
         StartStandingRecording(
             service = get()
         )

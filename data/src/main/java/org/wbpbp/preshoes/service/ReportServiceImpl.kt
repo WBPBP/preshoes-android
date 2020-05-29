@@ -38,7 +38,8 @@ class ReportServiceImpl(
 
     override fun startRecordingStandingPressureDistribution() {
         if (sampleRepo.isRecording()) {
-            throw Exception("Already recording!")
+            Timber.w("Already recording!")
+            return
         }
 
         sampleRepo.startRecording()
@@ -46,7 +47,8 @@ class ReportServiceImpl(
 
     override fun finishRecordingStandingPressureDistribution() {
         if (!sampleRepo.isRecording()) {
-            throw Exception("Not recording!")
+            Timber.w("Not recording!")
+            return
         }
 
         standingRecord = sampleRepo.finishRecording()
@@ -100,5 +102,12 @@ class ReportServiceImpl(
         Timber.d("${walkingSamples.size} samples for walking!")
 
         return Features()
+    }
+
+    override fun haltRecording() {
+        if (sampleRepo.isRecording()) {
+            Timber.i("Diagnosis halt!")
+            sampleRepo.finishRecording()
+        }
     }
 }

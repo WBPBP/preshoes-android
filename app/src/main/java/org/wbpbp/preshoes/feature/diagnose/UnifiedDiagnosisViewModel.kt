@@ -43,6 +43,7 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val startWalkingRecording: StartWalkingRecording by inject()
     private val finishWalkingRecording: FinishWalkingRecording by inject()
     private val createReport: CreateReport by inject()
+    private val haltReport: HaltRecording by inject()
 
     val navigateUpEvent = SingleLiveEvent<Unit>()
 
@@ -107,7 +108,7 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
             updateProgressRingTask,
             updateButtonText
         ) {
-            clearSession()
+            cancelTimerTasks()
             onFinish()
         }.apply { start() }
     }
@@ -185,8 +186,21 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private fun str(@StringRes id: Int) = context.getString(id)
 
     fun clearSession() {
+        cancelTimerTasks()
+        cancelRecording()
+    }
+
+    private fun cancelTimerTasks() {
         diagnosisSession?.cancel()
         diagnosisSession = null
+    }
+
+    private fun cancelRecording() {
+        haltReport(Unit) {
+            it
+                .onSuccess { Alert.usual(R.string.notify_session_canceled) }
+                .onError { Alert.usual(R.string.fail_session_cancel_error) }
+        }
     }
 
     companion object {
