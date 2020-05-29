@@ -32,7 +32,7 @@ class UnifiedDiagnosisFragment : BaseFragment<UnifiedDiagnosisFragmentBinding>()
     override fun getLayoutRes() = R.layout.unified_diagnosis_fragment
 
     override fun initView(root: View) {
-        //
+        // Nothing to do.
     }
 
     override fun initBinding(binding: UnifiedDiagnosisFragmentBinding) {
