@@ -61,5 +61,8 @@
     <string name="description_no_reports">보고서가 없습니다. 진단 후 이곳에서 결과를 받아보실 수 있습니다.</string>
     <string name="notify_session_canceled">검사가 중단되었습니다.</string>
     <string name="fail_session_cancel_error">검사를 중단하는 도중 오류가 발생하였습니다.</string>
+    <string name="title_standing_analysis">정적 분석</string>
+    <string name="title_walking_analysis">걸음걸이 분석</string>
+    <string name="title_medical_prediction">발생이 우려되는 질환</string>
 
 </resources>

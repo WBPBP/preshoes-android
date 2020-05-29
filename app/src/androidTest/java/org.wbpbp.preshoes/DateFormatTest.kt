@@ -17,17 +17,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.binding
+package org.wbpbp.preshoes
 
-import androidx.databinding.BindingAdapter
-import eo.view.batterymeter.BatteryMeterView
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.text.DateFormat
+import java.util.*
 
-@BindingAdapter("batteryLevel")
-fun setBatteryLevel(view: BatteryMeterView, level: Int) {
-    view.chargeLevel = level
-}
+/**
+ * Instrumented test, which will execute on an Android device.
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+@RunWith(AndroidJUnit4::class)
+class DateFormatTest {
+    @Test
+    fun checkDateFormat() {
+        val date = Date()
+        val dateString = DateFormat.getDateInstance(DateFormat.FULL).format(date)
 
-@BindingAdapter("isCharging")
-fun setIsCharging(view: BatteryMeterView, isCharging: Boolean) {
-    view.isCharging = isCharging
+        assertEquals("2020년 5월 30일 토요일", dateString)
+    }
 }

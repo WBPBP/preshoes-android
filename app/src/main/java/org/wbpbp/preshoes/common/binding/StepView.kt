@@ -22,7 +22,7 @@ package org.wbpbp.preshoes.common.binding
 import androidx.databinding.BindingAdapter
 import com.shuhart.stepview.StepView
 
-@BindingAdapter("app:phase")
+@BindingAdapter("phase")
 fun setPhase(view: StepView, phase: Int /* from zero */) {
     view.go(phase, true)
 }

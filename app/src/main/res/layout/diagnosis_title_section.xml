@@ -50,7 +50,7 @@
             app:sv_animationType="Line"
             app:sv_animationDuration="200"
 
-            app:phase="@{vm.phase}"/>
+            phase="@{vm.phase}"/>
 
     </LinearLayout>
 

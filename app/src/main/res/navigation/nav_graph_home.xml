@@ -23,7 +23,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_home"
-    app:startDestination="@id/home_dest">
+    app:startDestination="@id/home_dest"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/home_dest"

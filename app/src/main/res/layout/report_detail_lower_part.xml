@@ -18,8 +18,8 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -40,6 +40,7 @@
 
             <!-- Chart -->
             <com.github.mikephil.charting.charts.LineChart
+                chartData="@{vm.chartData}"
                 android:id="@+id/horizontal_bias_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -88,7 +89,8 @@
                         android:id="@+id/horizontal_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="44%" />
+                        android:text="@{vm.score}"
+                        tools:text="44%"/>
 
                     <!-- Label -->
                     <TextView
@@ -118,7 +120,8 @@
                         android:id="@+id/walks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="39" />
+                        android:text="@{vm.walks}"
+                        tools:text="39"/>
 
                     <!-- Label -->
                     <TextView
@@ -157,7 +160,8 @@
                         android:id="@+id/horizontal_bias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.45" />
+                        android:text="@{vm.horizontalBias}"
+                        tools:text="0.45"/>
 
                     <!-- Label -->
                     <TextView
@@ -187,7 +191,8 @@
                         android:id="@+id/duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:20" />
+                        android:text="@{vm.duration}"
+                        tools:text="00:20"/>
 
                     <!-- Label -->
                     <TextView

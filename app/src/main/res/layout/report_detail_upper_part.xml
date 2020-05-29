@@ -18,8 +18,8 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -58,7 +58,8 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2020년 5월 23일" />
+                android:text="@{vm.dateString}"
+                tools:text="2020년 5월 28일"/>
 
         </LinearLayout>
 
@@ -79,14 +80,15 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="정적 분석" />
+                android:text="@string/title_standing_analysis" />
 
             <TextView
                 android:gravity="center"
                 style="@style/TextPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다. 또한 현재 양쪽 발에 실리는 힘의 차이가 많은 것으로 보아 척추측만증을 의심해볼 수                                                                                    있습니다."/>
+                android:text="@{vm.adviceOnHorizontalBias}"
+                tools:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다. 또한 현재 양쪽 발에 실리는 힘의 차이가 많은 것으로 보아 척추측만증을 의심해볼 수                                                                                    있습니다."/>
 
         </LinearLayout>
 
@@ -107,14 +109,15 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="걸음걸이 분석" />
+                android:text="@string/title_walking_analysis" />
 
             <TextView
                 android:gravity="center"
                 style="@style/TextPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="평균적으로 학다리걸음에 가까운 걸음걸이 습관을 가지고 있습니다. 해당 걸음걸이를 계속 유지하시는 경우 무릎을 굽히지 않아 계속적으로 무릎에 충격이 가며 연골 연화증이 발생할 수 있습니다."/>
+                android:text="@{vm.adviceOnWalkingHabits}"
+                tools:text="평균적으로 학다리걸음에 가까운 걸음걸이 습관을 가지고 있습니다. 해당 걸음걸이를 계속 유지하시는 경우 무릎을 굽히지 않아 계속적으로 무릎에 충격이 가며 연골 연화증이 발생할 수 있습니다."/>
 
         </LinearLayout>
 
@@ -135,7 +138,7 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="발생이 우려되는 질환" />
+                android:text="@string/title_medical_prediction" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,15 +149,17 @@
                     android:layout_weight="1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_disease_3_knee" />
+                    android:src="@{vm.medicalPredictionDrawable}"
+                    tools:src="@drawable/ic_disease_3_knee"/>
 
                 <TextView
+                    style="@style/TextPrimary"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    style="@style/TextPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="연골 연화증"/>
+                    android:text="@{vm.medicalPredictionName}"
+                    tools:text="연골 연화증"/>
 
             </LinearLayout>
 
