@@ -53,8 +53,8 @@
 
             <!-- Battery meter view -->
             <eo.view.batterymeter.BatteryMeterView
-                app:batteryLevel="@{vm.leftBatteryLevel}"
-                app:isCharging="@{vm.isLeftBatteryCharging}"
+                batteryLevel="@{vm.leftBatteryLevel}"
+                isCharging="@{vm.isLeftBatteryCharging}"
                 android:layout_marginTop="5dp"
                 android:id="@+id/battery_meter_left"
                 android:layout_width="match_parent"
@@ -100,8 +100,8 @@
 
             <!-- Battery meter view -->
             <eo.view.batterymeter.BatteryMeterView
-                app:batteryLevel="@{vm.rightBatteryLevel}"
-                app:isCharging="@{vm.isRightBatteryCharging}"
+                batteryLevel="@{vm.rightBatteryLevel}"
+                isCharging="@{vm.isRightBatteryCharging}"
                 android:layout_marginTop="5dp"
                 android:id="@+id/battery_meter_right"
                 android:layout_width="match_parent"

@@ -17,17 +17,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.binding
+package org.wbpbp.preshoes.feature.report
 
-import androidx.databinding.BindingAdapter
-import eo.view.batterymeter.BatteryMeterView
+import android.content.Context
+import android.graphics.drawable.Drawable
+import org.wbpbp.preshoes.R
 
-@BindingAdapter("batteryLevel")
-fun setBatteryLevel(view: BatteryMeterView, level: Int) {
-    view.chargeLevel = level
-}
+object MedicalProblemVisualizer {
 
-@BindingAdapter("isCharging")
-fun setIsCharging(view: BatteryMeterView, isCharging: Boolean) {
-    view.isCharging = isCharging
+    fun getDrawableOfPossibleMedicalProblem(context: Context, medicalProblemId: Int): Drawable? {
+        return context.getDrawable(
+            when (medicalProblemId) {
+                1 -> R.drawable.ic_disease_3_knee
+                else -> R.drawable.ic_disease_3_knee
+            }
+        )
+    }
+
+    fun getNameOfPossibleMedicalProblem(medicalProblemId: Int): String {
+        return when (medicalProblemId) {
+            1 -> ""
+            else -> ""
+        }
+    }
 }

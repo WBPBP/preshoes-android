@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2020 WBPBP <potados99@gmail.com>
+  ~
+  ~ This file is part of Preshoes (https://github.com/WBPBP).
+  ~
+  ~ Preshoes is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Preshoes is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.wbpbp.preshoes.feature.report.ReportDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Horizontal bias chart -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Chart -->
+            <com.github.mikephil.charting.charts.LineChart
+                chartData="@{vm.chartData}"
+                android:id="@+id/horizontal_bias_chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <!-- Label -->
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="?android:attr/colorPrimary"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_horizontal_bias_variation" />
+
+        </LinearLayout>
+
+        <!-- Features -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- row 0 -->
+            <LinearLayout
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Horizontal bias balance -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/balance_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/horizontal_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.score}"
+                        tools:text="44%"/>
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_score" />
+
+                </LinearLayout>
+
+                <!-- Walks -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/walks_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/walks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.walks}"
+                        tools:text="39"/>
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_walks"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- row 1 -->
+            <LinearLayout
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Horizontal bias balance -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/bias_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/horizontal_bias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.horizontalBias}"
+                        tools:text="0.45"/>
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_horizontal_bias" />
+
+                </LinearLayout>
+
+                <!-- Duration -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:id="@+id/duration_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <!-- Content -->
+                    <TextView
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.duration}"
+                        tools:text="00:20"/>
+
+                    <!-- Label -->
+                    <TextView
+                        android:textColor="?android:attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_elapsed_time"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

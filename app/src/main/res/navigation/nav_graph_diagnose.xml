@@ -23,7 +23,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_diagnose"
-    app:startDestination="@id/diagnose_dest">
+    app:startDestination="@id/diagnose_dest"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/diagnose_dest"
