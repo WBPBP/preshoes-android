@@ -12,12 +12,14 @@ class ReportDetailFragment : BaseFragment<ReportDetailFragmentBinding>() {
     override fun getLayoutRes() = R.layout.report_detail_fragment
 
     override fun initView(root: View) {
-        // Nothing to do
+        // Nothing to do.
     }
 
     override fun initBinding(binding: ReportDetailFragmentBinding) {
         binding.vm = viewModel.apply {
-            startWithReportId(arguments?.getInt("reportId", -1) ?: -1)
+            startWithReportId(getReportId())
         }
     }
+
+    private fun getReportId() = arguments?.getInt("reportId", -1) ?: -1
 }
