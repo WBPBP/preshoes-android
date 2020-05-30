@@ -34,14 +34,13 @@ object RetrofitFactory {
             SetCookieCache(),
             SharedPrefsCookiePersistor(context)
         )
+
         val okHttpClient = OkHttpClient.Builder()
             .cookieJar(cookieJar)
             .build()
 
         val builder = Retrofit.Builder()
 
-        // You should implement your own PrivateRepository.
-        // @see [PrivateRepository]
         val retrofit = builder
             .baseUrl("http://15.164.232.232:3000")
             .addConverterFactory(GsonConverterFactory.create())

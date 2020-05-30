@@ -19,13 +19,13 @@
 
 package org.wbpbp.preshoes.service
 
+import androidx.lifecycle.LiveData
 import org.wbpbp.preshoes.entity.SignInModel
 import org.wbpbp.preshoes.entity.SignUpModel
 
 interface UserService {
-    fun signUp(params: SignUpModel)
-    fun signIn(params: SignInModel)
-    fun signInUsingSavedInfo()
+    fun signUp(params: SignUpModel): Boolean
+    fun signIn(params: SignInModel?): Boolean
 
-    fun isLoggedIn(): Boolean
+    fun isLoggedIn(): LiveData<Boolean>
 }

@@ -17,27 +17,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.storage
+package org.wbpbp.preshoes.entity
 
-import io.realm.Realm
-import org.wbpbp.preshoes.entity.User
-import org.wbpbp.preshoes.repository.UserRepository
-import java.util.*
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 
-class UserRepositoryImpl : UserRepository {
-    override fun saveUser(user: User) {
-        Realm.getDefaultInstance().executeTransaction {
-            it.copyToRealmOrUpdate(user.apply { email = email.toLowerCase(Locale.ROOT) })
-        }
-    }
-
-    override fun deleteUser() {
-        Realm.getDefaultInstance().executeTransaction {
-            val user = it.where(User::class.java).findFirst()
-
-            user?.deleteFromRealm()
-        }
-    }
-
-    override fun getUser() = Realm.getDefaultInstance().where(User::class.java).findFirst()
-}
+open class User(
+    @PrimaryKey
+    var email: String = "",
+    var password: String = ""
+) : RealmObject()

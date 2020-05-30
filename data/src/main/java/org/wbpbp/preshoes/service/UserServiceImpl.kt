@@ -19,28 +19,49 @@
 
 package org.wbpbp.preshoes.service
 
+import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.entity.SignInModel
 import org.wbpbp.preshoes.entity.SignUpModel
+import org.wbpbp.preshoes.entity.User
 import org.wbpbp.preshoes.repository.UserRepository
+import timber.log.Timber
 
 class UserServiceImpl(
     private val api: ApiService,
     private val userRepo: UserRepository
 ) : UserService {
 
-    override fun signUp(params: SignUpModel) {
-        TODO("Not yet implemented")
+    private val isLoggedIn = MutableLiveData(false)
+
+    override fun signUp(params: SignUpModel) =
+        api.join(params).execute().isSuccessful
+
+    override fun signIn(params: SignInModel?): Boolean {
+        val paramToUse = params ?: getSignInParam() ?: return false
+        val succeeded = signInInternal(paramToUse)
+
+        isLoggedIn.postValue(succeeded)
+
+        if (succeeded) {
+            userRepo.saveUser(
+                User(paramToUse.user_email, paramToUse.user_pwd)
+            )
+        }
+
+        return succeeded
     }
 
-    override fun signIn(params: SignInModel) {
-        TODO("Not yet implemented")
+    private fun getSignInParam(): SignInModel? {
+        val user = userRepo.getUser() ?: return run {
+            Timber.w("No user found!")
+            null
+        }
+
+        return SignInModel(user.email, user.password)
     }
 
-    override fun signInUsingSavedInfo() {
-        TODO("Not yet implemented")
-    }
+    private fun signInInternal(params: SignInModel) =
+        api.login(params).execute().isSuccessful
 
-    override fun isLoggedIn(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isLoggedIn() = isLoggedIn
 }

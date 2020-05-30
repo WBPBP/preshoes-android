@@ -19,5 +19,10 @@
 
 package org.wbpbp.preshoes.repository
 
+import org.wbpbp.preshoes.entity.User
+
 interface UserRepository {
+    fun saveUser(user: User)
+    fun deleteUser()
+    fun getUser(): User?
 }

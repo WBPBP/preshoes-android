@@ -20,6 +20,6 @@
 package org.wbpbp.preshoes.entity
 
 data class SignInModel(
-    private val user_email: String,
-    private val user_pwd: String
+    val user_email: String,
+    val user_pwd: String
 )
