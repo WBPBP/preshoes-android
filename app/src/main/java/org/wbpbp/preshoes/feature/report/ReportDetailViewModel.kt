@@ -20,15 +20,15 @@ class ReportDetailViewModel : BaseViewModel() {
 
     // Upper
     fun getDateString(): String = DateFormat.getDateInstance(DateFormat.FULL).format(report.date)
-    fun getAdviceOnHorizontalBias() = report.commentary?.adviceOnHorizontalBias
+    fun getAdviceOnStandingHabits() = report.commentary?.adviceOnStandingHabits
     fun getAdviceOnWalkingHabits() = report.commentary?.adviceOnWalkingHabits
     fun getMedicalPredictionDrawable() = MedicalProblemVisualizer.getDrawableOfPossibleMedicalProblem(context, report.commentary?.possibleMedicalProblem ?: -1)
     fun getMedicalPredictionName() = MedicalProblemVisualizer.getNameOfPossibleMedicalProblem(report.commentary?.possibleMedicalProblem ?: -1)
 
     // Lower
-    fun getChartData() = report.features?.horizontalBiasVariationDuringWalkSession?.toList() ?: listOf()
-    fun getScore() = String.format("%d", report.features?.score ?: 0)
+    fun getChartData() = report.features?.horizontalWeightBiasVariationDuringWalkSession?.toList() ?: listOf()
+    fun getScore() = String.format("%d", report.commentary?.score ?: 0)
     fun getWalks() = String.format("%d", report.features?.walks ?: 0)
-    fun getHorizontalBias() = String.format("%.1f", report.features?.staticHorizontalBiasMerged ?: 0.0)
+    fun getHorizontalBias() = String.format("%.1f", report.features?.horizontalWeightBias ?: 0.0)
     fun getDuration() = TimeString.millisToMMSS(report.duration)
 }
