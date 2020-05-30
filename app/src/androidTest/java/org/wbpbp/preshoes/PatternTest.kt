@@ -17,12 +17,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.binding
+package org.wbpbp.preshoes
 
-import android.widget.EditText
-import androidx.databinding.BindingAdapter
+import android.util.Patterns
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.junit.runner.RunWith
 
-@BindingAdapter("error")
-fun setError(view: EditText, errorString: String?) {
-    view.error = errorString
+@RunWith(AndroidJUnit4::class)
+class PatternTest {
+
+    @Test
+    fun shouldSucceedPatternMatch() {
+        val matches = Patterns.EMAIL_ADDRESS.matcher("potados99@gmail.com").matches()
+
+        assertEquals(matches, true)
+    }
 }

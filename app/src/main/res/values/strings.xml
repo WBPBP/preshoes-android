@@ -70,6 +70,6 @@
     <string name="action_sign_in">로그인</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="invalid_username">이메일이 올바르지 않습니다.</string>
-    <string name="invalid_password">비밀번호는 다섯 글자가 넘어여 합니다.</string>
+    <string name="invalid_password">비밀번호는 다섯 글자가 넘어야 합니다.</string>
 
 </resources>

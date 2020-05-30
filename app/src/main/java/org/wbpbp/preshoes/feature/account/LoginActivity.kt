@@ -24,14 +24,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.login_activity.view.*
+import org.wbpbp.preshoes.common.base.BaseActivity
+import org.wbpbp.preshoes.common.extension.getViewModel
 import org.wbpbp.preshoes.databinding.LoginActivityBinding
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var viewModel: LoginViewModel
     private lateinit var binding: LoginActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,12 +42,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initBinding() {
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java).apply {
-            init()
-        }
+        viewModel = getViewModel()
 
         binding = LoginActivityBinding.inflate(layoutInflater).apply {
             lifecycleOwner  = this@LoginActivity
+            vm = viewModel.apply { start() }
         }
 
         setContentView(binding.root)
@@ -58,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login()
+                        viewModel.login()
                 }
                 false
             }

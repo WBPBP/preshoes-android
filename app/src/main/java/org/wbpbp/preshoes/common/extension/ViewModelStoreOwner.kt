@@ -17,12 +17,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.common.binding
+package org.wbpbp.preshoes.common.extension
 
-import android.widget.EditText
-import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 
-@BindingAdapter("error")
-fun setError(view: EditText, errorString: String?) {
-    view.error = errorString
+inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(): T {
+    return ViewModelProvider(this).get(T::class.java)
 }

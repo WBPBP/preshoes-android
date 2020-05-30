@@ -31,6 +31,7 @@ import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.entity.SignInModel
 import org.wbpbp.preshoes.usecase.SignIn
+import timber.log.Timber
 
 class LoginViewModel : BaseViewModel() {
     private val context: Context by inject()
@@ -45,13 +46,17 @@ class LoginViewModel : BaseViewModel() {
     val username = ObservableField<String>()
     val password = ObservableField<String>()
 
-    fun init() {
-        username.observe(::loginDataChanged)
-        password.observe(::loginDataChanged)
+    fun start() {
+        username.observe(::onLoginFormDataChanged)
+        password.observe(::onLoginFormDataChanged)
     }
 
     fun login() {
-        login(username.toString(), password.toString())
+        username.get()?.let { name ->
+            password.get()?.let { pw ->
+                login(name, pw)
+            } ?: Timber.w("Password is null!")
+        } ?: Timber.w("Username is null!")
     }
 
     private fun login(email: String, password: String) {
@@ -78,29 +83,27 @@ class LoginViewModel : BaseViewModel() {
         _isLoading.postValue(false)
     }
 
-    private fun loginDataChanged() {
-        if (!isUserNameValid(username.toString())) {
-            _loginFormState.value = LoginFormState(usernameError = str(R.string.invalid_username))
-        } else if (!isPasswordValid(password.toString())) {
-            _loginFormState.value = LoginFormState(passwordError = str(R.string.invalid_password))
-        } else {
-            _loginFormState.value = LoginFormState(isDataValid = true)
+    private fun onLoginFormDataChanged() {
+        Timber.d("Login from data changed!v ${username.get()} and ${password.get()}")
+
+        _loginFormState.value = when {
+            !isUserNameValid() -> LoginFormState(usernameError = str(R.string.invalid_username))
+            !isPasswordValid() ->  LoginFormState(passwordError = str(R.string.invalid_password))
+            else -> LoginFormState(isDataValid = true)
         }
+
+        Timber.i(_loginFormState.value.toString())
     }
 
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
+    private fun isUserNameValid(): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(username.get() ?: "").matches()
     }
 
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+    private fun isPasswordValid(): Boolean {
+        return (password.get() ?: "").length > 5
     }
 
-    private fun str(@StringRes resId: Int) : String {
+    private fun str(@StringRes resId: Int): String {
         return context.getString(resId)
     }
 }
