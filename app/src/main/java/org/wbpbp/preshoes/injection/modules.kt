@@ -86,7 +86,25 @@ val myModules = module {
     }
 
     single {
+        GetUser(
+            repo = get()
+        )
+    }
+
+    single {
         HaltRecording(
+            service = get()
+        )
+    }
+
+    single {
+        SignIn(
+            service = get()
+        )
+    }
+
+    single {
+        SignUp(
             service = get()
         )
     }
