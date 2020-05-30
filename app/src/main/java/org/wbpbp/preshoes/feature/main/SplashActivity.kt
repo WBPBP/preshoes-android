@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
         // setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            navigator.showMain()
+            navigator.showLogin()
             finish()
         }, 500)
     }

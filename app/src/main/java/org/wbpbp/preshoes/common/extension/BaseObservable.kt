@@ -19,10 +19,10 @@
 
 package org.wbpbp.preshoes.common.extension
 
+import androidx.databinding.BaseObservable
 import androidx.databinding.Observable
-import androidx.databinding.ObservableField
 
-fun <T> ObservableField<T>.observe(callback: () -> Any?) {
+fun BaseObservable.observe(callback: () -> Any?) {
     this.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
             callback()
