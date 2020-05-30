@@ -21,6 +21,7 @@ package org.wbpbp.preshoes.storage
 
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.Sort
 import org.wbpbp.preshoes.entity.Commentary
 import org.wbpbp.preshoes.entity.Features
 import org.wbpbp.preshoes.entity.Report
@@ -52,6 +53,8 @@ class ReportRepositoryImpl(
     override fun getAllReports(): RealmResults<Report> {
         return Realm.getDefaultInstance()
             .where(Report::class.java)
+            .isNotNull("commentary")
+            .sort("date", Sort.DESCENDING)
             .findAll()
     }
 
