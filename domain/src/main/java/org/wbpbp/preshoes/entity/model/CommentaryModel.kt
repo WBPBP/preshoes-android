@@ -17,25 +17,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.service
+package org.wbpbp.preshoes.entity.model
 
-import org.wbpbp.preshoes.entity.model.CommentaryModel
-import org.wbpbp.preshoes.entity.model.CommentaryRequestModel
-import org.wbpbp.preshoes.entity.model.SignInModel
-import org.wbpbp.preshoes.entity.model.SignUpModel
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
-
-interface ApiService {
-    @POST("/join/addUser")
-    fun join(@Body params: SignUpModel): Call<Unit>
-
-    @POST("/login")
-    fun login(@Body params: SignInModel): Call<Unit>
-
-    @Headers("Content-Type: application/json")
-    @POST("/send/info")
-    fun requestReportCommentary(@Body params: CommentaryRequestModel): Call<CommentaryModel>
-}
+data class CommentaryModel(
+    val percent: Int,
+    val staticPressureRes: String,
+    val gaitComment: String,
+    val diseaseNum: Int
+)

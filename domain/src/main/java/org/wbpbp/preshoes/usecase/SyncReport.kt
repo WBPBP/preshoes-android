@@ -17,9 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.usecase
 
-data class SignUpModel(
-    private val user_email: String,
-    private val user_pwd: String
-)
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.ReportService
+
+class SyncReport(
+    val service: ReportService
+) : UseCase<Int, Unit>() {
+
+    override suspend fun run(params: Int) = Result.of {
+        service.addCommentaryOnReport(params)
+    }
+}

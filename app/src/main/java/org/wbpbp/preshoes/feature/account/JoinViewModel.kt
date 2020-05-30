@@ -29,7 +29,7 @@ import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.extension.observe
-import org.wbpbp.preshoes.entity.SignUpModel
+import org.wbpbp.preshoes.entity.model.SignUpModel
 import org.wbpbp.preshoes.usecase.SignUp
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber

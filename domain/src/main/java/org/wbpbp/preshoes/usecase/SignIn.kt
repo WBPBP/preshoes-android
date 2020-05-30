@@ -19,7 +19,7 @@
 
 package org.wbpbp.preshoes.usecase
 
-import org.wbpbp.preshoes.entity.SignInModel
+import org.wbpbp.preshoes.entity.model.SignInModel
 import org.wbpbp.preshoes.functional.Result
 import org.wbpbp.preshoes.interactor.UseCase
 import org.wbpbp.preshoes.service.UserService

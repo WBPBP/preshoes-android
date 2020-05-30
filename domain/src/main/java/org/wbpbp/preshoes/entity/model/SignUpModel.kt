@@ -36,31 +36,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes
+package org.wbpbp.preshoes.entity.model
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import org.wbpbp.preshoes.entity.model.SignInModel
-import org.wbpbp.preshoes.service.UserService
-
-@RunWith(AndroidJUnit4::class)
-class UserServiceTest : KoinComponent {
-
-    @Test
-    fun shouldFailSignInWithInvalidAccount() {
-        val service: UserService by inject()
-
-        val result = service.signIn(
-            SignInModel(
-                "no_account",
-                "no_password"
-            )
-        )
-
-        assertEquals(result, false)
-    }
-}
+data class SignUpModel(
+    val user_email: String,
+    val user_pwd: String
+)

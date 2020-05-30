@@ -45,7 +45,8 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private val startWalkingRecording: StartWalkingRecording by inject()
     private val finishWalkingRecording: FinishWalkingRecording by inject()
     private val createReport: CreateReport by inject()
-    private val haltReport: HaltRecording by inject()
+    private val syncReport: SyncReport by inject()
+    private val haltRecord: HaltRecording by inject()
 
     private val config: Config by inject()
 
@@ -182,11 +183,19 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
 
         createReport(Unit) { result ->
             result
-                .onSuccess { Alert.usual(R.string.notify_report_done) }
+                .onSuccess { it?.let(::syncReport) ?: Alert.usual(R.string.fail_report_done) }
                 .onError { Alert.usual(R.string.fail_report_done) }
         }
 
         navigateUpEvent.postValue(Unit)
+    }
+
+    private fun syncReport(reportId: Int) {
+        syncReport(reportId) {
+            it
+                .onSuccess { Alert.usual(R.string.notify_report_done) }
+                .onError { Alert.usual(R.string.fail_report_done) }
+        }
     }
 
     private fun str(@StringRes id: Int) = context.getString(id)
@@ -217,7 +226,7 @@ class UnifiedDiagnosisViewModel : BaseViewModel() {
     private fun cancelRecording() {
         Timber.d("Cancel recoding: halt")
 
-        haltReport(Unit) {
+        haltRecord(Unit) {
             it
                 .onSuccess { Alert.usual(R.string.notify_session_canceled) }
                 .onError { Alert.usual(R.string.fail_session_cancel_error) }

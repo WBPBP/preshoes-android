@@ -39,8 +39,8 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.SignInModel
-import org.wbpbp.preshoes.entity.SignUpModel
+import org.wbpbp.preshoes.entity.model.SignInModel
+import org.wbpbp.preshoes.entity.model.SignUpModel
 
 class UserServiceTestImpl : UserService {
 

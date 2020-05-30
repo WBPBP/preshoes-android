@@ -20,9 +20,9 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
-import org.wbpbp.preshoes.entity.SignInModel
-import org.wbpbp.preshoes.entity.SignUpModel
 import org.wbpbp.preshoes.entity.User
+import org.wbpbp.preshoes.entity.model.SignInModel
+import org.wbpbp.preshoes.entity.model.SignUpModel
 import org.wbpbp.preshoes.repository.UserRepository
 import timber.log.Timber
 
@@ -57,7 +57,10 @@ class UserServiceImpl(
             null
         }
 
-        return SignInModel(user.email, user.password)
+        return SignInModel(
+            user.email,
+            user.password
+        )
     }
 
     private fun signInInternal(params: SignInModel) =

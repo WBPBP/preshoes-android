@@ -46,6 +46,12 @@ val myModules = module {
         )
     }
 
+    single {
+        RetrofitFactory.createPreshoesNetworkService(
+            context = get()
+        ) as ApiService
+    }
+
     /****************
      * Use Case
      ****************/
@@ -121,6 +127,11 @@ val myModules = module {
         )
     }
 
+    single {
+        SyncReport(
+            service = get()
+        )
+    }
 
     /****************
      * Bluetooth
@@ -152,9 +163,7 @@ val myModules = module {
 
     single {
         val deployImpl = UserServiceImpl(
-            api = RetrofitFactory.createPreshoesNetworkService(
-                context = get()
-            ),
+            api = get(),
             userRepo = get()
         )
 
@@ -169,7 +178,9 @@ val myModules = module {
      * Repository
      ****************/
     single {
-        ReportRepositoryImpl() as ReportRepository
+        ReportRepositoryImpl(
+            api = get()
+        ) as ReportRepository
     }
 
     single {

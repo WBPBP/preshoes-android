@@ -20,8 +20,8 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.LiveData
-import org.wbpbp.preshoes.entity.SignInModel
-import org.wbpbp.preshoes.entity.SignUpModel
+import org.wbpbp.preshoes.entity.model.SignInModel
+import org.wbpbp.preshoes.entity.model.SignUpModel
 
 interface UserService {
     fun signUp(params: SignUpModel): Boolean

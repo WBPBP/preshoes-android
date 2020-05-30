@@ -25,7 +25,8 @@ interface ReportService {
     fun startRecordingWalkingPressureDistribution()
     fun finishRecordingWalkingPressureDistribution()
 
-    fun finishRecordingAndCreateReport()
+    fun finishRecordingAndCreateReport(): Int?
+    fun addCommentaryOnReport(reportId: Int)
 
     fun haltRecording()
 }

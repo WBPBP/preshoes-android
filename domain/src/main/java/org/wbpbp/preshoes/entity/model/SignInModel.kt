@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.entity.model
 
 data class SignInModel(
     val user_email: String,

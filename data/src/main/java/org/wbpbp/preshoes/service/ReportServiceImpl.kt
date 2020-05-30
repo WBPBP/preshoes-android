@@ -76,10 +76,10 @@ class ReportServiceImpl(
         walkingRecord = sampleRepo.finishRecording()
     }
 
-    override fun finishRecordingAndCreateReport() {
+    override fun finishRecordingAndCreateReport(): Int? {
         if (sampleRepo.isRecording()) {
             Timber.w("Recording not finished! It might have been called twice")
-            return
+            return null
         }
 
         val date = Date()
@@ -92,7 +92,7 @@ class ReportServiceImpl(
             features = features
         )
 
-        reportRepo.addNewReport(newReport)
+        return reportRepo.addNewReport(newReport)
     }
 
     private fun extractFeatures(
@@ -149,6 +149,10 @@ class ReportServiceImpl(
             samplesInSingleWalkCycleRight = RealmList(*walkingResult.rightPressure.toTypedArray())
             horizontalWeightBiasVariationDuringWalkSession = RealmList(*walkingResult.feetWeightBias.toTypedArray())
         }
+    }
+
+    override fun addCommentaryOnReport(reportId: Int) {
+        reportRepo.addCommentaryOnReport(reportId)
     }
 
     override fun haltRecording() {

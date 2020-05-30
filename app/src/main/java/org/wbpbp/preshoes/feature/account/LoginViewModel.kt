@@ -30,7 +30,7 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.entity.SignInModel
+import org.wbpbp.preshoes.entity.model.SignInModel
 import org.wbpbp.preshoes.usecase.SignIn
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
