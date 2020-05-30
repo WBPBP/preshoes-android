@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
+        android:screenOrientation="portrait"
         android:name=".common.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -28,15 +29,11 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".feature.account.LoginActivity"
-            android:label="@string/title_login" />
-
+        <activity android:name=".feature.account.JoinActivity" />
+        <activity android:name=".feature.account.LoginActivity" />
         <activity android:name=".feature.main.MainActivity" />
+        <activity android:name=".feature.settings.SettingsActivity" />
 
-        <activity
-            android:name=".feature.settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

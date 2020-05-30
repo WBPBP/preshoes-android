@@ -29,20 +29,18 @@ import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.extension.observe
-import org.wbpbp.preshoes.common.navigation.Navigator
-import org.wbpbp.preshoes.entity.SignInModel
-import org.wbpbp.preshoes.usecase.SignIn
+import org.wbpbp.preshoes.entity.SignUpModel
+import org.wbpbp.preshoes.usecase.SignUp
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 import java.net.ConnectException
 
-class LoginViewModel : BaseViewModel() {
+class JoinViewModel : BaseViewModel() {
     private val context: Context by inject()
-    private val login: SignIn by inject()
-    private val navigator: Navigator by inject()
+    private val join: SignUp by inject()
 
-    private val _loginFormState = MutableLiveData<LoginFormState>()
-    val loginFormState: LiveData<LoginFormState> = _loginFormState
+    private val _joinFormState = MutableLiveData<LoginFormState>()
+    val joinFormState: LiveData<LoginFormState> = _joinFormState
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -55,56 +53,56 @@ class LoginViewModel : BaseViewModel() {
     fun start(onFinishActivity: () -> Any? = {}) {
         this.onFinishActivity = onFinishActivity
 
-        username.observe(::onLoginFormDataChanged)
-        password.observe(::onLoginFormDataChanged)
+        username.observe(::onJoinFormDataChanged)
+        password.observe(::onJoinFormDataChanged)
     }
 
-    fun login() {
+    fun join() {
         username.get()?.let { name ->
             password.get()?.let { pw ->
                 _isLoading.postValue(true)
 
-                login(name, pw)
+                join(name, pw)
             } ?: Timber.w("Password is null!")
         } ?: Timber.w("Username is null!")
     }
 
-    private fun login(email: String, password: String) {
-        val params = SignInModel(email, password)
+    private fun join(email: String, password: String) {
+        val params = SignUpModel(email, password)
 
-        login(params) {
+        join(params) {
             it
-                .onSuccess(::onLoginResult)
-                .onError(::onLoginFail)
+                .onSuccess(::onJoinResult)
+                .onError(::onJoinFail)
         }
     }
 
-    private fun onLoginResult(succeeded: Boolean) {
+    private fun onJoinResult(succeeded: Boolean) {
         if (succeeded) {
-            navigator.showMain()
+            Alert.usual(R.string.notify_join_success)
             onFinishActivity()
         } else {
-            Alert.usual(R.string.fail_wrong_auth)
+            Alert.usual(R.string.fail_wrong_join_request)
         }
 
-        onLoginFinished()
+        onJoinFinished()
     }
 
-    private fun onLoginFail(error: Exception) {
+    private fun onJoinFail(error: Exception) {
         when (error) {
             is ConnectException -> Alert.usual(R.string.fail_server_connection)
             else -> Alert.usual(R.string.fail_unknown)
         }
 
-        onLoginFinished()
+        onJoinFinished()
     }
 
-    private fun onLoginFinished() {
+    private fun onJoinFinished() {
         _isLoading.postValue(false)
     }
 
-    private fun onLoginFormDataChanged() {
-        _loginFormState.postValue(
+    private fun onJoinFormDataChanged() {
+        _joinFormState.postValue(
             when {
                 !isUserNameValid() -> LoginFormState(usernameError = str(R.string.invalid_username))
                 !isPasswordValid() ->  LoginFormState(passwordError = str(R.string.invalid_password))
@@ -112,7 +110,7 @@ class LoginViewModel : BaseViewModel() {
             }
         )
 
-        Timber.i(_loginFormState.value.toString())
+        Timber.i(_joinFormState.value.toString())
     }
 
     private fun isUserNameValid(): Boolean {
@@ -121,10 +119,6 @@ class LoginViewModel : BaseViewModel() {
 
     private fun isPasswordValid(): Boolean {
         return (password.get() ?: "").length > 5
-    }
-
-    fun join() {
-        navigator.showJoin()
     }
 
     private fun str(@StringRes resId: Int): String {

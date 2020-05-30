@@ -18,14 +18,15 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View" />
         <variable
             name="vm"
-            type="org.wbpbp.preshoes.feature.account.LoginViewModel" />
+            type="org.wbpbp.preshoes.feature.account.JoinViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +36,7 @@
 
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
-            app:title="@string/title_login"
+            app:title="@string/title_join"
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,30 +56,30 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Logo image -->
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_logo_foreground"
-                android:contentDescription="@string/description_logo_image" />
-
-            <!-- Logo title -->
+            <!-- Hi -->
             <TextView
                 style="@style/TextBigAndThick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/title_hi" />
+
+            <!-- Registration needed -->
+            <TextView
+                style="@style/TextSecondary"
+                android:gravity="center"
                 android:layout_marginTop="12dp"
-                android:text="@string/app_name"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description_registration_needed" />
 
             <!-- Email -->
             <EditText
-                error="@{vm.loginFormState.usernameError}"
+                error="@{vm.joinFormState.usernameError}"
                 android:text="@={vm.username}"
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:autofillHints="@string/prompt_email"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
@@ -86,7 +87,7 @@
 
             <!-- Password -->
             <EditText
-                error="@{vm.loginFormState.passwordError}"
+                error="@{vm.joinFormState.passwordError}"
                 android:text="@={vm.password}"
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -99,14 +100,22 @@
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true" />
 
+            <!-- Privacy -->
+            <TextView
+                style="@style/TextSecondary"
+                android:layout_marginTop="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description_privacy" />
+
             <!-- Submit button -->
             <Button
                 style="@style/BigButton"
-                android:id="@+id/login"
-                android:onClick="@{() -> vm.login()}"
-                android:enabled="@{vm.loginFormState.dataValid}"
-                android:text="@string/button_sign_in"
-                android:layout_marginTop="8dp"
+                android:id="@+id/join"
+                android:onClick="@{() -> vm.join()}"
+                android:enabled="@{vm.joinFormState.dataValid}"
+                android:text="@string/button_sign_up"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password"
@@ -122,19 +131,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:visibility="@{vm.isLoading ? View.VISIBLE : View.GONE}" />
-
-            <!-- Join button -->
-            <TextView
-                style="@style/TextPrimary"
-                android:onClick="@{() -> vm.join()}"
-                android:padding="16dp"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/loading"
-                android:text="@string/button_join" />
 
         </LinearLayout>
 
