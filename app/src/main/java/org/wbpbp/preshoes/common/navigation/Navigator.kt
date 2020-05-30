@@ -30,6 +30,11 @@ class Navigator(
     private val context: Context
 ) {
 
+    fun showLogin() {
+        // TODO
+        startActivityWithFlag(MainActivity.callingIntent(context))
+    }
+
     fun showMain() {
         startActivityWithFlag(MainActivity.callingIntent(context))
     }

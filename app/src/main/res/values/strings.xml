@@ -64,5 +64,12 @@
     <string name="title_standing_analysis">정적 분석</string>
     <string name="title_walking_analysis">걸음걸이 분석</string>
     <string name="title_medical_prediction">발생이 우려되는 질환</string>
+    <string name="title_activity_login">로그인</string>
+    <string name="prompt_email">이메일</string>
+    <string name="prompt_password">비밀번호</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">이메일이 올바르지 않습니다.</string>
+    <string name="invalid_password">비밀번호는 다섯 글자가 넘어여 합니다.</string>
 
 </resources>
