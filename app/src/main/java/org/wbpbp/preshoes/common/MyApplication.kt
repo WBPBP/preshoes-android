@@ -55,6 +55,7 @@ class MyApplication : Application() {
 
     private fun initRealm() {
         Realm.init(this)
+
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
                 .compactOnLaunch()

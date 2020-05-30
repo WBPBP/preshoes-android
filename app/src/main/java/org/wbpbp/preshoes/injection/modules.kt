@@ -126,9 +126,9 @@ val myModules = module {
      * Bluetooth
      ****************/
     single {
-        when (BuildConfig.FLAVOR) {
-            "real" -> BluetoothHelperImpl()
-            "fake" -> BluetoothHelperTestImpl()
+        when (BuildConfig.FLAVOR_bluetooth) {
+            "realDevice" -> BluetoothHelperImpl()
+            "fakeDevice" -> BluetoothHelperTestImpl()
             else -> BluetoothHelperImpl()
         } as BluetoothHelper
     }
@@ -151,12 +151,18 @@ val myModules = module {
     }
 
     single {
-        UserServiceImpl(
+        val deployImpl = UserServiceImpl(
             api = RetrofitFactory.createPreshoesNetworkService(
                 context = get()
             ),
             userRepo = get()
-        ) as UserService
+        )
+
+        when (BuildConfig.FLAVOR_server) {
+            "deployServer" -> deployImpl
+            "mockServer" -> UserServiceTestImpl()
+            else -> deployImpl
+        } as UserService
     }
 
     /****************

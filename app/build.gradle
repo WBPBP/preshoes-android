@@ -53,13 +53,19 @@ android {
         }
     }
 
-    flavorDimensions "bluetooth"
+    flavorDimensions "bluetooth", "server"
     productFlavors {
-        real {
+        realDevice {
             dimension "bluetooth"
         }
-        fake {
+        fakeDevice {
             dimension "bluetooth"
+        }
+        deployServer {
+            dimension "server"
+        }
+        mockServer {
+            dimension "server"
         }
     }
 
