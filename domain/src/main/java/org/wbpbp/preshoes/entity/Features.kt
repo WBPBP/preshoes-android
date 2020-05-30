@@ -22,10 +22,13 @@ package org.wbpbp.preshoes.entity
 import io.realm.RealmList
 import io.realm.RealmObject
 
+// See https://github.com/WBPBP/preshoes-server/tree/master/model
 open class Features(
-    var score: Int = 0,
-    var staticHorizontalBiasMerged: Double = 0.0,
     var walks: Int = 0,
-    var horizontalBiasVariationDuringWalkSession: RealmList<Double> = RealmList(), // 1 sample per 30 seconds
-    var partialPressureVariationDuringAverageCycle: RealmList<PressureVariation> = RealmList() // 10 samples each
+    var verticalWeightBiasLeft: Double = 0.0,
+    var verticalWeightBiasRight: Double = 0.0,
+    var horizontalWeightBias: Double = 0.0,
+    var heelPressureDifference: Double = 0.0,
+    var samplesInSingleWalkCycleLeft: RealmList<Int> = RealmList(),
+    var samplesInSingleWalkCycleRight: RealmList<Int> = RealmList()
 ) : RealmObject()

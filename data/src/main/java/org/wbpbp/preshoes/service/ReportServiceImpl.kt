@@ -96,6 +96,14 @@ class ReportServiceImpl(
         standingSamples: List<SamplePair>,
         walkingSamples: List<SamplePair>
     ): Features {
+
+
+
+
+
+
+
+
         Timber.d("Extract features")
 
         Timber.d("${standingSamples.size} samples for standing!")

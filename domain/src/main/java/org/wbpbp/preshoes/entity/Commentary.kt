@@ -22,7 +22,8 @@ package org.wbpbp.preshoes.entity
 import io.realm.RealmObject
 
 open class Commentary(
-    var adviceOnHorizontalBias: String = "",
+    var score: Int = 0,
+    var adviceOnStandingHabits: String = "",
     var adviceOnWalkingHabits: String = "",
     var possibleMedicalProblem: Int = -1
 ) : RealmObject()

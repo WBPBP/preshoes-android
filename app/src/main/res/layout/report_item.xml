@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/datetime"
-                android:text="@{report.features.score + `%`}"
+                android:text="@{report.commentary.score + `%`}"
                 tools:text="44%" />
 
             <!-- Label -->
