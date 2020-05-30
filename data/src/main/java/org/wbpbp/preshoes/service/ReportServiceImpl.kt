@@ -19,6 +19,10 @@
 
 package org.wbpbp.preshoes.service
 
+import com.jaehee.model.FootData
+import com.jaehee.model.FootStepPressureProcessor
+import com.jaehee.model.StaticPressureProcessor
+import io.realm.RealmList
 import org.wbpbp.preshoes.entity.Features
 import org.wbpbp.preshoes.entity.Record
 import org.wbpbp.preshoes.entity.Report
@@ -91,25 +95,60 @@ class ReportServiceImpl(
         reportRepo.addNewReport(newReport)
     }
 
-    // TODO
     private fun extractFeatures(
         standingSamples: List<SamplePair>,
         walkingSamples: List<SamplePair>
     ): Features {
+        val features = Features()
 
+        extractStaticFeatures(standingSamples, features)
+        extractDynamicFeatures(walkingSamples, features)
 
+        return features
+    }
 
-
-
-
-
-
-        Timber.d("Extract features")
-
+    private fun extractStaticFeatures(standingSamples: List<SamplePair>, features: Features) {
+        Timber.d("Extracting static features")
         Timber.d("${standingSamples.size} samples for standing!")
+
+        val staticProcessor = StaticPressureProcessor()
+
+        val staticProcessorInput = standingSamples.map {
+            FootData(it.id, it.left.values.toIntArray(), it.right.values.toIntArray())
+        }.toTypedArray()
+
+        staticProcessor.process(staticProcessorInput)
+
+        val staticResult = staticProcessor.result
+
+        with(features) {
+            verticalWeightBiasLeft = staticResult[0]
+            verticalWeightBiasRight = staticResult[1]
+            horizontalWeightBias = staticResult[2]
+            heelPressureDifference = staticResult[3]
+        }
+    }
+
+    private fun extractDynamicFeatures(walkingSamples: List<SamplePair>, features: Features) {
+        Timber.d("Extracting dynamic features")
         Timber.d("${walkingSamples.size} samples for walking!")
 
-        return Features()
+        val walkingProcessor = FootStepPressureProcessor()
+
+        val walkingProcessorInput = walkingSamples.map {
+            FootData(it.id, it.left.values.toIntArray(), it.right.values.toIntArray())
+        }.toTypedArray()
+
+        walkingProcessor.process(walkingProcessorInput)
+
+        val walkingResult = walkingProcessor.result
+
+        with(features) {
+            walks = walkingResult.step
+            samplesInSingleWalkCycleLeft = RealmList(*walkingResult.leftPressure.toTypedArray())
+            samplesInSingleWalkCycleRight = RealmList(*walkingResult.rightPressure.toTypedArray())
+            horizontalWeightBiasVariationDuringWalkSession = RealmList(*walkingResult.feetWeightBias.toTypedArray())
+        }
     }
 
     override fun haltRecording() {
