@@ -134,7 +134,9 @@ val myModules = module {
 
     single {
         UserServiceImpl(
-            api = get(),
+            api = RetrofitFactory.createPreshoesNetworkService(
+                context = get()
+            ),
             userRepo = get()
         ) as UserService
     }

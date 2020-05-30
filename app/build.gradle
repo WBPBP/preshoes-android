@@ -115,6 +115,9 @@ dependencies {
     /** Realm adapter */
     implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
 
+    /** 쿠키 보관 */
+    implementation "com.github.franmontiel:PersistentCookieJar:$cookiejar_version"
+
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":data")
