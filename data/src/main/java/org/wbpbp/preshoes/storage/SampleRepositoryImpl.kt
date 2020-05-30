@@ -22,6 +22,9 @@ package org.wbpbp.preshoes.storage
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.Observer
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.wbpbp.preshoes.entity.Config
 import org.wbpbp.preshoes.entity.Record
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.entity.SamplePair
@@ -33,7 +36,9 @@ import java.util.*
 
 class SampleRepositoryImpl(
     sensorDeviceStateRepo: SensorDeviceStateRepository
-) : SampleRepository {
+) : SampleRepository, KoinComponent {
+
+    private val config: Config by inject()
 
     private val state = State()
     private val handler = Handler(Looper.getMainLooper())
@@ -44,8 +49,9 @@ class SampleRepositoryImpl(
         sensorDeviceStateRepo.leftDeviceSensorValue,
         sensorDeviceStateRepo.rightDeviceSensorValue
     ) { leftSample, rightSample ->
-        val left = leftSample ?: Sample(listOf())
-        val right = rightSample ?: Sample(listOf())
+
+        val left = leftSample?.takeIf { it.values.size == config.numberOfSensors } ?: Sample.empty()
+        val right = rightSample?.takeIf { it.values.size == config.numberOfSensors } ?: Sample.empty()
 
         SamplePair(state.lastId++, left, right)
     }

@@ -43,9 +43,11 @@ class UserServiceImpl(
         isLoggedIn.postValue(succeeded)
 
         if (succeeded) {
-            userRepo.saveUser(
-                User(paramToUse.user_email, paramToUse.user_pwd)
-            )
+            val user = User(paramToUse.user_email, paramToUse.user_pwd)
+
+            userRepo.saveUser(user)
+
+            Timber.i("User $user saved")
         }
 
         return succeeded

@@ -21,6 +21,7 @@ package org.wbpbp.preshoes.injection
 
 import org.koin.dsl.module
 import org.wbpbp.preshoes.BuildConfig
+import org.wbpbp.preshoes.api.ApiServiceTestImpl
 import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
@@ -44,12 +45,6 @@ val myModules = module {
         Navigator(
             context = get()
         )
-    }
-
-    single {
-        RetrofitFactory.createPreshoesNetworkService(
-            context = get()
-        ) as ApiService
     }
 
     /****************
@@ -145,6 +140,17 @@ val myModules = module {
     }
 
     /****************
+     * API
+     ****************/
+    single {
+        when (BuildConfig.FLAVOR_server) {
+            "deployServer" -> RetrofitFactory.createPreshoesNetworkService(context = get())
+            "mockServer" -> ApiServiceTestImpl()
+            else -> RetrofitFactory.createPreshoesNetworkService(context = get())
+        } as ApiService
+    }
+
+    /****************
      * Service
      ****************/
     single {
@@ -162,16 +168,10 @@ val myModules = module {
     }
 
     single {
-        val deployImpl = UserServiceImpl(
+        UserServiceImpl(
             api = get(),
             userRepo = get()
-        )
-
-        when (BuildConfig.FLAVOR_server) {
-            "deployServer" -> deployImpl
-            "mockServer" -> UserServiceTestImpl()
-            else -> deployImpl
-        } as UserService
+        ) as UserService
     }
 
     /****************

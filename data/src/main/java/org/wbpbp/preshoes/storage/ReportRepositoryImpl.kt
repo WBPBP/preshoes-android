@@ -71,13 +71,17 @@ class ReportRepositoryImpl(
             Timber.w("No features in report with id $id!")
         }
 
-        val commentary = getCommentary(features) ?: return run {
+        var commentary = getCommentary(features) ?: return run {
             Timber.w("No commentary secured!")
         }
 
         Realm.getDefaultInstance().executeTransaction {
+            // An object you want to set as a linked object
+            // must also be a managed RealmObject as well.
+            commentary = it.copyToRealm(commentary)
+
             report.commentary = commentary
-            it.insertOrUpdate(report)
+            it.copyToRealmOrUpdate(report)
         }
 
         Timber.i("Comment added for report with id $id")
