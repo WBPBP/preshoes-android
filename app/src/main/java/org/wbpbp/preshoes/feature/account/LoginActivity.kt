@@ -37,16 +37,18 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = getViewModel()
+
         initBinding()
         initView(binding.root)
     }
 
     private fun initBinding() {
-        viewModel = getViewModel()
-
         binding = LoginActivityBinding.inflate(layoutInflater).apply {
             lifecycleOwner  = this@LoginActivity
-            vm = viewModel.apply { start() }
+            vm = viewModel.apply {
+                start(::finish)
+            }
         }
 
         setContentView(binding.root)

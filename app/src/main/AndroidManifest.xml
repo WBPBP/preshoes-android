@@ -30,7 +30,7 @@
 
         <activity
             android:name=".feature.account.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_login" />
 
         <activity android:name=".feature.main.MainActivity" />
 

@@ -29,13 +29,17 @@ import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
 import org.wbpbp.preshoes.common.extension.observe
+import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.entity.SignInModel
 import org.wbpbp.preshoes.usecase.SignIn
+import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
+import java.net.ConnectException
 
 class LoginViewModel : BaseViewModel() {
     private val context: Context by inject()
     private val login: SignIn by inject()
+    private val navigator: Navigator by inject()
 
     private val _loginFormState = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginFormState
@@ -46,7 +50,11 @@ class LoginViewModel : BaseViewModel() {
     val username = ObservableField<String>()
     val password = ObservableField<String>()
 
-    fun start() {
+    private lateinit var onFinishActivity: () -> Any?
+
+    fun start(onFinishActivity: () -> Any? = {}) {
+        this.onFinishActivity = onFinishActivity
+
         username.observe(::onLoginFormDataChanged)
         password.observe(::onLoginFormDataChanged)
     }
@@ -54,6 +62,8 @@ class LoginViewModel : BaseViewModel() {
     fun login() {
         username.get()?.let { name ->
             password.get()?.let { pw ->
+                _isLoading.postValue(true)
+
                 login(name, pw)
             } ?: Timber.w("Password is null!")
         } ?: Timber.w("Username is null!")
@@ -70,12 +80,22 @@ class LoginViewModel : BaseViewModel() {
     }
 
     private fun onLoginResult(succeeded: Boolean) {
-        //
+        if (succeeded) {
+            navigator.showMain()
+            onFinishActivity()
+        } else {
+            Alert.usual(R.string.fail_wrong_auth)
+        }
+
         onLoginFinished()
     }
 
     private fun onLoginFail(error: Exception) {
-        //
+        when (error) {
+            is ConnectException -> Alert.usual(R.string.fail_server_connection)
+            else -> Alert.usual(R.string.fail_unknown)
+        }
+
         onLoginFinished()
     }
 
@@ -86,11 +106,13 @@ class LoginViewModel : BaseViewModel() {
     private fun onLoginFormDataChanged() {
         Timber.d("Login from data changed!v ${username.get()} and ${password.get()}")
 
-        _loginFormState.value = when {
-            !isUserNameValid() -> LoginFormState(usernameError = str(R.string.invalid_username))
-            !isPasswordValid() ->  LoginFormState(passwordError = str(R.string.invalid_password))
-            else -> LoginFormState(isDataValid = true)
-        }
+        _loginFormState.postValue(
+            when {
+                !isUserNameValid() -> LoginFormState(usernameError = str(R.string.invalid_username))
+                !isPasswordValid() ->  LoginFormState(passwordError = str(R.string.invalid_password))
+                else -> LoginFormState(isDataValid = true)
+            }
+        )
 
         Timber.i(_loginFormState.value.toString())
     }
