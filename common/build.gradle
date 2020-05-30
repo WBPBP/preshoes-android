@@ -81,4 +81,9 @@ dependencies {
     api "org.koin:koin-core-ext:$koin_version"
     api "org.koin:koin-android:$koin_version"
     testApi "org.koin:koin-test:$koin_version"
+
+    /** Retrofit */
+    api "com.google.code.gson:gson:$gson_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }

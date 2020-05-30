@@ -26,18 +26,9 @@ import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.entity.Config
-import org.wbpbp.preshoes.repository.ReportRepository
-import org.wbpbp.preshoes.repository.SampleRepository
-import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
-import org.wbpbp.preshoes.repository.SystemStateRepository
-import org.wbpbp.preshoes.service.ReportService
-import org.wbpbp.preshoes.service.ReportServiceImpl
-import org.wbpbp.preshoes.service.SensorDeviceService
-import org.wbpbp.preshoes.service.SensorDeviceServiceImpl
-import org.wbpbp.preshoes.storage.ReportRepositoryImpl
-import org.wbpbp.preshoes.storage.SampleRepositoryImpl
-import org.wbpbp.preshoes.storage.SensorDeviceStateRepositoryImpl
-import org.wbpbp.preshoes.storage.SystemStateRepositoryImpl
+import org.wbpbp.preshoes.repository.*
+import org.wbpbp.preshoes.service.*
+import org.wbpbp.preshoes.storage.*
 import org.wbpbp.preshoes.usecase.*
 
 val myModules = module {
@@ -141,6 +132,13 @@ val myModules = module {
         ) as SensorDeviceService
     }
 
+    single {
+        UserServiceImpl(
+            api = get(),
+            userRepo = get()
+        ) as UserService
+    }
+
     /****************
      * Repository
      ****************/
@@ -160,5 +158,9 @@ val myModules = module {
 
     single {
         SystemStateRepositoryImpl() as SystemStateRepository
+    }
+
+    single {
+        UserRepositoryImpl() as UserRepository
     }
 }
