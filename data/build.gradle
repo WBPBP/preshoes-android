@@ -65,4 +65,7 @@ dependencies {
     /** 프로젝트 모듈 */
     implementation project(":domain")
     implementation project(":common")
+
+    /** 재재's 저수준 데이터 분석기 */
+    implementation project(":model")
 }

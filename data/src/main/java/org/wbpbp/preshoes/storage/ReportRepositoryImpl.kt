@@ -21,12 +21,19 @@ package org.wbpbp.preshoes.storage
 
 import io.realm.Realm
 import io.realm.RealmResults
+import org.wbpbp.preshoes.entity.Commentary
+import org.wbpbp.preshoes.entity.Features
 import org.wbpbp.preshoes.entity.Report
+import org.wbpbp.preshoes.entity.model.CommentaryRequestModel
 import org.wbpbp.preshoes.repository.ReportRepository
+import org.wbpbp.preshoes.service.ApiService
 import timber.log.Timber
 
-class ReportRepositoryImpl : ReportRepository {
-    override fun addNewReport(report: Report) {
+class ReportRepositoryImpl(
+    private val api: ApiService
+) : ReportRepository {
+
+    override fun addNewReport(report: Report): Int? {
         Timber.d("Add new report!")
 
         val newId = getLastReportId()?.let { it.toInt() + 1 } ?: 0
@@ -36,6 +43,8 @@ class ReportRepositoryImpl : ReportRepository {
         }
 
         Timber.d("Report copied to realm")
+
+        return newId
     }
 
     private fun getLastReportId() = Realm.getDefaultInstance().where(Report::class.java).max("id")
@@ -51,6 +60,61 @@ class ReportRepositoryImpl : ReportRepository {
             .where(Report::class.java)
             .equalTo("id", id)
             .findFirst()
+    }
+
+    override fun addCommentaryOnReport(id: Int) {
+        val report = getReportById(id) ?: return run {
+            Timber.w("No report with id $id found!")
+        }
+
+        val features = report.features ?: return run {
+            Timber.w("No features in report with id $id!")
+        }
+
+        var commentary = getCommentary(features) ?: return run {
+            Timber.w("No commentary secured!")
+        }
+
+        Realm.getDefaultInstance().executeTransaction {
+            // An object you want to set as a linked object
+            // must also be a managed RealmObject as well.
+            commentary = it.copyToRealm(commentary)
+
+            report.commentary = commentary
+            it.copyToRealmOrUpdate(report)
+        }
+
+        Timber.i("Comment added for report with id $id")
+    }
+
+    private fun getCommentary(features: Features): Commentary? {
+        val requestModel = CommentaryRequestModel(
+            verticalWeightBias_Left = features.verticalWeightBiasLeft,
+            verticalWeightBias_Right = features.verticalWeightBiasRight,
+            horizontalWeightBias = features.horizontalWeightBias,
+            heelPressureDifference = features.heelPressureDifference,
+            leftPressure = features.samplesInSingleWalkCycleLeft,
+            rightPressure = features.samplesInSingleWalkCycleRight
+        )
+
+        val response = api.requestReportCommentary(requestModel).execute()
+
+        if (!response.isSuccessful) {
+            Timber.e("Getting commentary failed: ${response.code()}")
+            return null
+        }
+
+        val body = response.body() ?: run {
+            Timber.e("Empty body for commentary request!")
+            return null
+        }
+
+        return Commentary(
+            score = body.percent,
+            adviceOnStandingHabits = body.staticPressureRes,
+            adviceOnWalkingHabits = body.gaitComment,
+            possibleMedicalProblem = body.diseaseNum
+        )
     }
 
     override fun deleteReportById(id: Int) {

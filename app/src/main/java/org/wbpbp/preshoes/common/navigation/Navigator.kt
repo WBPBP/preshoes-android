@@ -23,12 +23,22 @@ import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
 import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.feature.account.JoinActivity
+import org.wbpbp.preshoes.feature.account.LoginActivity
 import org.wbpbp.preshoes.feature.main.MainActivity
 import org.wbpbp.preshoes.feature.settings.SettingsActivity
 
 class Navigator(
     private val context: Context
 ) {
+
+    fun showLogin() {
+        startActivityWithFlag(LoginActivity.callingIntent(context))
+    }
+
+    fun showJoin() {
+        startActivityWithFlag(JoinActivity.callingIntent(context))
+    }
 
     fun showMain() {
         startActivityWithFlag(MainActivity.callingIntent(context))

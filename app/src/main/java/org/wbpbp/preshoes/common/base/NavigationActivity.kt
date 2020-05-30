@@ -25,7 +25,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.widget.NonSwipingViewPager
+import org.wbpbp.preshoes.util.Alert
 import java.util.*
 
 /**
@@ -53,6 +55,8 @@ abstract class NavigationActivity : BaseActivity(),
 
     private lateinit var mainPager: NonSwipingViewPager
     private lateinit var bottomNavigation: BottomNavigationView
+
+    private var lastRootLevelBackPress = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +126,20 @@ abstract class NavigationActivity : BaseActivity(),
         if (backStack.size > 0) {
             mainPager.currentItem = backStack.pop()
         } else {
-            super.onBackPressed()
+            // super.onBackPressed()
+            handleActivityExitAttempt()
+        }
+    }
+
+    private fun handleActivityExitAttempt() {
+        val now = Date().time
+        val elapsed = now - lastRootLevelBackPress
+
+        if (elapsed < 500) {
+            finishAndRemoveTask()
+        } else {
+            Alert.usual(R.string.notify_press_again_to_exit)
+            lastRootLevelBackPress = now
         }
     }
 

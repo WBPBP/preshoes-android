@@ -53,13 +53,19 @@ android {
         }
     }
 
-    flavorDimensions "bluetooth"
+    flavorDimensions "bluetooth", "server"
     productFlavors {
-        real {
+        realDevice {
             dimension "bluetooth"
         }
-        fake {
+        fakeDevice {
             dimension "bluetooth"
+        }
+        deployServer {
+            dimension "server"
+        }
+        mockServer {
+            dimension "server"
         }
     }
 
@@ -78,6 +84,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
@@ -114,6 +123,9 @@ dependencies {
 
     /** Realm adapter */
     implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
+
+    /** 쿠키 보관 */
+    implementation "com.github.franmontiel:PersistentCookieJar:$cookiejar_version"
 
     /** 프로젝트 모듈 */
     implementation project(":domain")

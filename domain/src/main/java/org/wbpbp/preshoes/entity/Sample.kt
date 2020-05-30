@@ -19,4 +19,8 @@
 
 package org.wbpbp.preshoes.entity
 
-data class Sample(val values: List<Int>)
+data class Sample(val values: List<Int>) {
+    companion object {
+        fun empty() = Sample(listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    }
+}

@@ -20,6 +20,7 @@
 package org.wbpbp.preshoes.entity
 
 data class Config(
+    val numberOfSensors: Int = 12,
     val standingDiagnosisDurationMillis: Long = 5000L,
     val walkingDiagnosisDurationMillis: Long = 10000L
 )

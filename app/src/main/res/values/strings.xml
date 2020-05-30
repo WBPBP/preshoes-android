@@ -43,6 +43,7 @@
     <string name="description_horizontal_bias">양 발 중심 편향</string>
     <string name="description_score">바른 걸음걸이</string>
     <string name="description_walks">걸음</string>
+    <string name="description_logo_image">로고 이미지</string>
     <string name="title_details">상세 보기</string>
     <string name="title_horizontal_bias_variation">수평 무게 중심 변화</string>
     <string name="title_static_horizontal_bias">정적 압력 분포 가로 편향</string>
@@ -64,5 +65,24 @@
     <string name="title_standing_analysis">정적 분석</string>
     <string name="title_walking_analysis">걸음걸이 분석</string>
     <string name="title_medical_prediction">발생이 우려되는 질환</string>
+    <string name="title_login">로그인</string>
+    <string name="title_join">회원가입</string>
+    <string name="prompt_email">이메일</string>
+    <string name="prompt_password">비밀번호</string>
+    <string name="button_sign_up">회원가입</string>
+    <string name="button_sign_in">로그인</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">이메일이 올바르지 않습니다.</string>
+    <string name="invalid_password">비밀번호는 다섯 글자가 넘어야 합니다.</string>
+    <string name="fail_wrong_auth">이메일이나 비밀번호를 확인하여 주세요.</string>
+    <string name="fail_server_connection">서버와의 연결에 실패하였습니다.</string>
+    <string name="fail_unknown">알 수 없는 이유로 요청을 처리하는 데에 실패하였습니다.</string>
+    <string name="notify_press_again_to_exit">뒤로 가기를 한 번 더 누르면 앱이 종료됩니다.</string>
+    <string name="fail_wrong_join_request">회원가입에 실패하였습니다. 이메일을 확인해 주세요.</string>
+    <string name="notify_join_success">회원가입이 완료되었습니다.</string>
+    <string name="button_join">회원가입</string>
+    <string name="description_privacy">Preshoes는 사용자를 위해 맞춤 분석을 제공하고 결과를 보관하기 위해 다음 정보를 수집합니다:\n\n- 이메일 주소\n- 비밀번호\n\n수집한 개인 정보는 사용자가 서비스를 탈퇴하는 시점까지 보관됩니다. 회원가입을 진행하는 것은 이에 동의하는 것으로 간주됩니다.</string>
+    <string name="title_hi">안녕하세요 :)</string>
+    <string name="description_registration_needed">Preshoes 서비스 이용을 위해 회원가입이 필요합니다.</string>
 
 </resources>
