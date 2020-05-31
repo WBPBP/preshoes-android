@@ -54,7 +54,7 @@ class ApiServiceTestImpl : ApiService {
                 47,
                 "haha",
                 "hehe",
-                1
+                0
             )
         )
     }
