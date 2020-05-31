@@ -37,6 +37,7 @@ import org.wbpbp.preshoes.util.TimeString
 import timber.log.Timber
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
+
     private val context: Context by inject()
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
 

@@ -41,6 +41,7 @@ package org.wbpbp.preshoes.feature.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.NavigationActivity
@@ -93,9 +94,11 @@ class MainActivity : NavigationActivity() {
         val userService: UserService by inject()
         val navigator: Navigator by inject()
 
-        // Finish on logout
         observe(userService.loggedOutEvent()) {
-            finish()
+            // loggedOutEvent and loginNeededEvent are fired simultaneously.
+            // However, we need to make the finish of this activity
+            // after showing LoginActivity.
+            Handler().postDelayed(::finish, 500)
         }
 
         observe(userService.loginNeededEvent()) {

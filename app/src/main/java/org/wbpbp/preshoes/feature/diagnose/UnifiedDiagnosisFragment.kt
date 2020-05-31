@@ -27,6 +27,7 @@ import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.databinding.UnifiedDiagnosisFragmentBinding
 
 class UnifiedDiagnosisFragment : BaseFragment<UnifiedDiagnosisFragmentBinding>() {
+
     override val viewModel: UnifiedDiagnosisViewModel by getViewModel()
 
     override fun getLayoutRes() = R.layout.unified_diagnosis_fragment

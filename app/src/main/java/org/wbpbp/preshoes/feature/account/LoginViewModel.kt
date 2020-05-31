@@ -37,6 +37,7 @@ import timber.log.Timber
 import java.net.ConnectException
 
 class LoginViewModel : BaseViewModel() {
+
     private val context: Context by inject()
     private val login: SignIn by inject()
     private val navigator: Navigator by inject()

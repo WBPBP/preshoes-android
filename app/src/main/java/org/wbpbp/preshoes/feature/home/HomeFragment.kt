@@ -27,6 +27,7 @@ import org.wbpbp.preshoes.common.extension.setToolbar
 import org.wbpbp.preshoes.databinding.HomeFragmentBinding
 
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
+
     override val viewModel: HomeViewModel by getViewModel()
 
     override fun getLayoutRes() = R.layout.home_fragment

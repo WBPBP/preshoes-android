@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.login_activity.view.*
 import org.koin.android.ext.android.inject
@@ -35,7 +36,6 @@ import org.wbpbp.preshoes.service.UserService
 
 class LoginActivity : BaseActivity() {
 
-    // TODO move to view model
     private val userService: UserService by inject()
     private val navigator: Navigator by inject()
 
@@ -63,6 +63,8 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initView(view: View) {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         with(view.password) {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
