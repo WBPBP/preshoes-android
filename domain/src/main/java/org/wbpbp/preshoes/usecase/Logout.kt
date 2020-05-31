@@ -17,16 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.service
+package org.wbpbp.preshoes.usecase
 
-import androidx.lifecycle.LiveData
-import org.wbpbp.preshoes.entity.model.SignInModel
-import org.wbpbp.preshoes.entity.model.SignUpModel
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.UserService
 
-interface UserService {
-    fun signUp(params: SignUpModel): Boolean
-    fun signIn(params: SignInModel?): Boolean
-    fun logout(): Boolean
+class Logout(
+    private val service: UserService
+) : UseCase<Unit, Boolean>() {
 
-    fun isLoggedIn(): LiveData<Boolean>
+    override suspend fun run(params: Unit) = Result.of {
+        service.logout()
+    }
 }

@@ -99,6 +99,12 @@ val myModules = module {
     }
 
     single {
+        Logout(
+            service = get()
+        )
+    }
+
+    single {
         SignIn(
             service = get()
         )

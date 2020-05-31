@@ -47,7 +47,7 @@ class UserServiceImpl(
         val succeeded = signInInternal(params)
 
         // Prevent duplicated success or failure.
-        setLoggedInStatus(succeeded, false)
+        setLoggedInStatus(state = succeeded, update = false)
 
         if (succeeded) {
             saveUser(params)
@@ -60,7 +60,7 @@ class UserServiceImpl(
         val params = getSignInParam()
         val succeeded = params?.let(::signInInternal) ?: false
 
-        setLoggedInStatus(succeeded, true)
+        setLoggedInStatus(state = succeeded, update = true)
 
         return succeeded
     }
@@ -99,6 +99,12 @@ class UserServiceImpl(
             user.email,
             user.password
         )
+    }
+
+    override fun logout(): Boolean {
+        setLoggedInStatus(state = false, update = false)
+
+        return api.logout().execute().isSuccessful
     }
 
     override fun isLoggedIn() = isLoggedIn
