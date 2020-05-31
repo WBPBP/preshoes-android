@@ -28,6 +28,7 @@ import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperImpl
 import org.wbpbp.preshoes.bluetooth.BluetoothHelperTestImpl
 import org.wbpbp.preshoes.common.navigation.Navigator
+import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.*
 import org.wbpbp.preshoes.service.*
 import org.wbpbp.preshoes.storage.*
@@ -42,6 +43,12 @@ val myModules = module {
         PreferenceManager.getDefaultSharedPreferences(
             get()
         ) as SharedPreferences
+    }
+
+    single {
+        Config(
+            pref = get()
+        )
     }
 
     single {
