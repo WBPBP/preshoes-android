@@ -25,12 +25,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.getSystemService
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.injection.myModules
-import org.wbpbp.preshoes.service.UserService
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 
@@ -45,7 +42,6 @@ class MyApplication : Application() {
 
         setDarkMode()
         setFail()
-        setLoginStatusListener()
     }
 
     private fun initTimber() {
@@ -79,22 +75,5 @@ class MyApplication : Application() {
 
     private fun setFail() {
         Alert.initialize(this)
-    }
-
-    private fun setLoginStatusListener() {
-        val userService: UserService by inject()
-        val navigator: Navigator by inject()
-
-        userService.isLoggedIn().observeForever {
-            it?.let { loggedIn ->
-                if (loggedIn) {
-                    Timber.i("Logged in status set to true! Login succeeded!")
-                    navigator.showMain()
-                } else {
-                    Timber.i("Logged in status set to false! Login needed!")
-                    navigator.showLogin()
-                }
-            }
-        }
     }
 }

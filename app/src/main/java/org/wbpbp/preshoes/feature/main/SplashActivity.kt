@@ -24,18 +24,38 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.common.extension.observe
+import org.wbpbp.preshoes.common.navigation.Navigator
+import org.wbpbp.preshoes.service.UserService
 import org.wbpbp.preshoes.usecase.SignIn
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 import java.net.ConnectException
 
 class SplashActivity : AppCompatActivity() {
+
     private val login: SignIn by inject()
+    private val userService: UserService by inject()
+    private val navigator: Navigator by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setLoginEventListener()
+
         Handler().postDelayed(::doLogin, 200)
+    }
+
+    private fun setLoginEventListener() {
+        observe(userService.loggedInEvent()) {
+            navigator.showMain()
+            finish()
+        }
+
+        observe(userService.loginNeededEvent()) {
+            navigator.showLogin()
+            finish()
+        }
     }
 
     private fun doLogin() {
@@ -52,8 +72,6 @@ class SplashActivity : AppCompatActivity() {
         } else {
             Timber.i("No saved user data in local. Showing login activity")
         }
-
-        finish()
     }
 
     private fun onLoginFail(error: Exception) {
@@ -61,7 +79,5 @@ class SplashActivity : AppCompatActivity() {
             is ConnectException -> Alert.usual(R.string.fail_server_connection)
             else -> Alert.usual(R.string.fail_unknown)
         }
-
-        finish()
     }
 }

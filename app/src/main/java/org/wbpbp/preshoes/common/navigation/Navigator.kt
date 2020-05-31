@@ -31,7 +31,6 @@ import org.wbpbp.preshoes.feature.settings.SettingsActivity
 class Navigator(
     private val context: Context
 ) {
-
     fun showLogin() {
         startActivityWithFlag(LoginActivity.callingIntent(context))
     }
@@ -56,7 +55,13 @@ class Navigator(
     }
 
     private fun startActivityWithFlag(intent: Intent) {
-        // on higher version of android
         context.startActivity(intent.apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
+    }
+
+    private fun startActivityWhileClearingOthers(intent: Intent) {
+        context.startActivity(intent.apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        })
     }
 }

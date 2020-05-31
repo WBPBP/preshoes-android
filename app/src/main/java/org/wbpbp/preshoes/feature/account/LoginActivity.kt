@@ -25,11 +25,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.login_activity.view.*
+import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.common.base.BaseActivity
 import org.wbpbp.preshoes.common.extension.getViewModel
+import org.wbpbp.preshoes.common.extension.observe
+import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.databinding.LoginActivityBinding
+import org.wbpbp.preshoes.service.UserService
 
 class LoginActivity : BaseActivity() {
+
+    // TODO move to view model
+    private val userService: UserService by inject()
+    private val navigator: Navigator by inject()
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: LoginActivityBinding
@@ -41,14 +49,14 @@ class LoginActivity : BaseActivity() {
 
         initBinding()
         initView(binding.root)
+
+        setLoginEventListener()
     }
 
     private fun initBinding() {
         binding = LoginActivityBinding.inflate(layoutInflater).apply {
             lifecycleOwner  = this@LoginActivity
-            vm = viewModel.apply {
-                start(::finish)
-            }
+            vm = viewModel.apply { start() }
         }
 
         setContentView(binding.root)
@@ -63,6 +71,13 @@ class LoginActivity : BaseActivity() {
                 }
                 false
             }
+        }
+    }
+
+    private fun setLoginEventListener() {
+        observe(userService.loggedInEvent()) {
+            navigator.showMain()
+            finish()
         }
     }
 

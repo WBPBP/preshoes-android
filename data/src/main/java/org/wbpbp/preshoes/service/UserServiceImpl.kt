@@ -21,12 +21,12 @@ package org.wbpbp.preshoes.service
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import androidx.lifecycle.MutableLiveData
 import io.realm.Realm
 import org.wbpbp.preshoes.entity.User
 import org.wbpbp.preshoes.entity.model.SignInModel
 import org.wbpbp.preshoes.entity.model.SignUpModel
 import org.wbpbp.preshoes.repository.UserRepository
+import org.wbpbp.preshoes.util.SingleLiveEvent
 import timber.log.Timber
 
 class UserServiceImpl(
@@ -35,7 +35,9 @@ class UserServiceImpl(
     private val userRepo: UserRepository
 ) : UserService {
 
-    private val isLoggedIn = MutableLiveData<Boolean>(null)
+    private val loggedIn = SingleLiveEvent<Unit>()
+    private val loggedOut = SingleLiveEvent<Unit>()
+    private val loginNeeded = SingleLiveEvent<Unit>()
 
     override fun signUp(params: SignUpModel) =
         api.join(params).execute().isSuccessful
@@ -50,10 +52,8 @@ class UserServiceImpl(
     private fun signInUsingUserInput(params: SignInModel): Boolean {
         val succeeded = signInInternal(params)
 
-        // Prevent duplicated success or failure.
-        setLoggedInStatus(state = succeeded, update = false)
-
         if (succeeded) {
+            loggedIn.postValue(Unit)
             saveUser(params)
         }
 
@@ -64,23 +64,13 @@ class UserServiceImpl(
         val params = getSignInParam()
         val succeeded = params?.let(::signInInternal) ?: false
 
-        setLoggedInStatus(state = succeeded, update = true)
+        if (succeeded) {
+            loggedIn.postValue(Unit)
+        } else {
+            loginNeeded.postValue(Unit)
+        }
 
         return succeeded
-    }
-
-    /**
-     * Post state value to isLoggedIn LiveData.
-     * If update is true, post the value if it is already set.
-     */
-    private fun setLoggedInStatus(state: Boolean, update: Boolean) {
-        val origin = isLoggedIn.value
-
-        if (!update && (origin == state)) {
-            // Do nothing
-        } else {
-            isLoggedIn.postValue(state)
-        }
     }
 
     private fun saveUser(params: SignInModel) {
@@ -110,7 +100,8 @@ class UserServiceImpl(
     }
 
     override fun logout(): Boolean {
-        setLoggedInStatus(state = false, update = false)
+        loggedOut.postValue(Unit)
+        loginNeeded.postValue(Unit)
 
         deleteUser()
 
@@ -127,5 +118,7 @@ class UserServiceImpl(
         }
     }
 
-    override fun isLoggedIn() = isLoggedIn
+    override fun loggedInEvent() = loggedIn
+    override fun loggedOutEvent() = loggedOut
+    override fun loginNeededEvent() = loginNeeded
 }

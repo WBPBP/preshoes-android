@@ -40,10 +40,14 @@ package org.wbpbp.preshoes.feature.main
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.NavigationActivity
 import org.wbpbp.preshoes.common.base.NavigationHostFragment
+import org.wbpbp.preshoes.common.extension.observe
 import org.wbpbp.preshoes.common.navigation.rootDestinations
+import org.wbpbp.preshoes.service.UserService
 
 class MainActivity : NavigationActivity() {
 
@@ -77,6 +81,21 @@ class MainActivity : NavigationActivity() {
             navHostId = R.id.nav_host_report,
             tabItemId = R.id.tab_report,
             rootDests = rootDestinations))
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setLoginEventListener()
+    }
+
+    private fun setLoginEventListener() {
+        val userService: UserService by inject()
+
+        // Finish on logout
+        observe(userService.loggedOutEvent()) {
+            finish()
+        }
+    }
 
     companion object {
         fun callingIntent(context: Context) = Intent(context, MainActivity::class.java)
