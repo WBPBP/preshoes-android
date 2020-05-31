@@ -53,7 +53,7 @@
     <string name="button_start">시작</string>
     <string name="button_finish">종료</string>
     <string name="button_resume">계속</string>
-    <string name="description_static_diagnosis">5초간 제자리에 정지하여 주세요.</string>
+    <string name="description_static_diagnosis">바른 자세로 서 주세요.</string>
     <string name="description_walk_diagnosis">일정한 속도로 걸어 주세요.</string>
     <string name="description_keep_next_is_walk">계속 버튼을 누른 뒤 천천히 걸어 주세요.</string>
     <string name="description_diagnosis_done">검사가 종료되었습니다. 감사합니다.</string>
