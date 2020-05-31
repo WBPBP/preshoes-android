@@ -22,12 +22,23 @@ package org.wbpbp.preshoes.feature.settings
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.usecase.Logout
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private val logout: Logout by inject()
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
+        onPreferenceClick("logout") {
+            logout(Unit) {
+                it
+                    .onSuccess { activity?.finish() }
+                    .onError { activity?.finish() }
+            }
+        }
     }
 
     private fun onPreferenceClick(key: String, body: () -> Any?) {

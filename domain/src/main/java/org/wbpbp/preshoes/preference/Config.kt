@@ -27,6 +27,6 @@ class Config(
     val userName get() = pref.getString("userName", "no_name")
 
     val numberOfSensors get() = pref.getInt("numberOfSensors", 12)
-    val standingDiagnosisDurationMillis get() = pref.getLong("standingDuration", 5000)
-    val walkingDiagnosisDurationMillis get() = pref.getLong("walkingDuration", 30000)
+    val standingDiagnosisDurationMillis get() = pref.getString("standingDuration", "5000")?.toLong() ?: 5000
+    val walkingDiagnosisDurationMillis get() = pref.getString("walkingDuration", "30000")?.toLong() ?: 30000
 }
