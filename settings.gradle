@@ -16,7 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-include ':model'
 
-include ':app', ':domain', ':data', ':common'
+include ':app', ':domain', ':data', ':common', ':model'
+project(':model').projectDir = new File('../preshoes-model/model')
+
 rootProject.name='preshoes'
