@@ -19,37 +19,38 @@
 
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="사용자 계정">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
+        <Preference
+            app:title="계정 정보"
+            app:key="userName"
+            app:summary="potados99@gmail.com" />
+
+        <Preference
+            app:key="logout"
+            app:title="로그아웃"
+            app:summary="로그아웃하고 처음 화면으로 돌아갑니다."/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="통합 족압 검사">
+
+        <ListPreference
+            app:defaultValue="5000"
+            app:entries="@array/standing_duration_entries"
+            app:entryValues="@array/standing_duration_values"
+            app:key="standingDuration"
+            app:title="정적 검사 시간"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+            app:defaultValue="30000"
+            app:entries="@array/walking_duration_entries"
+            app:entryValues="@array/walking_duration_values"
+            app:key="walkingDuration"
+            app:title="걷기 검사 시간"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
--->
 </PreferenceScreen>

@@ -17,10 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.feature.settings
 
-data class Config(
-    val numberOfSensors: Int = 12,
-    val standingDiagnosisDurationMillis: Long = 5000L,
-    val walkingDiagnosisDurationMillis: Long = 10000L
-)
+import android.os.Bundle
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import org.wbpbp.preshoes.R
+
+class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+    }
+
+    private fun onPreferenceClick(key: String, body: () -> Any?) {
+        findPreference<Preference>(key)?.setOnPreferenceClickListener {
+            body()
+            true
+        }
+    }
+}
