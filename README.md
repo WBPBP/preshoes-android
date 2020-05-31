@@ -11,7 +11,7 @@ Preshoes - 안드로이드 클라이언트
 
 ## 개요
 
-![demo](/docs/demo.gif)
+<img src="/docs/demo.gif" width="250px">
 
 신발 센서 모듈로부터 전달받은 데이터를 분석, 시각화하여 사용자에게 보여줍니다.
 
@@ -20,7 +20,9 @@ Preshoes - 안드로이드 클라이언트
 이 앱은 [`wbpbp/preshoes-model`](https://github.com/WBPBP/preshoes-model) 프로젝트의 `model` 모듈을 사용합니다. 해당 프로젝트가 이 프로젝트와 같은 디렉토리에 존재햐여야 합니다. `model` 모듈은 아래와 같이 사용됩니다.
 
 ~~~java
- project(':model').projectDir = new File('../preshoes-model/model')
+// settings.gradle
+include ':model'
+project(':model').projectDir = new File('../preshoes-model/model')
 ~~~
 
 ## 업데이트 기록
