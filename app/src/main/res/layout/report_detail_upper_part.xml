@@ -87,7 +87,7 @@
                 style="@style/TextPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.adviceOnWalkingHabits}"
+                android:text="@{vm.adviceOnStandingHabits}"
                 tools:text="몸의 무게중심이 왼쪽으로 치우쳐져 있는 경향이 보입니다. 또한 현재 양쪽 발에 실리는 힘의 차이가 많은 것으로 보아 척추측만증을 의심해볼 수                                                                                    있습니다."/>
 
         </LinearLayout>
@@ -150,7 +150,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@{vm.medicalPredictionDrawable}"
-                    tools:src="@drawable/ic_disease_3_knee"/>
+                    android:tint="?android:attr/colorPrimary"
+                    tools:src="@drawable/ic_disease_0"/>
 
                 <TextView
                     style="@style/TextPrimary"

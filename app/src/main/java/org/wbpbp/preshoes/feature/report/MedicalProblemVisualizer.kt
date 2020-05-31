@@ -28,16 +28,23 @@ object MedicalProblemVisualizer {
     fun getDrawableOfPossibleMedicalProblem(context: Context, medicalProblemId: Int): Drawable? {
         return context.getDrawable(
             when (medicalProblemId) {
-                1 -> R.drawable.ic_disease_3_knee
-                else -> R.drawable.ic_disease_3_knee
+                1 -> R.drawable.ic_disease_1
+                2 -> R.drawable.ic_disease_2
+                3 -> R.drawable.ic_disease_3
+                4 -> R.drawable.ic_disease_4
+                else -> R.drawable.ic_disease_0
             }
         )
     }
 
-    fun getNameOfPossibleMedicalProblem(medicalProblemId: Int): String {
-        return when (medicalProblemId) {
-            1 -> ""
-            else -> ""
-        }
+    fun getNameOfPossibleMedicalProblem(context: Context, medicalProblemId: Int): String {
+        return context.getString(
+            when (medicalProblemId) {
+                1 -> R.string.disease_name_1
+                2 -> R.string.disease_name_2
+                3 -> R.string.disease_name_3
+                4 -> R.string.disease_name_4
+                else -> R.string.disease_name_0
+            })
     }
 }
