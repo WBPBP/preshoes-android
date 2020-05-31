@@ -11,7 +11,7 @@ Preshoes - 안드로이드 클라이언트
 
 ## 개요
 
-![demo](/docs/demo.gif)
+<img src="/docs/demo.gif" width="250px">
 
 신발 센서 모듈로부터 전달받은 데이터를 분석, 시각화하여 사용자에게 보여줍니다.
 
