@@ -17,12 +17,39 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        app:title="@string/title_settings"
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Content -->
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+
+    <!-- Toolbar shadow -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/toolbar_shadow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
