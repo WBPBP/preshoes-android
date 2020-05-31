@@ -37,6 +37,7 @@ import timber.log.Timber
 import java.net.ConnectException
 
 class LoginViewModel : BaseViewModel() {
+
     private val context: Context by inject()
     private val login: SignIn by inject()
     private val navigator: Navigator by inject()
@@ -50,11 +51,7 @@ class LoginViewModel : BaseViewModel() {
     val username = ObservableField<String>()
     val password = ObservableField<String>()
 
-    private lateinit var onFinishActivity: () -> Any?
-
-    fun start(onFinishActivity: () -> Any? = {}) {
-        this.onFinishActivity = onFinishActivity
-
+    fun start() {
         username.observe(::onLoginFormDataChanged)
         password.observe(::onLoginFormDataChanged)
     }
@@ -80,10 +77,7 @@ class LoginViewModel : BaseViewModel() {
     }
 
     private fun onLoginResult(succeeded: Boolean) {
-        if (succeeded) {
-            navigator.showMain()
-            onFinishActivity()
-        } else {
+        if (!succeeded) {
             Alert.usual(R.string.fail_wrong_auth)
         }
 

@@ -23,7 +23,7 @@ class ReportDetailViewModel : BaseViewModel() {
     fun getAdviceOnStandingHabits() = report.commentary?.adviceOnStandingHabits
     fun getAdviceOnWalkingHabits() = report.commentary?.adviceOnWalkingHabits
     fun getMedicalPredictionDrawable() = MedicalProblemVisualizer.getDrawableOfPossibleMedicalProblem(context, report.commentary?.possibleMedicalProblem ?: -1)
-    fun getMedicalPredictionName() = MedicalProblemVisualizer.getNameOfPossibleMedicalProblem(report.commentary?.possibleMedicalProblem ?: -1)
+    fun getMedicalPredictionName() = MedicalProblemVisualizer.getNameOfPossibleMedicalProblem(context, report.commentary?.possibleMedicalProblem ?: -1)
 
     // Lower
     fun getChartData() = report.features?.horizontalWeightBiasVariationDuringWalkSession?.toList() ?: listOf()

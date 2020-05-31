@@ -19,11 +19,12 @@
 
 package org.wbpbp.preshoes.service
 
-import androidx.lifecycle.MutableLiveData
+import io.realm.Realm
 import org.wbpbp.preshoes.entity.User
 import org.wbpbp.preshoes.entity.model.SignInModel
 import org.wbpbp.preshoes.entity.model.SignUpModel
 import org.wbpbp.preshoes.repository.UserRepository
+import org.wbpbp.preshoes.util.SingleLiveEvent
 import timber.log.Timber
 
 class UserServiceImpl(
@@ -31,27 +32,53 @@ class UserServiceImpl(
     private val userRepo: UserRepository
 ) : UserService {
 
-    private val isLoggedIn = MutableLiveData(false)
+    private val loggedIn = SingleLiveEvent<Unit>()
+    private val loggedOut = SingleLiveEvent<Unit>()
+    private val loginNeeded = SingleLiveEvent<Unit>()
 
     override fun signUp(params: SignUpModel) =
         api.join(params).execute().isSuccessful
 
-    override fun signIn(params: SignInModel?): Boolean {
-        val paramToUse = params ?: getSignInParam() ?: return false
-        val succeeded = signInInternal(paramToUse)
+    override fun signIn(params: SignInModel?) =
+        if (params == null) {
+            signInUsingSavedInfo()
+        } else {
+            signInUsingUserInput(params)
+        }
 
-        isLoggedIn.postValue(succeeded)
+    private fun signInUsingUserInput(params: SignInModel): Boolean {
+        val succeeded = signInInternal(params)
 
         if (succeeded) {
-            val user = User(paramToUse.user_email, paramToUse.user_pwd)
-
-            userRepo.saveUser(user)
-
-            Timber.i("User $user saved")
+            loggedIn.postValue(Unit)
+            saveUser(params)
         }
 
         return succeeded
     }
+
+    private fun signInUsingSavedInfo(): Boolean {
+        val params = getSignInParam()
+        val succeeded = params?.let(::signInInternal) ?: false
+
+        if (succeeded) {
+            loggedIn.postValue(Unit)
+        } else {
+            loginNeeded.postValue(Unit)
+        }
+
+        return succeeded
+    }
+
+    private fun saveUser(params: SignInModel) {
+        val user = User(params.user_email, params.user_pwd)
+        userRepo.saveUser(user)
+
+        Timber.i("User $user saved")
+    }
+
+    private fun signInInternal(params: SignInModel) =
+        api.login(params).execute().isSuccessful
 
     private fun getSignInParam(): SignInModel? {
         val user = userRepo.getUser() ?: return run {
@@ -65,8 +92,22 @@ class UserServiceImpl(
         )
     }
 
-    private fun signInInternal(params: SignInModel) =
-        api.login(params).execute().isSuccessful
+    override fun logout(): Boolean {
+        loggedOut.postValue(Unit)
+        loginNeeded.postValue(Unit)
 
-    override fun isLoggedIn() = isLoggedIn
+        deleteUser()
+
+        return api.logout().execute().isSuccessful
+    }
+
+    private fun deleteUser() {
+        Realm.getDefaultInstance().executeTransaction {
+            it.delete(User::class.java)
+        }
+    }
+
+    override fun loggedInEvent() = loggedIn
+    override fun loggedOutEvent() = loggedOut
+    override fun loginNeededEvent() = loginNeeded
 }

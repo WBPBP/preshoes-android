@@ -17,10 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.entity
+package org.wbpbp.preshoes.usecase
 
-data class Config(
-    val numberOfSensors: Int = 12,
-    val standingDiagnosisDurationMillis: Long = 5000L,
-    val walkingDiagnosisDurationMillis: Long = 10000L
-)
+import org.wbpbp.preshoes.functional.Result
+import org.wbpbp.preshoes.interactor.UseCase
+import org.wbpbp.preshoes.service.UserService
+
+class Logout(
+    private val service: UserService
+) : UseCase<Unit, Boolean>() {
+
+    override suspend fun run(params: Unit) = Result.of {
+        service.logout()
+    }
+}

@@ -41,6 +41,11 @@ class ApiServiceTestImpl : ApiService {
         return createFakeCallWithFakeResponse(Unit)
     }
 
+    override fun logout(): Call<Unit> {
+        Thread.sleep(100)
+        return createFakeCallWithFakeResponse(Unit)
+    }
+
     override fun requestReportCommentary(params: CommentaryRequestModel): Call<CommentaryModel> {
         Thread.sleep(500)
 
@@ -49,7 +54,7 @@ class ApiServiceTestImpl : ApiService {
                 47,
                 "haha",
                 "hehe",
-                1
+                0
             )
         )
     }

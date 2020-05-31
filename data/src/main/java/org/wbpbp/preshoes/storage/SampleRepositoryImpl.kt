@@ -24,10 +24,10 @@ import android.os.Looper
 import androidx.lifecycle.Observer
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.wbpbp.preshoes.entity.Config
 import org.wbpbp.preshoes.entity.Record
 import org.wbpbp.preshoes.entity.Sample
 import org.wbpbp.preshoes.entity.SamplePair
+import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.SampleRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.util.CombinedLiveData

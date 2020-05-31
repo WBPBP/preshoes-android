@@ -25,6 +25,7 @@ import org.wbpbp.preshoes.entity.model.SignInModel
 import org.wbpbp.preshoes.entity.model.SignUpModel
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -34,6 +35,9 @@ interface ApiService {
 
     @POST("/login")
     fun login(@Body params: SignInModel): Call<Unit>
+
+    @GET("/log/out")
+    fun logout(): Call<Unit>
 
     @Headers("Content-Type: application/json")
     @POST("/send/info")

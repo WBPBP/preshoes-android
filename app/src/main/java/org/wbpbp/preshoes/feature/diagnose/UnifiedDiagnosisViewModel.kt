@@ -26,8 +26,8 @@ import androidx.lifecycle.MutableLiveData
 import org.koin.core.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.BaseViewModel
-import org.wbpbp.preshoes.entity.Config
 import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.usecase.*
 import org.wbpbp.preshoes.util.Alert
@@ -37,6 +37,7 @@ import org.wbpbp.preshoes.util.TimeString
 import timber.log.Timber
 
 class UnifiedDiagnosisViewModel : BaseViewModel() {
+
     private val context: Context by inject()
     private val sensorDeviceStateRepo: SensorDeviceStateRepository by inject()
 

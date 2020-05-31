@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2020 WBPBP <potados99@gmail.com>
  *
  * This file is part of Preshoes (https://github.com/WBPBP).
@@ -17,7 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-include ':app', ':domain', ':data', ':common', ':model'
-project(':model').projectDir = new File('../preshoes-model/model')
+package org.wbpbp.preshoes.preference
 
-rootProject.name='preshoes'
+import android.content.SharedPreferences
+
+class Config(
+    private val pref: SharedPreferences
+) {
+    val numberOfSensors get() = pref.getInt("numberOfSensors", 12)
+    val standingDiagnosisDurationMillis get() = pref.getString("standingDuration", "5000")?.toLong() ?: 5000
+    val walkingDiagnosisDurationMillis get() = pref.getString("walkingDuration", "30000")?.toLong() ?: 30000
+}

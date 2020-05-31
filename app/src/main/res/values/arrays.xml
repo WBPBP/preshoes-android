@@ -34,4 +34,33 @@
         <item>정적 검사</item>
         <item>걷기</item>
     </string-array>
+
+    <string-array name="standing_duration_entries">
+        <item>2초</item>
+        <item>5초</item>
+        <item>10초</item>
+    </string-array>
+
+    <string-array name="standing_duration_values">
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
+    </string-array>
+
+    <string-array name="walking_duration_entries">
+        <item>2초</item>
+        <item>30초</item>
+        <item>1분</item>
+        <item>2분</item>
+        <item>3분</item>
+    </string-array>
+
+    <string-array name="walking_duration_values">
+        <item>2000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>120000</item>
+        <item>180000</item>
+    </string-array>
+
 </resources>

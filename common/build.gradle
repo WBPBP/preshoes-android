@@ -86,4 +86,7 @@ dependencies {
     api "com.google.code.gson:gson:$gson_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    /** Preference */
+    api "androidx.preference:preference-ktx:$preference_version"
 }

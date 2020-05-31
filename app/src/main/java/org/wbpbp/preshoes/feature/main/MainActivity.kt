@@ -40,10 +40,16 @@ package org.wbpbp.preshoes.feature.main
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.NavigationActivity
 import org.wbpbp.preshoes.common.base.NavigationHostFragment
+import org.wbpbp.preshoes.common.extension.observe
+import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.common.navigation.rootDestinations
+import org.wbpbp.preshoes.service.UserService
 
 class MainActivity : NavigationActivity() {
 
@@ -77,6 +83,28 @@ class MainActivity : NavigationActivity() {
             navHostId = R.id.nav_host_report,
             tabItemId = R.id.tab_report,
             rootDests = rootDestinations))
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setLoginEventListener()
+    }
+
+    private fun setLoginEventListener() {
+        val userService: UserService by inject()
+        val navigator: Navigator by inject()
+
+        observe(userService.loggedOutEvent()) {
+            // loggedOutEvent and loginNeededEvent are fired simultaneously.
+            // However, we need to make the finish of this activity
+            // after showing LoginActivity.
+            Handler().postDelayed(::finish, 500)
+        }
+
+        observe(userService.loginNeededEvent()) {
+            navigator.showLogin()
+        }
+    }
 
     companion object {
         fun callingIntent(context: Context) = Intent(context, MainActivity::class.java)

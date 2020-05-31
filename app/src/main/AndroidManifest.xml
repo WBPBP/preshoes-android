@@ -32,7 +32,9 @@
         <activity android:name=".feature.account.JoinActivity" />
         <activity android:name=".feature.account.LoginActivity" />
         <activity android:name=".feature.main.MainActivity" />
-        <activity android:name=".feature.settings.SettingsActivity" />
+        <activity
+            android:name=".feature.settings.SettingsActivity"
+            android:parentActivityName=".feature.main.MainActivity" />
 
     </application>
 

@@ -32,12 +32,14 @@ import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 
 class MyApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
 
         initTimber()
         initKoin()
         initRealm()
+
         setDarkMode()
         setFail()
     }
