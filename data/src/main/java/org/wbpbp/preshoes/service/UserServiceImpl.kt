@@ -19,8 +19,6 @@
 
 package org.wbpbp.preshoes.service
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import io.realm.Realm
 import org.wbpbp.preshoes.entity.User
 import org.wbpbp.preshoes.entity.model.SignInModel
@@ -31,7 +29,6 @@ import timber.log.Timber
 
 class UserServiceImpl(
     private val api: ApiService,
-    private val pref: SharedPreferences,
     private val userRepo: UserRepository
 ) : UserService {
 
@@ -77,10 +74,6 @@ class UserServiceImpl(
         val user = User(params.user_email, params.user_pwd)
         userRepo.saveUser(user)
 
-        pref.edit {
-            putString("userName", user.email)
-        }
-
         Timber.i("User $user saved")
     }
 
@@ -111,10 +104,6 @@ class UserServiceImpl(
     private fun deleteUser() {
         Realm.getDefaultInstance().executeTransaction {
             it.delete(User::class.java)
-        }
-
-        pref.edit {
-            putString("userName", null)
         }
     }
 

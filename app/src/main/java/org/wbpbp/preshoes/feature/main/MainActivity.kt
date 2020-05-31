@@ -46,6 +46,7 @@ import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.common.base.NavigationActivity
 import org.wbpbp.preshoes.common.base.NavigationHostFragment
 import org.wbpbp.preshoes.common.extension.observe
+import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.common.navigation.rootDestinations
 import org.wbpbp.preshoes.service.UserService
 
@@ -90,10 +91,15 @@ class MainActivity : NavigationActivity() {
 
     private fun setLoginEventListener() {
         val userService: UserService by inject()
+        val navigator: Navigator by inject()
 
         // Finish on logout
         observe(userService.loggedOutEvent()) {
             finish()
+        }
+
+        observe(userService.loginNeededEvent()) {
+            navigator.showLogin()
         }
     }
 

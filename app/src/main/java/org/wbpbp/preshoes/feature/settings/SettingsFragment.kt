@@ -24,10 +24,12 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
+import org.wbpbp.preshoes.repository.UserRepository
 import org.wbpbp.preshoes.usecase.Logout
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private val logout: Logout by inject()
+    private val userRepo: UserRepository by inject()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -39,6 +41,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     .onError { activity?.finish() }
             }
         }
+
+        getPreference("userName")?.summary = userRepo.getUser()?.email
+    }
+
+    private fun getPreference(key: String):  Preference? {
+        return findPreference<Preference>(key)
     }
 
     private fun onPreferenceClick(key: String, body: () -> Any?) {

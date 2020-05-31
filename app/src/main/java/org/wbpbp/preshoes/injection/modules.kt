@@ -179,7 +179,6 @@ val myModules = module {
     single {
         UserServiceImpl(
             api = get(),
-            pref = get(),
             userRepo = get()
         ) as UserService
     }
