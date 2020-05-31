@@ -20,22 +20,25 @@
 package org.wbpbp.preshoes.feature.main
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
-import org.wbpbp.preshoes.common.navigation.Navigator
 import org.wbpbp.preshoes.usecase.SignIn
 import org.wbpbp.preshoes.util.Alert
 import timber.log.Timber
 import java.net.ConnectException
 
 class SplashActivity : AppCompatActivity() {
-    private val navigator: Navigator by inject()
     private val login: SignIn by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Handler().postDelayed(::doLogin, 200)
+    }
+
+    private fun doLogin() {
         login(null) {
             it
                 .onSuccess(::onLoginResult)
@@ -46,10 +49,8 @@ class SplashActivity : AppCompatActivity() {
     private fun onLoginResult(succeeded: Boolean) {
         if (succeeded) {
             Timber.i("Login succeeded with saved user data. Showing main activity")
-            navigator.showMain()
         } else {
             Timber.i("No saved user data in local. Showing login activity")
-            navigator.showLogin()
         }
 
         finish()
@@ -60,8 +61,6 @@ class SplashActivity : AppCompatActivity() {
             is ConnectException -> Alert.usual(R.string.fail_server_connection)
             else -> Alert.usual(R.string.fail_unknown)
         }
-
-        navigator.showLogin()
 
         finish()
     }

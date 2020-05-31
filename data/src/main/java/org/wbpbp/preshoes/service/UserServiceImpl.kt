@@ -31,27 +31,63 @@ class UserServiceImpl(
     private val userRepo: UserRepository
 ) : UserService {
 
-    private val isLoggedIn = MutableLiveData(false)
+    private val isLoggedIn = MutableLiveData<Boolean>(null)
 
     override fun signUp(params: SignUpModel) =
         api.join(params).execute().isSuccessful
 
-    override fun signIn(params: SignInModel?): Boolean {
-        val paramToUse = params ?: getSignInParam() ?: return false
-        val succeeded = signInInternal(paramToUse)
+    override fun signIn(params: SignInModel?) =
+        if (params == null) {
+            signInUsingSavedInfo()
+        } else {
+            signInUsingUserInput(params)
+        }
 
-        isLoggedIn.postValue(succeeded)
+    private fun signInUsingUserInput(params: SignInModel): Boolean {
+        val succeeded = signInInternal(params)
+
+        // Prevent duplicated success or failure.
+        setLoggedInStatus(succeeded, false)
 
         if (succeeded) {
-            val user = User(paramToUse.user_email, paramToUse.user_pwd)
-
-            userRepo.saveUser(user)
-
-            Timber.i("User $user saved")
+            saveUser(params)
         }
 
         return succeeded
     }
+
+    private fun signInUsingSavedInfo(): Boolean {
+        val params = getSignInParam()
+        val succeeded = params?.let(::signInInternal) ?: false
+
+        setLoggedInStatus(succeeded, true)
+
+        return succeeded
+    }
+
+    /**
+     * Post state value to isLoggedIn LiveData.
+     * If update is true, post the value if it is already set.
+     */
+    private fun setLoggedInStatus(state: Boolean, update: Boolean) {
+        val origin = isLoggedIn.value
+
+        if (!update && (origin == state)) {
+            // Do nothing
+        } else {
+            isLoggedIn.postValue(state)
+        }
+    }
+
+    private fun saveUser(params: SignInModel) {
+        val user = User(params.user_email, params.user_pwd)
+        userRepo.saveUser(user)
+
+        Timber.i("User $user saved")
+    }
+
+    private fun signInInternal(params: SignInModel) =
+        api.login(params).execute().isSuccessful
 
     private fun getSignInParam(): SignInModel? {
         val user = userRepo.getUser() ?: return run {
@@ -64,9 +100,6 @@ class UserServiceImpl(
             user.password
         )
     }
-
-    private fun signInInternal(params: SignInModel) =
-        api.login(params).execute().isSuccessful
 
     override fun isLoggedIn() = isLoggedIn
 }

@@ -81,7 +81,6 @@ class LoginViewModel : BaseViewModel() {
 
     private fun onLoginResult(succeeded: Boolean) {
         if (succeeded) {
-            navigator.showMain()
             onFinishActivity()
         } else {
             Alert.usual(R.string.fail_wrong_auth)
