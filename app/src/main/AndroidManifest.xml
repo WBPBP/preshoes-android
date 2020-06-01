@@ -21,7 +21,8 @@
         <!-- Activities -->
         <activity
             android:name=".feature.main.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/DarkSplashTheme">
+            <!-- Change it to LightSplashTheme when using day mode -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -42,7 +42,7 @@
     </style>
 
     <!-- Splash theme. -->
-    <style name="SplashTheme" parent="AppBaseThemeDark">
+    <style name="DarkSplashTheme" parent="AppBaseThemeDark">
         <item name="android:windowBackground">@drawable/splash_background_dark</item>
     </style>
 
