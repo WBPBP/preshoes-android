@@ -32,13 +32,13 @@ interface ApiService {
     @POST("/join/addUser")
     fun join(@Body params: SignUpModel): Call<Unit>
 
-    @POST("/login")
+    @POST("/log/in")
     fun login(@Body params: SignInModel): Call<Unit>
 
     @GET("/log/out")
     fun logout(): Call<Unit>
 
-    // @Headers("Content-Type: application/json")
+    // @Headers("content-type: application/json")
     @POST("/send/info")
     fun requestReportCommentary(@Body params: CommentaryRequestModel): Call<CommentaryModel>
 }

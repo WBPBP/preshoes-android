@@ -37,7 +37,10 @@ class UserServiceImpl(
     private val loginNeeded = SingleLiveEvent<Unit>()
 
     override fun signUp(params: SignUpModel) =
-        api.join(params).execute().isSuccessful
+        api.join(params).execute().let {
+            Timber.i("SignUp response code: ${it.code()}")
+            it.isSuccessful
+        }
 
     override fun signIn(params: SignInModel?) =
         if (params == null) {
@@ -78,7 +81,10 @@ class UserServiceImpl(
     }
 
     private fun signInInternal(params: SignInModel) =
-        api.login(params).execute().isSuccessful
+        api.login(params).execute().let {
+            Timber.i("SignIn response code: ${it.code()}")
+            it.isSuccessful
+        }
 
     private fun getSignInParam(): SignInModel? {
         val user = userRepo.getUser() ?: return run {

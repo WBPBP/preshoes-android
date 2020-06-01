@@ -151,7 +151,12 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
                 GlobalScope.launch {
                     clearData()
                     getDataPoints(footPressure).forEach(::addData)
-                    forceRefreshOnWorkerThread()
+
+                    try {
+                        forceRefreshOnWorkerThread()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
                     // Result will be posted on main thread.
                     MainScope().launch {

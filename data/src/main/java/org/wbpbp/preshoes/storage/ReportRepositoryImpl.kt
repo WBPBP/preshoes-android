@@ -66,17 +66,11 @@ class ReportRepositoryImpl(
     }
 
     override fun addCommentaryOnReport(id: Int) {
-        val report = getReportById(id) ?: return run {
-            Timber.w("No report with id $id found!")
-        }
+        val report = getReportById(id) ?: throw Error("No report with id $id found!")
 
-        val features = report.features ?: return run {
-            Timber.w("No features in report with id $id!")
-        }
+        val features = report.features ?: throw Exception("No features in report with id $id!")
 
-        var commentary = getCommentary(features) ?: return run {
-            Timber.w("No commentary secured!")
-        }
+        var commentary = getCommentary(features) ?: throw Exception("No commentary secured!")
 
         Realm.getDefaultInstance().executeTransaction {
             // An object you want to set as a linked object
