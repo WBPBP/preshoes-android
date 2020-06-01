@@ -49,6 +49,7 @@
 
     <string-array name="walking_duration_entries">
         <item>2초</item>
+        <item>12초</item>
         <item>30초</item>
         <item>1분</item>
         <item>2분</item>
@@ -57,6 +58,7 @@
 
     <string-array name="walking_duration_values">
         <item>2000</item>
+        <item>12000</item>
         <item>30000</item>
         <item>60000</item>
         <item>120000</item>
