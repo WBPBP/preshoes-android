@@ -26,6 +26,7 @@ import org.koin.android.ext.android.inject
 import org.wbpbp.preshoes.R
 import org.wbpbp.preshoes.repository.UserRepository
 import org.wbpbp.preshoes.usecase.Logout
+import org.wbpbp.preshoes.util.Alert
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private val logout: Logout by inject()
@@ -38,7 +39,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             logout(Unit) {
                 it
                     .onSuccess { activity?.finish() }
-                    .onError { activity?.finish() }
+                    .onError {
+                        Alert.usual(R.string.fail_server_connection)
+                        activity?.finish()
+                    }
             }
         }
 
