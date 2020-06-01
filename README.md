@@ -17,7 +17,7 @@ Preshoes - 안드로이드 클라이언트
 
 ## 의존성
 
-이 앱은 [`wbpbp/preshoes-model`](https://github.com/WBPBP/preshoes-model) 프로젝트의 `model` 모듈을 사용합니다. 해당 프로젝트가 이 프로젝트와 같은 디렉토리에 존재햐여야 합니다. `model` 모듈은 아래와 같이 사용됩니다.
+이 앱은 [`wbpbp/preshoes-model`](https://github.com/WBPBP/preshoes-model) 프로젝트의 `model` 모듈을 사용합니다. 해당 프로젝트가 이 프로젝트와 같은 디렉토리에 존재하여야 합니다. `model` 모듈은 아래와 같이 사용됩니다.
 
 ~~~java
 // settings.gradle
