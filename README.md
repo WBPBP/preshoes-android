@@ -25,7 +25,21 @@ include ':model'
 project(':model').projectDir = new File('../preshoes-model/model')
 ~~~
 
+## 테스트 빌드
+
+실제 센서 모듈과 연결할 수 없는 상황을 위해 `bluetooth` dimension에 대해 `fakeDevice`와 `realDevice` flavor를 지원합니다.
+
+서버와 연결할 수 없는 상황을 위해 `server` dimension에 대해 `mockServer`와 `deployServer` flavor를 지원합니다.
+
+예를 들어, 센서 모듈이 없는 상태에서 서버와의 연결을 테스트하고 싶다면 `fakeDeviceDeployServerDebug` 옵션으로 빌드를 진행할 수 있습니다.
+
 ## 업데이트 기록
+
+### 2020.6.1 v0.1.0-beta02
+
+- 서버 테스트 완료.
+- 검사 시간 옵션 추가.
+- 보고서 200 이외 응답 도착시 repository에서 throw.
 
 ### 2020.6.1 v0.1.0-beta01
 
