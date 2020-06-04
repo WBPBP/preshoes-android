@@ -35,6 +35,10 @@ project(':model').projectDir = new File('../preshoes-model/model')
 
 ## 업데이트 기록
 
+### 2020.6.5 v0.1.0-beta03
+
+- 센서 재배치.
+
 ### 2020.6.1 v0.1.0-beta02
 
 - 서버 테스트 완료.
