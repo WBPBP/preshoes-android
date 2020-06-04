@@ -186,6 +186,7 @@ class FootPressureView(context: Context, private val attrs: AttributeSet)
 
         private val sensorPointsLeft = mapOf(
             0 to SensorPoint(0.83f, 0.1f),
+
             1 to SensorPoint(0.78f, 0.25f),
             2 to SensorPoint(0.6f, 0.26f),
             3 to SensorPoint(0.42f, 0.3f),
