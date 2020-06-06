@@ -28,7 +28,7 @@ class SignIn(
     private val service: UserService
 ) : UseCase<SignInModel?, Boolean>() {
 
-    override suspend fun run(params: SignInModel?) = Result.of {
+    override fun run(params: SignInModel?) = Result.of {
         service.signIn(params)
     }
 }

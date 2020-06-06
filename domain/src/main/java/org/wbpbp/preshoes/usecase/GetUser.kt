@@ -28,7 +28,7 @@ class GetUser(
     private val repo: UserRepository
 ) : UseCase<Unit, User?>() {
 
-    override suspend fun run(params: Unit) = Result.of {
+    override fun run(params: Unit) = Result.of {
         repo.getUser()
     }
 }

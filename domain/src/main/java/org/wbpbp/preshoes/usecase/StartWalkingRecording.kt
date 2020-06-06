@@ -27,7 +27,7 @@ class StartWalkingRecording(
     private val service: ReportService
 ) : UseCase<Unit, Unit>() {
 
-    override suspend fun run(params: Unit) = Result.of {
+    override fun run(params: Unit) = Result.of {
         service.startRecordingWalkingPressureDistribution()
     }
 }

@@ -19,10 +19,8 @@
 
 package org.wbpbp.preshoes.interactor
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import android.os.Handler
+import android.os.Looper
 import org.wbpbp.preshoes.functional.Result
 import timber.log.Timber
 
@@ -31,18 +29,21 @@ import timber.log.Timber
  * Any use case in this application should implement this.
  */
 abstract class UseCase<in Params, out Type> {
-    abstract suspend fun run(params: Params): Result<Type>
+    abstract fun run(params: Params): Result<Type>
 
     /**
-     * Execute [run] in Global Scope co-routine and launch onResult on Main conversation.
+     * Use thread instead of coroutine because it ruins Realm.
      */
     operator fun invoke(params: Params, onResult: (Result<Type>) -> Unit = {}) {
-        Timber.i("Use case '${this::class.java.name}' running")
-
-        val job = GlobalScope.async { run(params) }
-
-        MainScope().launch {
-            onResult(job.await())
-        }
+        Thread {
+            try {
+                Timber.v("UseCase ${this::class.java.name} running on ${Thread.currentThread().name}")
+                val result = run(params)
+                Handler(Looper.getMainLooper()).post { onResult(result) }
+            } catch (e: Exception) {
+                Timber.w("Exception inside another thread.")
+                Timber.w(e)
+            }
+        }.start()
     }
 }

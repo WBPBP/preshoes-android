@@ -29,7 +29,7 @@ class GetReports(
     private val repo: ReportRepository
 ) : UseCase<Unit, RealmResults<Report>>() {
 
-    override suspend fun run(params: Unit) = Result.of {
+    override fun run(params: Unit) = Result.of {
         repo.getAllReports()
     }
 }

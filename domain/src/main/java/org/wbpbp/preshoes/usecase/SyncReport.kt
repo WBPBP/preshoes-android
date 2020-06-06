@@ -27,7 +27,7 @@ class SyncReport(
     val service: ReportService
 ) : UseCase<Int, Unit>() {
 
-    override suspend fun run(params: Int) = Result.of {
+    override fun run(params: Int) = Result.of {
         service.addCommentaryOnReport(params)
     }
 }

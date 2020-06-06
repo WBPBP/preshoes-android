@@ -94,8 +94,6 @@ class ReportRepositoryImpl(
             rightPressure = features.samplesInSingleWalkCycleRight
         )
 
-        Timber.i(requestModel.toString())
-
         val response = api.requestReportCommentary(requestModel).execute()
 
         if (!response.isSuccessful) {

@@ -27,7 +27,7 @@ class DeleteReport(
     private val repo: ReportRepository
 ) : UseCase<Int, Unit>() {
 
-    override suspend fun run(params: Int) = Result.of {
+    override fun run(params: Int) = Result.of {
         repo.deleteReportById(params)
     }
 }

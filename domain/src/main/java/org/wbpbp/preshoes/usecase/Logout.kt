@@ -27,7 +27,7 @@ class Logout(
     private val service: UserService
 ) : UseCase<Unit, Boolean>() {
 
-    override suspend fun run(params: Unit) = Result.of {
+    override fun run(params: Unit) = Result.of {
         service.logout()
     }
 }

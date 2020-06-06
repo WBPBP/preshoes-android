@@ -27,7 +27,7 @@ class ConnectDevices(
     private val service: SensorDeviceService
 ) : UseCase<Pair<String, String>, Boolean>() {
 
-    override suspend fun run(params: Pair<String, String>)=
+    override fun run(params: Pair<String, String>)=
         Result.of {
             val leftResult = service.connectLeftSensorDevice(params.first)
             val rightResult = service.connectRightSensorDevice(params.second)

@@ -27,7 +27,7 @@ class CreateReport(
     private val service: ReportService
 ) : UseCase<Unit, Int?>() {
 
-    override suspend fun run(params: Unit) = Result.of {
+    override fun run(params: Unit) = Result.of {
         service.finishRecordingAndCreateReport()
     }
 }
