@@ -95,19 +95,19 @@ internal class ConnectThread(
 
     private fun readForeverAndLaunchCallback(stream: InputStream) {
         while (true) {
-            readSinglePacket(stream).let(::onReceiveData)
+            readSinglePacket(stream).takeIf { it !is NullPacket }?.let(::onReceiveData)
         }
     }
 
     private fun readSinglePacket(stream: InputStream): PbpPacket {
         while (true) {
-            val rawInput: Int = stream.read()
-            if (rawInput == -1) {
+            val input = stream.read()
+            if (input == -1) {
                 return NullPacket()
             }
 
-            val input = rawInput.toByte()
             if (!PBP.isStartByte(input)) {
+                Timber.i("Not a start byte. Pass!")
                 continue
             }
 
@@ -120,14 +120,14 @@ internal class ConnectThread(
     }
 
     private fun readSamplesPacket(stream: InputStream): SamplesPacket? {
-        val data = ByteArray(12)
+        val data = List(12) { stream.read() }
 
-        val readCount = stream.read(data)
-        if (readCount == -1) {
+        if (data.any { it == -1 }) {
+            Timber.i("Sample broken!")
             return null
         }
 
-        return SamplesPacket(data.map { it.toInt() })
+        return SamplesPacket(data)
     }
 
     private fun readBatteryPacket(stream: InputStream): BatteryPacket? {
