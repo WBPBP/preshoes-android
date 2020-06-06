@@ -51,7 +51,7 @@ class BluetoothHelperImpl : BluetoothHelper {
     override fun connectDevice(
         deviceName: String,
         onConnect: () -> Any?,
-        onReceive: (ByteArray) -> Any?,
+        onReceive: (PbpPacket) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any?
     ) {

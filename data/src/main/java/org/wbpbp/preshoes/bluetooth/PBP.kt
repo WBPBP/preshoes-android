@@ -17,14 +17,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.preference
+package org.wbpbp.preshoes.bluetooth
 
-import android.content.SharedPreferences
+object PBP {
+    const val TYPE_SAMPLES: Int = 1
+    const val TYPE_BATTERY: Int = 2
 
-class Config(
-    private val pref: SharedPreferences
-) {
-    val numberOfSensors = 12
-    val standingDiagnosisDurationMillis get() = pref.getString("standingDuration", "5000")?.toLong() ?: 5000
-    val walkingDiagnosisDurationMillis get() = pref.getString("walkingDuration", "30000")?.toLong() ?: 30000
+    fun isStartByte(byte: Int): Boolean {
+        return (byte >= 240)
+    }
+
+    fun getType(byte: Int): Int {
+        return byte.and(0x0F)
+    }
 }

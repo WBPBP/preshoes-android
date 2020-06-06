@@ -17,14 +17,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.wbpbp.preshoes.preference
+package org.wbpbp.preshoes.bluetooth
 
-import android.content.SharedPreferences
-
-class Config(
-    private val pref: SharedPreferences
-) {
-    val numberOfSensors = 12
-    val standingDiagnosisDurationMillis get() = pref.getString("standingDuration", "5000")?.toLong() ?: 5000
-    val walkingDiagnosisDurationMillis get() = pref.getString("walkingDuration", "30000")?.toLong() ?: 30000
-}
+data class BatteryPacket(
+    val level: Int
+) : PbpPacket

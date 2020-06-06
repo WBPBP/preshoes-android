@@ -35,7 +35,7 @@ import java.io.InputStream
 internal class ConnectThread(
     private val device: BluetoothDevice,
     private val onConnect: () -> Any?,
-    private val onReceive: (ByteArray) -> Any?,
+    private val onReceive: (PbpPacket) -> Any?,
     private val onFail: () -> Any?,
     private val onCancel: () -> Any? = {}
 ) : Thread("ConnectThread-${device.name}") {
@@ -85,7 +85,7 @@ internal class ConnectThread(
         }
 
         try {
-            readForeverAndLaunchCallback(socket.getInputStream())
+            readForeverAndLaunchCallback(socket.inputStream)
         } catch (e: IOException) {
             Timber.e("Failed to read forever from input stream of connected socket: $e")
         } finally {
@@ -95,29 +95,53 @@ internal class ConnectThread(
 
     private fun readForeverAndLaunchCallback(stream: InputStream) {
         while (true) {
-            readUntilDelimiter(stream, TwelveDProtocol.delimiter).let(::onReceiveData)
+            readSinglePacket(stream).takeIf { it !is NullPacket }?.let(::onReceiveData)
         }
     }
 
-    private fun readUntilDelimiter(stream: InputStream, delimiter: Int): ByteArray {
-        val bytes: MutableList<Byte> = mutableListOf()
-        var input: Int = stream.read()
-
-        while (input != -1) {
-            if (input == delimiter) {
-                break
+    private fun readSinglePacket(stream: InputStream): PbpPacket {
+        while (true) {
+            val input = stream.read()
+            if (input == -1) {
+                return NullPacket()
             }
 
-            bytes.add(input.toByte())
-            input = stream.read()
-        }
+            if (!PBP.isStartByte(input)) {
+                Timber.i("Not a start byte. Pass!")
+                continue
+            }
 
-        return bytes.toByteArray()
+            return when (val packetType = PBP.getType(input)) {
+                PBP.TYPE_SAMPLES -> readSamplesPacket(stream) ?: NullPacket()
+                PBP.TYPE_BATTERY -> readBatteryPacket(stream) ?: NullPacket()
+                else -> NullPacket().also { Timber.w("Unknown packet type: $packetType") }
+            }
+        }
     }
 
-    private fun onReceiveData(data: ByteArray) {
+    private fun readSamplesPacket(stream: InputStream): SamplesPacket? {
+        val data = List(12) { stream.read() }
+
+        if (data.any { it == -1 }) {
+            Timber.i("Sample broken!")
+            return null
+        }
+
+        return SamplesPacket(data)
+    }
+
+    private fun readBatteryPacket(stream: InputStream): BatteryPacket? {
+        val input = stream.read()
+        if (input == -1) {
+            return null
+        }
+
+        return BatteryPacket(input)
+    }
+
+    private fun onReceiveData(packet: PbpPacket) {
         runCallbackOnMainThread {
-            onReceive(data)
+            onReceive(packet)
         }
     }
 

@@ -20,9 +20,13 @@
 package org.wbpbp.preshoes.service
 
 import androidx.lifecycle.MutableLiveData
+import org.wbpbp.preshoes.bluetooth.BatteryPacket
 import org.wbpbp.preshoes.bluetooth.BluetoothHelper
+import org.wbpbp.preshoes.bluetooth.PbpPacket
+import org.wbpbp.preshoes.bluetooth.SamplesPacket
 import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING
@@ -32,7 +36,8 @@ import timber.log.Timber
 
 class SensorDeviceServiceImpl(
     private val deviceStateRepo: SensorDeviceStateRepository,
-    private val bluetoothHelper: BluetoothHelper
+    private val bluetoothHelper: BluetoothHelper,
+    private val config: Config
 ) : SensorDeviceService {
 
     // TODO remove these all after test
@@ -65,20 +70,23 @@ class SensorDeviceServiceImpl(
         connectSensorDevice(
             deviceName,
             deviceStateRepo.leftDeviceConnectionState,
-            deviceStateRepo.leftDeviceSensorValue
+            deviceStateRepo.leftDeviceSensorValue,
+            deviceStateRepo.leftDeviceBatteryLevel
         )
 
     override fun connectRightSensorDevice(deviceName: String) =
         connectSensorDevice(
             deviceName,
             deviceStateRepo.rightDeviceConnectionState,
-            deviceStateRepo.rightDeviceSensorValue
+            deviceStateRepo.rightDeviceSensorValue,
+            deviceStateRepo.rightDeviceBatteryLevel
         )
 
     private fun connectSensorDevice(
         deviceName: String,
         connectionStateLiveData: MutableLiveData<Int>,
-        sensorValueLiveData: MutableLiveData<Sample>
+        sensorValueLiveData: MutableLiveData<Sample>,
+        batteryLevelLiveData: MutableLiveData<Int>
     ): Boolean {
         if (!bluetoothHelper.isBluetoothEnabled()) {
             Alert.usual(R.string.fail_bt_off)
@@ -104,10 +112,11 @@ class SensorDeviceServiceImpl(
             connectionStateLiveData.postValue(STATE_CONNECTED)
         }
 
-        val onReceive = { data: ByteArray ->
-            // Timber.d("onReceive: ${data.map { it.toInt() }.joinToString(",")}")
-
-            setData(data, sensorValueLiveData)
+        val onReceive = { packet: PbpPacket ->
+            when (packet) {
+                is SamplesPacket -> setData(packet.samples, sensorValueLiveData)
+                is BatteryPacket -> setBattery(packet.level, batteryLevelLiveData)
+            }
         }
 
         val onFail = {
@@ -126,9 +135,13 @@ class SensorDeviceServiceImpl(
         return true
     }
 
-    private fun setData(data: ByteArray, destination: MutableLiveData<Sample>) {
-        val sample = Sample(data.map { it.toInt() })
+    private fun setData(data: List<Int>, destination: MutableLiveData<Sample>) {
+        val sample = Sample(data)
 
         destination.postValue(sample)
+    }
+
+    private fun setBattery(level: Int, destination: MutableLiveData<Int>) {
+        destination.postValue(level)
     }
 }
