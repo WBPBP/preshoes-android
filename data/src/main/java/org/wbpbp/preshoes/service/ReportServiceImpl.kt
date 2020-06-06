@@ -149,7 +149,7 @@ class ReportServiceImpl(
         } ?: doubleArrayOf()
 
         // Guard for right
-        val rightPressureSafe = walkingResult.leftPressure.takeIf { result ->
+        val rightPressureSafe = walkingResult.rightPressure.takeIf { result ->
             result.all { !it.isNaN() }
         } ?: doubleArrayOf()
 
