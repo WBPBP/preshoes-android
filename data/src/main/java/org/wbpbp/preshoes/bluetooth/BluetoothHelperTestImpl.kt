@@ -23,6 +23,7 @@ import org.wbpbp.preshoes.service.FakeDataGenerator
 import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.CHANNEL_LEFT
 import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.CHANNEL_RIGHT
 import org.wbpbp.preshoes.service.FakeDataGenerator.Companion.STATE_WALKING
+import timber.log.Timber
 
 class BluetoothHelperTestImpl : BluetoothHelper {
     private var paired = mutableMapOf(
@@ -50,7 +51,7 @@ class BluetoothHelperTestImpl : BluetoothHelper {
     override fun connectDevice(
         deviceName: String,
         onConnect: () -> Any?,
-        onReceive: (ByteArray) -> Any?,
+        onReceive: (PbpPacket) -> Any?,
         onFail: () -> Any?,
         onCancel: () -> Any?
     ) {
@@ -74,8 +75,17 @@ class BluetoothHelperTestImpl : BluetoothHelper {
             try {
                 onConnect()
 
+                var count = 0
                 while(true) {
-                    onReceive(generator.getNextFake(channel))
+                    if (count++ > 50) {
+                        onReceive(BatteryPacket(99))
+                        Timber.i("Receive battery packet!")
+                        count = 0
+                    } else {
+                        onReceive(SamplesPacket(generator.getNextFake(channel)))
+                        Timber.i("Receive samples packet!")
+                    }
+
                     Thread.sleep(50) // 20 samples a sec
                 }
             } catch (e: Exception) {

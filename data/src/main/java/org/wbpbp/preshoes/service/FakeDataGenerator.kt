@@ -28,7 +28,7 @@ class FakeDataGenerator {
             field = value
         }
 
-    fun getNextFake(channel: Int): ByteArray {
+    fun getNextFake(channel: Int): List<Int> {
         val phaseToUse = (phase++ % phaseToSectionWeights.size).toInt()
 
         return if (state == STATE_STANDING) {
@@ -38,25 +38,25 @@ class FakeDataGenerator {
         }
     }
 
-    private fun generateWalkingFake(phase: Int, channel: Int): ByteArray {
+    private fun generateWalkingFake(phase: Int, channel: Int): List<Int> {
         val phaseChannelApplied = (phase + if (channel == CHANNEL_RIGHT) phaseToSectionWeights.size/2 else 0) % phaseToSectionWeights.size
         val sectionWeights = phaseToSectionWeights[phaseChannelApplied]
 
-        val values = Array<Byte>(values) {0}
+        val values = Array<Int>(values) {0}
 
         sectionWeights.mapIndexed { index, weight ->
             val section = sections[index]
 
             section.forEach { sensorIndex ->
-                 values[sensorIndex] = (pressureMax * weight).toByte()
+                 values[sensorIndex] = (pressureMax * weight).toInt()
             }
         }
 
-        return values.toByteArray()
+        return values.toList()
     }
 
-    private fun generateStandingFake(phase: Int): ByteArray {
-        return (0..11).map { 12.toByte() }.toByteArray()
+    private fun generateStandingFake(phase: Int): List<Int> {
+        return (0..11).map { 12 }
     }
 
     companion object {
