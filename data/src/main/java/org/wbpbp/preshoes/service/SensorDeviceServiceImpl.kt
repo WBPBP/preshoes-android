@@ -23,6 +23,7 @@ import androidx.lifecycle.MutableLiveData
 import org.wbpbp.preshoes.bluetooth.BluetoothHelper
 import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
+import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING
@@ -32,7 +33,8 @@ import timber.log.Timber
 
 class SensorDeviceServiceImpl(
     private val deviceStateRepo: SensorDeviceStateRepository,
-    private val bluetoothHelper: BluetoothHelper
+    private val bluetoothHelper: BluetoothHelper,
+    private val config: Config
 ) : SensorDeviceService {
 
     // TODO remove these all after test
@@ -107,7 +109,11 @@ class SensorDeviceServiceImpl(
         val onReceive = { data: ByteArray ->
             // Timber.d("onReceive: ${data.map { it.toInt() }.joinToString(",")}")
 
-            setData(data, sensorValueLiveData)
+            if (data.size == config.numberOfSensors) {
+                setData(data, sensorValueLiveData)
+            } else {
+                Timber.w("Wrong length of sample: ${data.size}")
+            }
         }
 
         val onFail = {

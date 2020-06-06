@@ -24,7 +24,7 @@ import android.content.SharedPreferences
 class Config(
     private val pref: SharedPreferences
 ) {
-    val numberOfSensors get() = pref.getInt("numberOfSensors", 12)
+    val numberOfSensors = 12
     val standingDiagnosisDurationMillis get() = pref.getString("standingDuration", "5000")?.toLong() ?: 5000
     val walkingDiagnosisDurationMillis get() = pref.getString("walkingDuration", "30000")?.toLong() ?: 30000
 }
