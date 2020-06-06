@@ -84,10 +84,12 @@
     <string name="description_privacy">Preshoes는 사용자를 위해 맞춤 분석을 제공하고 결과를 보관하기 위해 다음 정보를 수집합니다:\n\n- 이메일 주소\n- 비밀번호\n\n수집한 개인 정보는 사용자가 서비스를 탈퇴하는 시점까지 보관됩니다. 회원가입을 진행하는 것은 이에 동의하는 것으로 간주됩니다.</string>
     <string name="title_hi">안녕하세요 :)</string>
     <string name="description_registration_needed">Preshoes 서비스 이용을 위해 회원가입이 필요합니다.</string>
+    <string name="disease_name_0">건강하시군요 :)</string>
     <string name="disease_name_1">요추추간판탈출증(Spinal disc herniation)</string>
     <string name="disease_name_2">고관절염(Arthritis of the hip joint)</string>
     <string name="disease_name_3">연골연화증(Chondromalacia)</string>
     <string name="disease_name_4">관절염(Arthritis)</string>
-    <string name="disease_name_0">구웃~! 멋있드아앙</string>
+    <string name="disease_name_negative">분석을 제공할 수 없습니다 :(</string>
+    <string name="disease_name_unknown">개발자가 이상해요!</string>
 
 </resources>

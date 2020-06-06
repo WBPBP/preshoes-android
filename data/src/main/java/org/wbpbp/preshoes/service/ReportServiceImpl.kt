@@ -143,10 +143,20 @@ class ReportServiceImpl(
 
         val walkingResult = walkingProcessor.result
 
+        // Guard for left
+        val leftPressureSafe = walkingResult.leftPressure.takeIf { result ->
+            result.all { !it.isNaN() }
+        } ?: doubleArrayOf()
+
+        // Guard for right
+        val rightPressureSafe = walkingResult.leftPressure.takeIf { result ->
+            result.all { !it.isNaN() }
+        } ?: doubleArrayOf()
+
         with(features) {
             walks = walkingResult.step
-            samplesInSingleWalkCycleLeft = RealmList(*walkingResult.leftPressure.toTypedArray())
-            samplesInSingleWalkCycleRight = RealmList(*walkingResult.rightPressure.toTypedArray())
+            samplesInSingleWalkCycleLeft = RealmList(*leftPressureSafe.toTypedArray())
+            samplesInSingleWalkCycleRight = RealmList(*rightPressureSafe.toTypedArray())
             horizontalWeightBiasVariationDuringWalkSession = RealmList(*walkingResult.feetWeightBias.toTypedArray())
         }
     }
