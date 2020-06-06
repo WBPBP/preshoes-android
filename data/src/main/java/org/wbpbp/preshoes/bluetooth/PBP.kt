@@ -19,6 +19,17 @@
 
 package org.wbpbp.preshoes.bluetooth
 
-object TwelveDProtocol {
-    const val delimiter: Int = 0xff
+import kotlin.experimental.and
+
+object PBP {
+    const val TYPE_SAMPLES: Int = 1
+    const val TYPE_BATTERY: Int = 2
+
+    fun isStartByte(byte: Byte): Boolean {
+        return (byte.and(0xF0.toByte()) == 0xF0.toByte())
+    }
+
+    fun getType(byte: Byte): Int {
+        return byte.and(0x0F.toByte()).toInt()
+    }
 }
