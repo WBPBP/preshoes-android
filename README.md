@@ -35,6 +35,10 @@ project(':model').projectDir = new File('../preshoes-model/model')
 
 ## 업데이트 기록
 
+### 2020.6.6 v0.1.0-beta04
+
+- 배터리 정보를 포함하는 새로운 프로토콜 적용.
+
 ### 2020.6.5 v0.1.0-beta03
 
 - 센서 재배치.
