@@ -26,7 +26,6 @@ import org.wbpbp.preshoes.bluetooth.PbpPacket
 import org.wbpbp.preshoes.bluetooth.SamplesPacket
 import org.wbpbp.preshoes.data.R
 import org.wbpbp.preshoes.entity.Sample
-import org.wbpbp.preshoes.preference.Config
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTED
 import org.wbpbp.preshoes.repository.SensorDeviceStateRepository.Companion.STATE_CONNECTING
@@ -36,35 +35,8 @@ import timber.log.Timber
 
 class SensorDeviceServiceImpl(
     private val deviceStateRepo: SensorDeviceStateRepository,
-    private val bluetoothHelper: BluetoothHelper,
-    private val config: Config
+    private val bluetoothHelper: BluetoothHelper
 ) : SensorDeviceService {
-
-    // TODO remove these all after test
-    private var base: Int = 0
-
-    // TODO remove these all after test
-    override fun enterRandomState() {
-        with(deviceStateRepo) {
-            rightDeviceConnectionState.postValue(STATE_CONNECTED)
-            leftDeviceConnectionState.postValue(/*base % 200 > 100*/STATE_CONNECTED)
-
-            leftDeviceBatteryLevel.postValue(45)
-            rightDeviceBatteryLevel.postValue(67)
-
-            isLeftDeviceCharging.postValue(false)
-            isRightDeviceCharging.postValue(true)
-
-            leftDeviceSensorValue.postValue(getRandomFootPressureValue())
-            rightDeviceSensorValue.postValue(getRandomFootPressureValue())
-        }
-    }
-
-    private fun getRandomFootPressureValue(): Sample {
-        return Sample(List(12) {base%16}).also {
-            base++
-        }
-    }
 
     override fun connectLeftSensorDevice(deviceName: String) =
         connectSensorDevice(

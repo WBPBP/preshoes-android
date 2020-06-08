@@ -35,6 +35,11 @@ project(':model').projectDir = new File('../preshoes-model/model')
 
 ## 업데이트 기록
 
+### 2020.6.8 V0.1.0
+
+- Realm DB 스레드 문제 해결.
+- 베타테스트 종료.
+
 ### 2020.6.6 v0.1.0-beta05
 
 - 저수준 데이터 분석기 출력 보완.
