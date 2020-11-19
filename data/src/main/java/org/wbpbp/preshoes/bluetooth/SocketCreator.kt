@@ -25,7 +25,7 @@ import timber.log.Timber
 import java.util.*
 
 class SocketCreator(private val device: BluetoothDevice) {
-    public fun createSocket(): BluetoothSocket? {
+    fun createSocket(): BluetoothSocket? {
         return try {
             Timber.i( "1st attempt: trying with UUID...")
 
